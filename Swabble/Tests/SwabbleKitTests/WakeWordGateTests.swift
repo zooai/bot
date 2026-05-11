@@ -1,0 +1,99 @@
+import Foundation
+import SwabbleKit
+import Testing
+
+@Suite struct WakeWordGateTests {
+    @Test func matchRequiresGapAfterTrigger() {
+<<<<<<< HEAD
+        let transcript = "hey hanzo do thing"
+=======
+        let transcript = "hey clawd do thing"
+>>>>>>> upstream/main
+        let segments = makeSegments(
+            transcript: transcript,
+            words: [
+                ("hey", 0.0, 0.1),
+<<<<<<< HEAD
+                ("hanzo", 0.2, 0.1),
+                ("do", 0.35, 0.1),
+                ("thing", 0.5, 0.1),
+            ])
+        let config = WakeWordGateConfig(triggers: ["hanzo"], minPostTriggerGap: 0.3)
+=======
+                ("clawd", 0.2, 0.1),
+                ("do", 0.35, 0.1),
+                ("thing", 0.5, 0.1),
+            ])
+        let config = WakeWordGateConfig(triggers: ["clawd"], minPostTriggerGap: 0.3)
+>>>>>>> upstream/main
+        #expect(WakeWordGate.match(transcript: transcript, segments: segments, config: config) == nil)
+    }
+
+    @Test func matchAllowsGapAndExtractsCommand() {
+<<<<<<< HEAD
+        let transcript = "hey hanzo do thing"
+=======
+        let transcript = "hey clawd do thing"
+>>>>>>> upstream/main
+        let segments = makeSegments(
+            transcript: transcript,
+            words: [
+                ("hey", 0.0, 0.1),
+<<<<<<< HEAD
+                ("hanzo", 0.2, 0.1),
+                ("do", 0.9, 0.1),
+                ("thing", 1.1, 0.1),
+            ])
+        let config = WakeWordGateConfig(triggers: ["hanzo"], minPostTriggerGap: 0.3)
+=======
+                ("clawd", 0.2, 0.1),
+                ("do", 0.9, 0.1),
+                ("thing", 1.1, 0.1),
+            ])
+        let config = WakeWordGateConfig(triggers: ["clawd"], minPostTriggerGap: 0.3)
+>>>>>>> upstream/main
+        let match = WakeWordGate.match(transcript: transcript, segments: segments, config: config)
+        #expect(match?.command == "do thing")
+    }
+
+    @Test func matchHandlesMultiWordTriggers() {
+<<<<<<< HEAD
+        let transcript = "hey hanzo do it"
+=======
+        let transcript = "hey clawd do it"
+>>>>>>> upstream/main
+        let segments = makeSegments(
+            transcript: transcript,
+            words: [
+                ("hey", 0.0, 0.1),
+<<<<<<< HEAD
+                ("hanzo", 0.2, 0.1),
+                ("do", 0.8, 0.1),
+                ("it", 1.0, 0.1),
+            ])
+        let config = WakeWordGateConfig(triggers: ["hey hanzo"], minPostTriggerGap: 0.3)
+=======
+                ("clawd", 0.2, 0.1),
+                ("do", 0.8, 0.1),
+                ("it", 1.0, 0.1),
+            ])
+        let config = WakeWordGateConfig(triggers: ["hey clawd"], minPostTriggerGap: 0.3)
+>>>>>>> upstream/main
+        let match = WakeWordGate.match(transcript: transcript, segments: segments, config: config)
+        #expect(match?.command == "do it")
+    }
+}
+
+private func makeSegments(
+    transcript: String,
+    words: [(String, TimeInterval, TimeInterval)])
+-> [WakeWordSegment] {
+    var searchStart = transcript.startIndex
+    var output: [WakeWordSegment] = []
+    for (word, start, duration) in words {
+        let range = transcript.range(of: word, range: searchStart..<transcript.endIndex)
+        output.append(WakeWordSegment(text: word, start: start, duration: duration, range: range))
+        if let range { searchStart = range.upperBound }
+    }
+    return output
+}

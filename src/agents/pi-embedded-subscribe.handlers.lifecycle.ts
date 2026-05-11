@@ -1,0 +1,209 @@
+import type { EmbeddedPiSubscribeContext } from "./pi-embedded-subscribe.handlers.types.js";
+import { emitAgentEvent } from "../infra/agent-events.js";
+import { createInlineCodeState } from "../markdown/code-spans.js";
+import { formatAssistantErrorText } from "./pi-embedded-helpers.js";
+import { isAssistantMessage } from "./pi-embedded-utils.js";
+
+export {
+  handleAutoCompactionEnd,
+  handleAutoCompactionStart,
+} from "./pi-embedded-subscribe.handlers.compaction.js";
+
+export function handleAgentStart(ctx: EmbeddedPiSubscribeContext) {
+  ctx.log.debug(`embedded run agent start: runId=${ctx.params.runId}`);
+  emitAgentEvent({
+    runId: ctx.params.runId,
+    stream: "lifecycle",
+    data: {
+      phase: "start",
+      startedAt: Date.now(),
+    },
+  });
+  void ctx.params.onAgentEvent?.({
+    stream: "lifecycle",
+    data: { phase: "start" },
+  });
+}
+
+export function handleAgentEnd(ctx: EmbeddedPiSubscribeContext) {
+  const lastAssistant = ctx.state.lastAssistant;
+  const isError = isAssistantMessage(lastAssistant) && lastAssistant.stopReason === "error";
+
+  if (isError && lastAssistant) {
+    const friendlyError = formatAssistantErrorText(lastAssistant, {
+      cfg: ctx.params.config,
+      sessionKey: ctx.params.sessionKey,
+      provider: lastAssistant.provider,
+      model: lastAssistant.model,
+    });
+    const errorText = (friendlyError || lastAssistant.errorMessage || "LLM request failed.").trim();
+    ctx.log.warn(
+      `embedded run agent end: runId=${ctx.params.runId} isError=true error=${errorText}`,
+    );
+    emitAgentEvent({
+      runId: ctx.params.runId,
+      stream: "lifecycle",
+      data: {
+        phase: "error",
+        error: errorText,
+        endedAt: Date.now(),
+      },
+    });
+    void ctx.params.onAgentEvent?.({
+      stream: "lifecycle",
+      data: {
+        phase: "error",
+        error: errorText,
+      },
+    });
+  } else {
+    ctx.log.debug(`embedded run agent end: runId=${ctx.params.runId} isError=${isError}`);
+    const usageTotals = ctx.getUsageTotals();
+    const endModel =
+      isAssistantMessage(ctx.state.lastAssistant) ? (ctx.state.lastAssistant.model ?? "") : "";
+    const endProvider =
+      isAssistantMessage(ctx.state.lastAssistant) ? (ctx.state.lastAssistant.provider ?? "") : "";
+    emitAgentEvent({
+      runId: ctx.params.runId,
+      sessionKey: ctx.params.sessionKey,
+      stream: "lifecycle",
+      data: {
+        phase: "end",
+        endedAt: Date.now(),
+        ...(usageTotals && {
+          usage: usageTotals,
+          model: endModel,
+          provider: endProvider,
+        }),
+      },
+    });
+    void ctx.params.onAgentEvent?.({
+      stream: "lifecycle",
+      data: { phase: "end" },
+    });
+
+    // Deduct LLM usage from bot wallet — runs in-process (gateway or cloud pod).
+    // This is the canonical deduction point; it fires wherever the agent actually
+    // ran, so it works for both local gateway runs and remote cloud-agent pods.
+    if (usageTotals && ctx.params.sessionKey) {
+      console.log(
+        `[wallet-deduct] handleAgentEnd: sessionKey=${ctx.params.sessionKey} model=${endModel} provider=${endProvider} usage=${JSON.stringify(usageTotals)}`,
+      );
+      void deductBotWalletUsage(ctx.params.sessionKey, usageTotals, endModel, endProvider);
+    } else {
+      console.log(
+        `[wallet-deduct] handleAgentEnd: skipped — usageTotals=${!!usageTotals} sessionKey=${!!ctx.params.sessionKey}`,
+      );
+    }
+  }
+
+  ctx.flushBlockReplyBuffer();
+  // Flush the reply pipeline so the response reaches the channel before
+  // compaction wait blocks the run.  This mirrors the pattern used by
+  // handleToolExecutionStart and ensures delivery is not held hostage to
+  // long-running compaction (#35074).
+  void ctx.params.onBlockReplyFlush?.();
+
+  ctx.state.blockState.thinking = false;
+  ctx.state.blockState.final = false;
+  ctx.state.blockState.inlineCode = createInlineCodeState();
+
+  if (ctx.state.pendingCompactionRetry > 0) {
+    ctx.resolveCompactionRetry();
+  } else {
+    ctx.maybeResolveCompactionWait();
+  }
+}
+
+/**
+ * Extract bot ID from session key.
+ * Supports both formats:
+ *   "agent:cloud-xxxx:main" → "cloud-xxxx"
+ *   "cloud-xxxx:main"       → "cloud-xxxx"  (HTTP chat bridge format)
+ * Only returns IDs that look like cloud bot IDs (start with "cloud-").
+ */
+function extractBotIdFromSessionKey(sessionKey: string): string {
+  const parts = sessionKey.split(":");
+  if (parts.length >= 3 && parts[0] === "agent") {
+    return parts[1] ?? "";
+  }
+  // HTTP chat bridge uses "cloud-xxxx:main" — bot ID is the first part
+  const candidate = parts[0] ?? "";
+  if (candidate.startsWith("cloud-")) {
+    return candidate;
+  }
+  return "";
+}
+
+/** Deduct LLM token cost from the bot wallet. Fire-and-forget — never throws. */
+async function deductBotWalletUsage(
+  sessionKey: string,
+  usageTotals: { input?: number; output?: number; cacheRead?: number; cacheWrite?: number },
+  model: string,
+  provider: string,
+): Promise<void> {
+  try {
+    const botId = extractBotIdFromSessionKey(sessionKey);
+    if (!botId) {
+      console.log(`[wallet-deduct] skipped: no botId from sessionKey=${sessionKey}`);
+      return;
+    }
+    const inputTok = usageTotals.input ?? 0;
+    const outputTok = usageTotals.output ?? 0;
+    if (inputTok <= 0 && outputTok <= 0) {
+      console.log(`[wallet-deduct] skipped: zero tokens botId=${botId} input=${inputTok} output=${outputTok}`);
+      return;
+    }
+    const cacheRead = usageTotals.cacheRead ?? 0;
+    const cacheWrite = usageTotals.cacheWrite ?? 0;
+
+    const { resolveModelCostConfig, estimateUsageCost } = await import(
+      "../utils/usage-format.js"
+    );
+    let cfg: import("../config/config.js").BotConfig | undefined;
+    try {
+      cfg = (await import("../config/config.js")).loadConfig();
+    } catch {
+      /* no config */
+    }
+    let costConfig = resolveModelCostConfig({ provider, model, config: cfg });
+    if (!costConfig) {
+      // Apply Claude model pricing regardless of provider (hanzo, anthropic, openai-compat, etc.)
+      const m = model.toLowerCase();
+      if (m.includes("opus")) {
+        costConfig = { input: 15, output: 75, cacheRead: 1.5, cacheWrite: 18.75 };
+      } else if (m.includes("haiku")) {
+        costConfig = { input: 0.8, output: 4, cacheRead: 0.08, cacheWrite: 1 };
+      } else if (m.includes("claude") || m.includes("sonnet") || provider === "anthropic" || provider === "hanzo") {
+        // sonnet / default Claude rate
+        costConfig = { input: 3, output: 15, cacheRead: 0.3, cacheWrite: 3.75 };
+      }
+    }
+    const costUsd = estimateUsageCost({
+      usage: { input: inputTok, output: outputTok, cacheRead, cacheWrite },
+      cost: costConfig,
+    });
+    const costCents = costUsd ? Math.ceil(costUsd * 100) : 0;
+    if (costCents <= 0) {
+      console.log(`[wallet-deduct] skipped: costCents=0 botId=${botId} costUsd=${costUsd}`);
+      return;
+    }
+
+    console.log(
+      `[wallet-deduct] deducting: botId=${botId} costCents=${costCents} model=${model} provider=${provider} in=${inputTok} out=${outputTok}`,
+    );
+    const { deductWalletUsage } = await import("../gateway/billing/iam-billing-client.js");
+    await deductWalletUsage({
+      botId,
+      amountUsdCents: costCents,
+      model,
+      provider,
+      inputTokens: inputTok,
+      outputTokens: outputTok,
+      cacheReadTokens: cacheRead,
+      cacheWriteTokens: cacheWrite,
+    });
+  } catch (err) {
+    console.warn(`[wallet-deduct] error: ${err instanceof Error ? err.message : String(err)}`);
+  }
+}

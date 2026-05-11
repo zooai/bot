@@ -1,0 +1,424 @@
+/**
+ * Gateway-level billing client — calls the Hanzo Commerce API
+ * for subscription checks and plan lookups.
+ *
+ * Replaces the old IamBillingClient. All billing now goes through Commerce.
+ */
+
+import type { GatewayIamConfig } from "../../config/config.js";
+import type { TenantContext } from "../tenant-context.js";
+
+// ---------------------------------------------------------------------------
+// Cache
+// ---------------------------------------------------------------------------
+
+type CacheEntry<T> = { value: T; expiresAt: number };
+
+const CACHE_TTL_MS = 60_000; // 1 minute
+
+const subscriptionCache = new Map<string, CacheEntry<SubscriptionStatus>>();
+const planCache = new Map<string, CacheEntry<CommercePlan | null>>();
+const balanceCache = new Map<string, CacheEntry<number>>();
+const billingStatusCache = new Map<string, CacheEntry<BillingStatus>>();
+
+function cached<T>(map: Map<string, CacheEntry<T>>, key: string): T | undefined {
+  const entry = map.get(key);
+  if (!entry) {
+    return undefined;
+  }
+  if (Date.now() > entry.expiresAt) {
+    map.delete(key);
+    return undefined;
+  }
+  return entry.value;
+}
+
+function setCached<T>(map: Map<string, CacheEntry<T>>, key: string, value: T): void {
+  map.set(key, { value, expiresAt: Date.now() + CACHE_TTL_MS });
+}
+
+// ---------------------------------------------------------------------------
+// Types
+// ---------------------------------------------------------------------------
+
+export type CommerceSubscription = {
+  id?: string;
+  planId?: string;
+  userId?: string;
+  status?: string;
+  name?: string;
+  displayName?: string;
+  state?: string;
+};
+
+export type CommercePlan = {
+  slug?: string;
+  name?: string;
+  description?: string;
+  price?: number;
+  currency?: string;
+  interval?: string;
+};
+
+export type SubscriptionStatus = {
+  active: boolean;
+  subscription: CommerceSubscription | null;
+  plan: CommercePlan | null;
+};
+
+export type BillingStatus = {
+  hasPaymentMethod: boolean;
+  creditBalance: number; // cents
+};
+
+// ---------------------------------------------------------------------------
+// Commerce URL resolution
+// ---------------------------------------------------------------------------
+
+/**
+ * Resolve the Commerce API base URL.
+ * Priority: COMMERCE_API_URL env var > derive from IAM URL > K8s default.
+ */
+function commerceBaseUrl(_cfg: GatewayIamConfig): string {
+  if (process.env.COMMERCE_API_URL) {
+    return process.env.COMMERCE_API_URL.replace(/\/+$/, "");
+  }
+  // K8s in-cluster default
+  return "http://commerce.hanzo.svc.cluster.local:8001";
+}
+
+function commerceHeaders(cfg: GatewayIamConfig): Record<string, string> {
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  };
+  // Use service token if set, otherwise use client credentials
+  if (process.env.COMMERCE_SERVICE_TOKEN) {
+    headers.Authorization = `Bearer ${process.env.COMMERCE_SERVICE_TOKEN}`;
+  } else if (cfg.clientSecret) {
+    const basic = Buffer.from(`${cfg.clientId}:${cfg.clientSecret}`).toString("base64");
+    headers.Authorization = `Basic ${basic}`;
+  }
+  return headers;
+}
+
+// ---------------------------------------------------------------------------
+// Singleton reset (testing)
+// ---------------------------------------------------------------------------
+
+/** Reset caches (testing). */
+export function resetBillingClient(): void {
+  subscriptionCache.clear();
+  planCache.clear();
+  balanceCache.clear();
+  billingStatusCache.clear();
+  walletCache.clear();
+}
+
+// ---------------------------------------------------------------------------
+// Bot Wallet Balance (via Playground API)
+// ---------------------------------------------------------------------------
+
+const walletCache = new Map<string, CacheEntry<number>>();
+
+/**
+ * Get the bot wallet balance from the Playground API.
+ * Returns available USD balance in cents. Cached for 30 seconds.
+ * Returns -1 if wallet doesn't exist (not enabled, should not gate).
+ */
+export async function getWalletBalance(botId: string): Promise<number> {
+  const cacheKey = `wallet:${botId}`;
+  const hit = cached(walletCache, cacheKey);
+  if (hit !== undefined) {
+    return hit;
+  }
+
+  const playgroundUrl = process.env.PLAYGROUND_URL || "http://hanzo-playground.hanzo.svc:8080";
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 5_000);
+  try {
+    const res = await fetch(`${playgroundUrl}/v1/bots/${encodeURIComponent(botId)}/wallet`, {
+      headers: { Accept: "application/json" },
+      signal: controller.signal,
+    });
+
+    if (!res.ok) {
+      // Wallet doesn't exist — return -1 (don't gate)
+      setCached(walletCache, cacheKey, -1);
+      return -1;
+    }
+
+    const data = (await res.json()) as { usd_balance_cents?: number; enabled?: boolean };
+    if (!data.enabled) {
+      setCached(walletCache, cacheKey, -1);
+      return -1;
+    }
+    const balance = data.usd_balance_cents ?? 0;
+    // Shorter TTL for wallet balance (30s)
+    walletCache.set(cacheKey, { value: balance, expiresAt: Date.now() + 30_000 });
+    return balance;
+  } catch {
+    // Playground unreachable — don't gate (fail-open for wallet)
+    return -1;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Bot Wallet Usage Deduction
+// ---------------------------------------------------------------------------
+
+/**
+ * Deduct LLM usage cost from a bot wallet via the Playground API.
+ * This is fire-and-forget — failures are logged but not thrown.
+ * Returns true if deduction succeeded.
+ */
+export async function deductWalletUsage(params: {
+  botId: string;
+  amountUsdCents: number;
+  model?: string;
+  provider?: string;
+  inputTokens?: number;
+  outputTokens?: number;
+  cacheReadTokens?: number;
+  cacheWriteTokens?: number;
+  description?: string;
+}): Promise<boolean> {
+  if (!params.botId || params.amountUsdCents <= 0) {
+    return false;
+  }
+
+  const playgroundUrl = process.env.PLAYGROUND_URL || "http://hanzo-playground.hanzo.svc:8080";
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 10_000);
+  try {
+    const res = await fetch(
+      `${playgroundUrl}/v1/bots/${encodeURIComponent(params.botId)}/wallet/deduct-usage`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          amount_usd_cents: params.amountUsdCents,
+          model: params.model ?? "unknown",
+          provider: params.provider ?? "unknown",
+          input_tokens: params.inputTokens ?? 0,
+          output_tokens: params.outputTokens ?? 0,
+          cache_read_tokens: params.cacheReadTokens ?? 0,
+          cache_write_tokens: params.cacheWriteTokens ?? 0,
+          description: params.description,
+        }),
+        signal: controller.signal,
+      },
+    );
+
+    if (!res.ok) {
+      const errText = await res.text().catch(() => "");
+      console.warn(
+        `[wallet-usage] Failed to deduct ${params.amountUsdCents}c from bot ${params.botId}: ${res.status} ${errText.substring(0, 200)}`,
+      );
+      return false;
+    }
+
+    console.log(
+      `[wallet-usage] Deducted ${params.amountUsdCents}c from bot ${params.botId} (${params.model}, ${params.inputTokens ?? 0}in/${params.outputTokens ?? 0}out)`,
+    );
+    return true;
+  } catch (err) {
+    console.warn(
+      `[wallet-usage] Error deducting from bot ${params.botId}: ${err instanceof Error ? err.message : String(err)}`,
+    );
+    return false;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Queries
+// ---------------------------------------------------------------------------
+
+/**
+ * Check subscription status for a tenant org via Commerce API.
+ * Results are cached for 60 seconds.
+ */
+export async function getSubscriptionStatus(
+  cfg: GatewayIamConfig,
+  tenant: TenantContext,
+  token?: string,
+): Promise<SubscriptionStatus> {
+  const cacheKey = `${tenant.orgId}:${token ?? ""}`;
+  const hit = cached(subscriptionCache, cacheKey);
+  if (hit) {
+    return hit;
+  }
+
+  const base = commerceBaseUrl(cfg);
+  const headers = commerceHeaders(cfg);
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 10_000);
+  try {
+    const res = await fetch(
+      `${base}/api/v1/users/${encodeURIComponent(tenant.orgId)}/subscriptions`,
+      { headers, signal: controller.signal },
+    );
+
+    if (!res.ok) {
+      throw new Error(`Commerce API returned ${res.status}`);
+    }
+
+    const subscriptions = (await res.json()) as CommerceSubscription[];
+    const activeSub = subscriptions.find((s) => s.status === "active" || s.status === "trialing");
+
+    let plan: CommercePlan | null = null;
+    if (activeSub?.planId) {
+      plan = await getPlan(cfg, activeSub.planId, token);
+    }
+
+    const status: SubscriptionStatus = {
+      active: !!activeSub,
+      subscription: activeSub ?? null,
+      plan,
+    };
+    setCached(subscriptionCache, cacheKey, status);
+    return status;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
+ * Get a plan by ID with caching via Commerce API.
+ */
+export async function getPlan(
+  cfg: GatewayIamConfig,
+  planId: string,
+  token?: string,
+): Promise<CommercePlan | null> {
+  const cacheKey = `${planId}:${token ?? ""}`;
+  const hit = cached(planCache, cacheKey);
+  if (hit !== undefined) {
+    return hit;
+  }
+
+  const base = commerceBaseUrl(cfg);
+  const headers = commerceHeaders(cfg);
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 10_000);
+  try {
+    const res = await fetch(`${base}/api/v1/plan/${encodeURIComponent(planId)}`, {
+      headers,
+      signal: controller.signal,
+    });
+
+    if (!res.ok) {
+      setCached(planCache, cacheKey, null);
+      return null;
+    }
+
+    const plan = (await res.json()) as CommercePlan;
+    setCached(planCache, cacheKey, plan);
+    return plan;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
+ * Get available balance for a user via Commerce billing API.
+ * Returns available balance in cents. Cached for 60 seconds.
+ */
+export async function getBalance(
+  cfg: GatewayIamConfig,
+  userId: string,
+  token?: string,
+): Promise<number> {
+  const cacheKey = `balance:${userId}:${token ?? ""}`;
+  const hit = cached(balanceCache, cacheKey);
+  if (hit !== undefined) {
+    return hit;
+  }
+
+  const base = commerceBaseUrl(cfg);
+  const headers = commerceHeaders(cfg);
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 10_000);
+  try {
+    const res = await fetch(
+      `${base}/api/v1/billing/balance?user=${encodeURIComponent(userId)}&currency=usd`,
+      { headers, signal: controller.signal },
+    );
+
+    if (!res.ok) {
+      throw new Error(`Commerce API returned ${res.status}`);
+    }
+
+    const data = (await res.json()) as { available?: number };
+    const available = data.available ?? 0;
+    setCached(balanceCache, cacheKey, available);
+    return available;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
+ * Get combined billing status (payment method presence + credit balance).
+ * Calls the single /billing/status endpoint to minimize round-trips.
+ * Cached for 60 seconds.
+ */
+export async function getBillingStatus(
+  cfg: GatewayIamConfig,
+  userId: string,
+  token?: string,
+): Promise<BillingStatus> {
+  const cacheKey = `billing-status:${userId}:${token ?? ""}`;
+  const hit = cached(billingStatusCache, cacheKey);
+  if (hit) {
+    return hit;
+  }
+
+  const base = commerceBaseUrl(cfg);
+  const headers = commerceHeaders(cfg);
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 10_000);
+  try {
+    const res = await fetch(
+      `${base}/api/v1/billing/status?user=${encodeURIComponent(userId)}`,
+      { headers, signal: controller.signal },
+    );
+
+    if (!res.ok) {
+      throw new Error(`Commerce API returned ${res.status}`);
+    }
+
+    const data = (await res.json()) as {
+      hasPaymentMethod?: boolean;
+      creditBalance?: number;
+    };
+    const status: BillingStatus = {
+      hasPaymentMethod: data.hasPaymentMethod ?? false,
+      creditBalance: data.creditBalance ?? 0,
+    };
+    setCached(billingStatusCache, cacheKey, status);
+    return status;
+  } finally {
+    clearTimeout(timer);
+  }
+}

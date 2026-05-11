@@ -1,0 +1,362 @@
+import type { SkillBinTrustEntry } from "../infra/exec-approvals.js";
+import { resolveBrowserConfig } from "../browser/config.js";
+import { loadConfig, type BotConfig } from "../config/config.js";
+import { normalizeSecretInputString, resolveSecretInputRef } from "../config/types.secrets.js";
+import { GatewayClient } from "../gateway/client.js";
+import { loadOrCreateDeviceIdentity } from "../infra/device-identity.js";
+import { resolveExecutableFromPathEnv } from "../infra/executable-path.js";
+import { getMachineDisplayName } from "../infra/machine-name.js";
+import {
+  NODE_BROWSER_PROXY_COMMAND,
+  NODE_EXEC_APPROVALS_COMMANDS,
+  NODE_SYSTEM_RUN_COMMANDS,
+  NODE_VNC_TUNNEL_COMMAND,
+} from "../infra/node-commands.js";
+import { ensureOpenClawCliOnPath } from "../infra/path-env.js";
+import { secretRefKey } from "../secrets/ref-contract.js";
+import { resolveSecretRefValues } from "../secrets/resolve.js";
+import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.js";
+import { VERSION } from "../version.js";
+import { ensureNodeHostConfig, saveNodeHostConfig, type NodeHostGatewayConfig } from "./config.js";
+import {
+  coerceNodeInvokePayload,
+  handleInvoke,
+  type SkillBinsProvider,
+  buildNodeInvokeResultParams,
+} from "./invoke.js";
+
+export { buildNodeInvokeResultParams };
+
+type NodeHostRunOptions = {
+  gatewayHost: string;
+  gatewayPort: number;
+  gatewayTls?: boolean;
+  gatewayTlsFingerprint?: string;
+  nodeId?: string;
+  displayName?: string;
+};
+
+const DEFAULT_NODE_PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";
+
+function resolveExecutablePathFromEnv(bin: string, pathEnv: string): string | null {
+  if (bin.includes("/") || bin.includes("\\")) {
+    return null;
+  }
+  return resolveExecutableFromPathEnv(bin, pathEnv) ?? null;
+}
+
+function resolveSkillBinTrustEntries(bins: string[], pathEnv: string): SkillBinTrustEntry[] {
+  const trustEntries: SkillBinTrustEntry[] = [];
+  const seen = new Set<string>();
+  for (const bin of bins) {
+    const name = bin.trim();
+    if (!name) {
+      continue;
+    }
+    const resolvedPath = resolveExecutablePathFromEnv(name, pathEnv);
+    if (!resolvedPath) {
+      continue;
+    }
+    const key = `${name}\u0000${resolvedPath}`;
+    if (seen.has(key)) {
+      continue;
+    }
+    seen.add(key);
+    trustEntries.push({ name, resolvedPath });
+  }
+  return trustEntries.toSorted(
+    (left, right) =>
+      left.name.localeCompare(right.name) || left.resolvedPath.localeCompare(right.resolvedPath),
+  );
+}
+
+class SkillBinsCache implements SkillBinsProvider {
+  private bins: SkillBinTrustEntry[] = [];
+  private lastRefresh = 0;
+  private readonly ttlMs = 90_000;
+  private readonly fetch: () => Promise<string[]>;
+  private readonly pathEnv: string;
+
+  constructor(fetch: () => Promise<string[]>, pathEnv: string) {
+    this.fetch = fetch;
+    this.pathEnv = pathEnv;
+  }
+
+  async current(force = false): Promise<SkillBinTrustEntry[]> {
+    if (force || Date.now() - this.lastRefresh > this.ttlMs) {
+      await this.refresh();
+    }
+    return this.bins;
+  }
+
+  private async refresh() {
+    try {
+      const bins = await this.fetch();
+      this.bins = resolveSkillBinTrustEntries(bins, this.pathEnv);
+      this.lastRefresh = Date.now();
+    } catch {
+      if (!this.lastRefresh) {
+        this.bins = [];
+      }
+    }
+  }
+}
+
+function ensureNodePathEnv(): string {
+  ensureOpenClawCliOnPath({ pathEnv: process.env.PATH ?? "" });
+  const current = process.env.PATH ?? "";
+  if (current.trim()) {
+    return current;
+  }
+  process.env.PATH = DEFAULT_NODE_PATH;
+  return DEFAULT_NODE_PATH;
+}
+
+async function resolveNodeHostSecretInputString(params: {
+  config: BotConfig;
+  value: unknown;
+  path: string;
+  env: NodeJS.ProcessEnv;
+}): Promise<string | undefined> {
+  const defaults = params.config.secrets?.defaults;
+  const { ref } = resolveSecretInputRef({
+    value: params.value,
+    defaults,
+  });
+  if (!ref) {
+    return normalizeSecretInputString(params.value);
+  }
+  let resolved: Map<string, unknown>;
+  try {
+    resolved = await resolveSecretRefValues([ref], {
+      config: params.config,
+      env: params.env,
+    });
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : String(error);
+    throw new Error(`${params.path} secret reference could not be resolved: ${detail}`, {
+      cause: error,
+    });
+  }
+  const resolvedValue = normalizeSecretInputString(resolved.get(secretRefKey(ref)));
+  if (!resolvedValue) {
+    throw new Error(`${params.path} resolved to an empty or non-string value.`);
+  }
+  return resolvedValue;
+}
+
+export async function resolveNodeHostGatewayCredentials(params: {
+  config: BotConfig;
+  env?: NodeJS.ProcessEnv;
+}): Promise<{ token?: string; password?: string }> {
+  const env = params.env ?? process.env;
+  const isRemoteMode = params.config.gateway?.mode === "remote";
+  const authMode = params.config.gateway?.auth?.mode;
+  const tokenPath = isRemoteMode ? "gateway.remote.token" : "gateway.auth.token";
+  const passwordPath = isRemoteMode ? "gateway.remote.password" : "gateway.auth.password";
+  const configuredToken = isRemoteMode
+    ? params.config.gateway?.remote?.token
+    : params.config.gateway?.auth?.token;
+  const configuredPassword = isRemoteMode
+    ? params.config.gateway?.remote?.password
+    : params.config.gateway?.auth?.password;
+
+  const token =
+    normalizeSecretInputString(env.OPENCLAW_GATEWAY_TOKEN) ??
+    (await resolveNodeHostSecretInputString({
+      config: params.config,
+      value: configuredToken,
+      path: tokenPath,
+      env,
+    }));
+  const tokenCanWin = Boolean(token);
+  const localPasswordCanWin =
+    authMode === "password" ||
+    (authMode !== "token" && authMode !== "none" && authMode !== "trusted-proxy" && !tokenCanWin);
+  const shouldResolveConfiguredPassword =
+    !normalizeSecretInputString(env.OPENCLAW_GATEWAY_PASSWORD) &&
+    !tokenCanWin &&
+    (isRemoteMode || localPasswordCanWin);
+  const password =
+    normalizeSecretInputString(env.OPENCLAW_GATEWAY_PASSWORD) ??
+    (shouldResolveConfiguredPassword
+      ? await resolveNodeHostSecretInputString({
+          config: params.config,
+          value: configuredPassword,
+          path: passwordPath,
+          env,
+        })
+      : normalizeSecretInputString(configuredPassword));
+
+  return { token, password };
+}
+
+export async function runNodeHost(opts: NodeHostRunOptions): Promise<void> {
+  const config = await ensureNodeHostConfig();
+  const nodeId = opts.nodeId?.trim() || config.nodeId;
+  if (nodeId !== config.nodeId) {
+    config.nodeId = nodeId;
+  }
+  const displayName =
+    opts.displayName?.trim() || config.displayName || (await getMachineDisplayName());
+  config.displayName = displayName;
+
+  const gateway: NodeHostGatewayConfig = {
+    host: opts.gatewayHost,
+    port: opts.gatewayPort,
+    tls: opts.gatewayTls ?? loadConfig().gateway?.tls?.enabled ?? false,
+    tlsFingerprint: opts.gatewayTlsFingerprint,
+  };
+  config.gateway = gateway;
+  await saveNodeHostConfig(config);
+
+  const cfg = loadConfig();
+  const resolvedBrowser = resolveBrowserConfig(cfg.browser, cfg);
+  const browserProxyEnabled =
+    cfg.nodeHost?.browserProxy?.enabled !== false && resolvedBrowser.enabled;
+  const { token: resolvedToken, password } = await resolveNodeHostGatewayCredentials({
+    config: cfg,
+    env: process.env,
+  });
+  // Cloud-provisioned nodes may have BOT_GATEWAY_TOKEN set by the Playground
+  // provisioner. Use it as a fallback when no other token was resolved.
+  const token =
+    resolvedToken || process.env.BOT_GATEWAY_TOKEN || undefined;
+
+  // Cloud-provisioned nodes (BOT_CLOUD_NODE=true) receive the gateway URL
+  // and auth token via environment variables set by the Playground provisioner.
+  const gatewayUrlOverride = process.env.BOT_NODE_GATEWAY_URL;
+  let url: string;
+  if (gatewayUrlOverride) {
+    url = gatewayUrlOverride;
+  } else {
+    const host = gateway.host ?? "127.0.0.1";
+    const port = gateway.port ?? 18789;
+    const scheme = gateway.tls ? "wss" : "ws";
+    url = `${scheme}://${host}:${port}`;
+  }
+  const pathEnv = ensureNodePathEnv();
+  const isCloudNode = process.env.BOT_CLOUD_NODE === "true";
+  // eslint-disable-next-line no-console
+  console.log(`node host PATH: ${pathEnv}`);
+  // eslint-disable-next-line no-console
+  console.log(`node host gateway: url=${url} nodeId=${nodeId} cloud=${isCloudNode} hasToken=${Boolean(token)}`);
+
+  const client = new GatewayClient({
+    url,
+    token: token || undefined,
+    password: password || undefined,
+    instanceId: nodeId,
+    clientName: GATEWAY_CLIENT_NAMES.NODE_HOST,
+    clientDisplayName: displayName,
+    clientVersion: VERSION,
+    platform: process.platform,
+    mode: GATEWAY_CLIENT_MODES.NODE,
+    role: "node",
+    scopes: [],
+    caps: ["system", "vnc", ...(browserProxyEnabled ? ["browser"] : [])],
+    commands: [
+      ...NODE_SYSTEM_RUN_COMMANDS,
+      ...NODE_EXEC_APPROVALS_COMMANDS,
+      NODE_VNC_TUNNEL_COMMAND,
+      ...(browserProxyEnabled ? [NODE_BROWSER_PROXY_COMMAND] : []),
+    ],
+    pathEnv,
+    permissions: undefined,
+    // Cloud-provisioned nodes authenticate via shared gateway token and do not
+    // have paired device keys.  Sending a device identity would trigger the
+    // pairing flow on the gateway, causing the connection to be rejected.
+    // Pass null (not undefined) to explicitly opt out — undefined would cause
+    // the GatewayClient constructor to fall back to loadOrCreateDeviceIdentity().
+    deviceIdentity: process.env.BOT_CLOUD_NODE === "true" ? null : loadOrCreateDeviceIdentity(),
+    tlsFingerprint: gateway.tlsFingerprint,
+    onEvent: (evt) => {
+      if (evt.event !== "node.invoke.request") {
+        return;
+      }
+      const payload = coerceNodeInvokePayload(evt.payload);
+      if (!payload) {
+        return;
+      }
+      void handleInvoke(payload, client, skillBins);
+    },
+    onConnectError: (err) => {
+      // keep retrying (handled by GatewayClient)
+      // eslint-disable-next-line no-console
+      console.log(`node host gateway connect failed: ${err.message}`);
+    },
+    onClose: (code, reason) => {
+      // eslint-disable-next-line no-console
+      console.log(`node host gateway closed (${code}): ${reason}`);
+    },
+    onHelloOk: (hello) => {
+      // eslint-disable-next-line no-console
+      console.log(`node host gateway connected: connId=${hello?.server?.connId ?? "?"} protocol=${hello?.protocol ?? "?"}`);
+    },
+  });
+
+  const skillBins = new SkillBinsCache(async () => {
+    const res = await client.request<{ bins: Array<unknown> }>("skills.bins", {});
+    const bins = Array.isArray(res?.bins) ? res.bins.map((bin) => String(bin)) : [];
+    return bins;
+  }, pathEnv);
+
+  // eslint-disable-next-line no-console
+  console.log("node host: starting gateway client...");
+  client.start();
+  // eslint-disable-next-line no-console
+  console.log("node host: gateway client started, waiting...");
+
+  // Cloud-provisioned nodes: register with the Playground and send heartbeats
+  // so the node shows as active in the dashboard.
+  if (isCloudNode) {
+    const playgroundServer = process.env.PLAYGROUND_SERVER?.trim();
+    const agentNodeId = process.env.AGENT_NODE_ID?.trim() || nodeId;
+    const playgroundToken = token || process.env.BOT_GATEWAY_TOKEN || "";
+    if (playgroundServer && agentNodeId && playgroundToken) {
+      const playgroundHeaders = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${playgroundToken}`,
+      };
+      const registerWithPlayground = async () => {
+        try {
+          const teamId = process.env.HANZO_TEAM_ID?.trim() || process.env.AGENT_TEAM_ID?.trim() || "";
+          await fetch(`${playgroundServer}/api/v1/nodes/register`, {
+            method: "POST",
+            headers: playgroundHeaders,
+            body: JSON.stringify({
+              id: agentNodeId,
+              base_url: "",
+              team_id: teamId,
+              deployment_type: "long_running",
+              version: VERSION,
+              health_status: "active",
+              lifecycle_status: "running",
+              metadata: { platform: process.platform, display_name: displayName },
+            }),
+          });
+          // eslint-disable-next-line no-console
+          console.log(`node host: registered with playground as ${agentNodeId}`);
+        } catch (err) {
+          // eslint-disable-next-line no-console
+          console.warn(`node host: playground registration failed (non-fatal): ${err instanceof Error ? err.message : String(err)}`);
+        }
+      };
+      const sendPlaygroundHeartbeat = async () => {
+        try {
+          await fetch(`${playgroundServer}/api/v1/nodes/${agentNodeId}/heartbeat`, {
+            method: "POST",
+            headers: playgroundHeaders,
+            body: JSON.stringify({ status: "active" }),
+          });
+        } catch {
+          // non-fatal
+        }
+      };
+      void registerWithPlayground();
+      setInterval(() => void sendPlaygroundHeartbeat(), 25_000);
+    }
+  }
+
+  await new Promise(() => {});
+}
