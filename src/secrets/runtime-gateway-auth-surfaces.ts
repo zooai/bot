@@ -3,9 +3,9 @@ import type { SecretDefaults } from "./runtime-shared.js";
 import { coerceSecretRef, hasConfiguredSecretInput } from "../config/types.secrets.js";
 import { isRecord } from "./shared.js";
 
-const GATEWAY_TOKEN_ENV_KEYS = ["OPENCLAW_GATEWAY_TOKEN", "CLAWDBOT_GATEWAY_TOKEN"] as const;
+const GATEWAY_TOKEN_ENV_KEYS = ["BOT_GATEWAY_TOKEN", "CLAWDBOT_GATEWAY_TOKEN"] as const;
 const GATEWAY_PASSWORD_ENV_KEYS = [
-  "OPENCLAW_GATEWAY_PASSWORD",
+  "BOT_GATEWAY_PASSWORD",
   "CLAWDBOT_GATEWAY_PASSWORD",
 ] as const;
 

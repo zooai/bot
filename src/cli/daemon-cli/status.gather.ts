@@ -111,12 +111,12 @@ function trimToUndefined(value: unknown): string | undefined {
 }
 
 function readGatewayTokenEnv(env: Record<string, string | undefined>): string | undefined {
-  return trimToUndefined(env.OPENCLAW_GATEWAY_TOKEN) ?? trimToUndefined(env.CLAWDBOT_GATEWAY_TOKEN);
+  return trimToUndefined(env.BOT_GATEWAY_TOKEN) ?? trimToUndefined(env.CLAWDBOT_GATEWAY_TOKEN);
 }
 
 function readGatewayPasswordEnv(env: Record<string, string | undefined>): string | undefined {
   return (
-    trimToUndefined(env.OPENCLAW_GATEWAY_PASSWORD) ?? trimToUndefined(env.CLAWDBOT_GATEWAY_PASSWORD)
+    trimToUndefined(env.BOT_GATEWAY_PASSWORD) ?? trimToUndefined(env.CLAWDBOT_GATEWAY_PASSWORD)
   );
 }
 

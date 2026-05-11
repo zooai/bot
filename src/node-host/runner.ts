@@ -162,7 +162,7 @@ export async function resolveNodeHostGatewayCredentials(params: {
     : params.config.gateway?.auth?.password;
 
   const token =
-    normalizeSecretInputString(env.OPENCLAW_GATEWAY_TOKEN) ??
+    normalizeSecretInputString(env.BOT_GATEWAY_TOKEN) ??
     (await resolveNodeHostSecretInputString({
       config: params.config,
       value: configuredToken,
@@ -174,11 +174,11 @@ export async function resolveNodeHostGatewayCredentials(params: {
     authMode === "password" ||
     (authMode !== "token" && authMode !== "none" && authMode !== "trusted-proxy" && !tokenCanWin);
   const shouldResolveConfiguredPassword =
-    !normalizeSecretInputString(env.OPENCLAW_GATEWAY_PASSWORD) &&
+    !normalizeSecretInputString(env.BOT_GATEWAY_PASSWORD) &&
     !tokenCanWin &&
     (isRemoteMode || localPasswordCanWin);
   const password =
-    normalizeSecretInputString(env.OPENCLAW_GATEWAY_PASSWORD) ??
+    normalizeSecretInputString(env.BOT_GATEWAY_PASSWORD) ??
     (shouldResolveConfiguredPassword
       ? await resolveNodeHostSecretInputString({
           config: params.config,

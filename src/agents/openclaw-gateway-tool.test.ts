@@ -84,7 +84,7 @@ describe("gateway tool", () => {
 
     try {
       await withEnvAsync(
-        { OPENCLAW_STATE_DIR: stateDir, OPENCLAW_PROFILE: "isolated" },
+        { BOT_STATE_DIR: stateDir, BOT_PROFILE: "isolated" },
         async () => {
           const tool = requireGatewayTool();
 

@@ -231,12 +231,12 @@ export async function maybeRepairGatewayServiceConfig(
     command,
     expectedGatewayToken,
   });
-  const serviceToken = command.environment?.OPENCLAW_GATEWAY_TOKEN?.trim();
+  const serviceToken = command.environment?.BOT_GATEWAY_TOKEN?.trim();
   if (tokenRefConfigured && serviceToken) {
     audit.issues.push({
       code: SERVICE_AUDIT_CODES.gatewayTokenMismatch,
       message:
-        "Gateway service OPENCLAW_GATEWAY_TOKEN should be unset when gateway.auth.token is SecretRef-managed",
+        "Gateway service BOT_GATEWAY_TOKEN should be unset when gateway.auth.token is SecretRef-managed",
       detail: "service token is stale",
       level: "recommended",
     });

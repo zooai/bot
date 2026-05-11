@@ -349,7 +349,7 @@ function buildServerArgs(opts: AcpClientOptions): string[] {
 export function resolveAcpClientSpawnEnv(
   baseEnv: NodeJS.ProcessEnv = process.env,
 ): NodeJS.ProcessEnv {
-  return { ...baseEnv, OPENCLAW_SHELL: "acp-client" };
+  return { ...baseEnv, BOT_SHELL: "acp-client" };
 }
 
 type AcpSpawnRuntime = {

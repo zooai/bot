@@ -9,8 +9,8 @@ import { ensureAuthProfileStore } from "./store.js";
 
 describe("resolveApiKeyForProfile fallback to main agent", () => {
   const envSnapshot = captureEnv([
-    "OPENCLAW_STATE_DIR",
-    "OPENCLAW_AGENT_DIR",
+    "BOT_STATE_DIR",
+    "BOT_AGENT_DIR",
     "PI_CODING_AGENT_DIR",
   ]);
   let tmpDir: string;
@@ -25,8 +25,8 @@ describe("resolveApiKeyForProfile fallback to main agent", () => {
     await fs.mkdir(secondaryAgentDir, { recursive: true });
 
     // Set environment variables so resolveOpenClawAgentDir() returns mainAgentDir
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
-    process.env.OPENCLAW_AGENT_DIR = mainAgentDir;
+    process.env.BOT_STATE_DIR = tmpDir;
+    process.env.BOT_AGENT_DIR = mainAgentDir;
     process.env.PI_CODING_AGENT_DIR = mainAgentDir;
   });
 
