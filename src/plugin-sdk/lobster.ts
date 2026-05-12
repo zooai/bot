@@ -9,6 +9,6 @@ export {
 export type {
   AnyAgentTool,
   BotPluginApi,
-  OpenClawPluginToolContext,
-  OpenClawPluginToolFactory,
+  ZooBotPluginToolContext,
+  ZooBotPluginToolFactory,
 } from "../plugins/types.js";

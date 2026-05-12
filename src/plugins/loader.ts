@@ -6,8 +6,8 @@ import type { BotConfig } from "../config/config.js";
 import type { GatewayRequestHandler } from "../gateway/server-methods/types.js";
 import type { PluginRuntime } from "./runtime/types.js";
 import type {
-  OpenClawPluginDefinition,
-  OpenClawPluginModule,
+  ZooBotPluginDefinition,
+  ZooBotPluginModule,
   PluginDiagnostic,
   PluginLogger,
 } from "./types.js";
@@ -22,7 +22,7 @@ import {
   resolveMemorySlotDecision,
   type NormalizedPluginsConfig,
 } from "./config-state.js";
-import { discoverOpenClawPlugins } from "./discovery.js";
+import { discoverZooBotPlugins } from "./discovery.js";
 import { initializeGlobalHookRunner } from "./hook-runner-global.js";
 import { loadPluginManifestRegistry } from "./manifest-registry.js";
 import { isPathInside, safeStatSync } from "./path-safety.js";
@@ -227,8 +227,8 @@ function validatePluginConfig(params: {
 }
 
 function resolvePluginModuleExport(moduleExport: unknown): {
-  definition?: OpenClawPluginDefinition;
-  register?: OpenClawPluginDefinition["register"];
+  definition?: ZooBotPluginDefinition;
+  register?: ZooBotPluginDefinition["register"];
 } {
   const resolved =
     moduleExport &&
@@ -238,11 +238,11 @@ function resolvePluginModuleExport(moduleExport: unknown): {
       : moduleExport;
   if (typeof resolved === "function") {
     return {
-      register: resolved as OpenClawPluginDefinition["register"],
+      register: resolved as ZooBotPluginDefinition["register"],
     };
   }
   if (resolved && typeof resolved === "object") {
-    const def = resolved as OpenClawPluginDefinition;
+    const def = resolved as ZooBotPluginDefinition;
     const register = def.register ?? def.activate;
     return { definition: def, register };
   }
@@ -539,7 +539,7 @@ export function loadBotPlugins(options: PluginLoadOptions = {}): PluginRegistry 
     coreGatewayHandlers: options.coreGatewayHandlers as Record<string, GatewayRequestHandler>,
   });
 
-  const discovery = discoverOpenClawPlugins({
+  const discovery = discoverZooBotPlugins({
     workspaceDir: options.workspaceDir,
     extraPaths: normalized.loadPaths,
     cache: options.cache,
@@ -705,9 +705,9 @@ export function loadBotPlugins(options: PluginLoadOptions = {}): PluginRegistry 
     const safeSource = opened.path;
     fs.closeSync(opened.fd);
 
-    let mod: OpenClawPluginModule | null = null;
+    let mod: ZooBotPluginModule | null = null;
     try {
-      mod = getJiti()(safeSource) as OpenClawPluginModule;
+      mod = getJiti()(safeSource) as ZooBotPluginModule;
     } catch (err) {
       recordPluginError({
         logger,

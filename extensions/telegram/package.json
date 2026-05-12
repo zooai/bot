@@ -2,9 +2,9 @@
   "name": "@hanzo/bot-telegram",
   "version": "2026.4.27",
   "private": true,
-  "description": "OpenClaw Telegram channel plugin",
+  "description": "ZooBot Telegram channel plugin",
   "type": "module",
-  "openclaw": {
+  "zoo-bot": {
     "extensions": [
       "./index.ts"
     ]

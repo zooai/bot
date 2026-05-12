@@ -3,9 +3,9 @@
 
 export type {
   BotPluginApi,
-  OpenClawPluginHttpRouteHandler,
+  ZooBotPluginHttpRouteHandler,
 } from "../plugins/types.js";
 export type { BotConfig } from "../config/config.js";
 
 export { emptyPluginConfigSchema } from "../plugins/config-schema.js";
-export { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+export { resolvePreferredZooBotTmpDir } from "../infra/tmp-bot-dir.js";

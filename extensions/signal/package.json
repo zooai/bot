@@ -2,9 +2,9 @@
   "name": "@hanzo/bot-signal",
   "version": "2026.4.27",
   "private": true,
-  "description": "OpenClaw Signal channel plugin",
+  "description": "ZooBot Signal channel plugin",
   "type": "module",
-  "openclaw": {
+  "zoo-bot": {
     "extensions": [
       "./index.ts"
     ]

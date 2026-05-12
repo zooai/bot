@@ -2,9 +2,9 @@
   "name": "@hanzo/bot-line",
   "version": "2026.4.27",
   "private": true,
-  "description": "OpenClaw LINE channel plugin",
+  "description": "ZooBot LINE channel plugin",
   "type": "module",
-  "openclaw": {
+  "zoo-bot": {
     "extensions": [
       "./index.ts"
     ],

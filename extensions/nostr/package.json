@@ -1,13 +1,13 @@
 {
   "name": "@hanzo/bot-nostr",
   "version": "2026.4.27",
-  "description": "OpenClaw Nostr channel plugin for NIP-04 encrypted DMs",
+  "description": "ZooBot Nostr channel plugin for NIP-04 encrypted DMs",
   "type": "module",
   "dependencies": {
     "nostr-tools": "^2.23.3",
     "zod": "^4.3.6"
   },
-  "openclaw": {
+  "zoo-bot": {
     "extensions": [
       "./index.ts"
     ],

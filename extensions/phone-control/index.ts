@@ -1,4 +1,4 @@
-import type { BotPluginApi, OpenClawPluginService } from "@hanzo/bot/plugin-sdk/phone-control";
+import type { BotPluginApi, ZooBotPluginService } from "@hanzo/bot/plugin-sdk/phone-control";
 import fs from "node:fs/promises";
 import path from "node:path";
 
@@ -286,7 +286,7 @@ function formatStatus(state: ArmStateFile | null): string {
 export default function register(api: BotPluginApi) {
   let expiryInterval: ReturnType<typeof setInterval> | null = null;
 
-  const timerService: OpenClawPluginService = {
+  const timerService: ZooBotPluginService = {
     id: "phone-control-expiry",
     start: async (ctx) => {
       const statePath = resolveStatePath(ctx.stateDir);

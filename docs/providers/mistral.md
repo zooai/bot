@@ -1,23 +1,23 @@
 ---
-summary: "Use Mistral models and Voxtral transcription with OpenClaw"
+summary: "Use Mistral models and Voxtral transcription with ZooBot"
 read_when:
-  - You want to use Mistral models in OpenClaw
+  - You want to use Mistral models in ZooBot
   - You need Mistral API key onboarding and model refs
 title: "Mistral"
 ---
 
 # Mistral
 
-OpenClaw supports Mistral for both text/image model routing (`mistral/...`) and
+ZooBot supports Mistral for both text/image model routing (`mistral/...`) and
 audio transcription via Voxtral in media understanding.
 Mistral can also be used for memory embeddings (`memorySearch.provider = "mistral"`).
 
 ## CLI setup
 
 ```bash
-openclaw onboard --auth-choice mistral-api-key
+zoo-bot onboard --auth-choice mistral-api-key
 # or non-interactive
-openclaw onboard --mistral-api-key "$MISTRAL_API_KEY"
+zoo-bot onboard --mistral-api-key "$MISTRAL_API_KEY"
 ```
 
 ## Config snippet (LLM provider)

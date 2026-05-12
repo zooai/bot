@@ -12,7 +12,7 @@ import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import { createOutboundTestPlugin, createTestRegistry } from "../../test-utils/channel-plugins.js";
 import { createIMessageTestPlugin } from "../../test-utils/imessage-test-plugin.js";
 import { loadWebMedia } from "../../web/media.js";
-import { resolvePreferredOpenClawTmpDir } from "../tmp-openclaw-dir.js";
+import { resolvePreferredZooBotTmpDir } from "../tmp-bot-dir.js";
 import { runMessageAction } from "./message-action-runner.js";
 
 vi.mock("../../web/media.js", async () => {
@@ -780,8 +780,8 @@ describe("runMessageAction sandboxed media validation", () => {
     });
   });
 
-  it("allows media paths under preferred OpenClaw tmp root", async () => {
-    const tmpRoot = resolvePreferredOpenClawTmpDir();
+  it("allows media paths under preferred ZooBot tmp root", async () => {
+    const tmpRoot = resolvePreferredZooBotTmpDir();
     await fs.mkdir(tmpRoot, { recursive: true });
     const sandboxDir = await fs.mkdtemp(path.join(os.tmpdir(), "msg-sandbox-"));
     try {
@@ -805,7 +805,7 @@ describe("runMessageAction sandboxed media validation", () => {
       }
       // runMessageAction normalizes media paths through platform resolution.
       expect(result.sendResult?.mediaUrl).toBe(path.resolve(tmpFile));
-      const hostTmpOutsideOpenClaw = path.join(os.tmpdir(), "outside-openclaw", "test-media.png");
+      const hostTmpOutsideZooBot = path.join(os.tmpdir(), "outside-bot", "test-media.png");
       await expect(
         runMessageAction({
           cfg: slackConfig,
@@ -813,7 +813,7 @@ describe("runMessageAction sandboxed media validation", () => {
           params: {
             channel: "slack",
             target: "#C12345678",
-            media: hostTmpOutsideOpenClaw,
+            media: hostTmpOutsideZooBot,
             message: "",
           },
           sandboxRoot: sandboxDir,

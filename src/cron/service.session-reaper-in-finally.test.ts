@@ -9,7 +9,7 @@ import { resetReaperThrottle } from "./session-reaper.js";
 
 const noopLogger = createNoopLogger();
 const { makeStorePath } = createCronStoreHarness({
-  prefix: "openclaw-cron-reaper-finally-",
+  prefix: "bot-cron-reaper-finally-",
 });
 
 function createDueIsolatedJob(params: { id: string; nowMs: number }): CronJob {

@@ -10,8 +10,8 @@ import {
   type RegisterSlackModalHandler,
 } from "./interactions.modal.js";
 
-// Prefix for OpenClaw-generated action IDs to scope our handler
-const BOT_ACTION_PREFIX = "openclaw:";
+// Prefix for ZooBot-generated action IDs to scope our handler
+const BOT_ACTION_PREFIX = "bot:";
 const SLACK_INTERACTION_EVENT_PREFIX = "Slack interaction: ";
 const REDACTED_INTERACTION_VALUE = "[redacted]";
 const SLACK_INTERACTION_EVENT_MAX_CHARS = 2400;
@@ -476,7 +476,7 @@ export function registerSlackInteractionEvents(params: { ctx: SlackMonitorContex
     return;
   }
 
-  // Handle Block Kit button clicks from OpenClaw-generated messages
+  // Handle Block Kit button clicks from ZooBot-generated messages
   // Only matches action_ids that start with our prefix to avoid interfering
   // with other Slack integrations or future features
   ctx.app.action(
@@ -661,7 +661,7 @@ export function registerSlackInteractionEvents(params: { ctx: SlackMonitorContex
   }
   const modalMatcher = new RegExp(`^${BOT_ACTION_PREFIX}`);
 
-  // Handle OpenClaw modal submissions with callback_ids scoped by our prefix.
+  // Handle ZooBot modal submissions with callback_ids scoped by our prefix.
   registerModalLifecycleHandler({
     register: (matcher, handler) => ctx.app.view(matcher, handler),
     matcher: modalMatcher,

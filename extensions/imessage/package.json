@@ -2,9 +2,9 @@
   "name": "@hanzo/bot-imessage",
   "version": "2026.4.27",
   "private": true,
-  "description": "OpenClaw iMessage channel plugin",
+  "description": "ZooBot iMessage channel plugin",
   "type": "module",
-  "openclaw": {
+  "zoo-bot": {
     "extensions": [
       "./index.ts"
     ]

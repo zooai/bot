@@ -1,12 +1,12 @@
 {
   "name": "@hanzo/bot-bluebubbles",
   "version": "2026.4.27",
-  "description": "OpenClaw BlueBubbles channel plugin",
+  "description": "ZooBot BlueBubbles channel plugin",
   "type": "module",
   "dependencies": {
     "zod": "^4.3.6"
   },
-  "openclaw": {
+  "zoo-bot": {
     "extensions": [
       "./index.ts"
     ],

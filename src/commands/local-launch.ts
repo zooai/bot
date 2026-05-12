@@ -95,7 +95,7 @@ export async function launchLocal(params: { accessToken: string }): Promise<void
         // Start the gateway with auth disabled.  We bind to loopback only,
         // so only local processes can connect — no token needed.  The auth
         // override is a runtime-only option and does NOT get persisted to
-        // the config file, so `openclaw gateway run` still defaults to
+        // the config file, so `bot gateway run` still defaults to
         // token auth on subsequent invocations.
         const server = await startGatewayServer(port, {
           bind: "loopback",

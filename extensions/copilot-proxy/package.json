@@ -2,9 +2,9 @@
   "name": "@hanzo/bot-copilot-proxy",
   "version": "2026.4.27",
   "private": true,
-  "description": "OpenClaw Copilot Proxy provider plugin",
+  "description": "ZooBot Copilot Proxy provider plugin",
   "type": "module",
-  "openclaw": {
+  "zoo-bot": {
     "extensions": [
       "./index.ts"
     ]

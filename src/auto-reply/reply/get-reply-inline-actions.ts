@@ -8,7 +8,7 @@ import type { InlineDirectives } from "./directive-handling.js";
 import type { createModelSelectionState } from "./model-selection.js";
 import type { TypingController } from "./typing.js";
 import { collectTextContentBlocks } from "../../agents/content-blocks.js";
-import { createBotTools } from "../../agents/openclaw-tools.js";
+import { createBotTools } from "../../agents/bot-tools.js";
 import { applyOwnerOnlyToolPolicy } from "../../agents/tool-policy.js";
 import { getChannelDock } from "../../channels/dock.js";
 import { logVerbose } from "../../globals.js";

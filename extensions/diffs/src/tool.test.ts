@@ -14,7 +14,7 @@ describe("diffs tool", () => {
   let store: DiffArtifactStore;
 
   beforeEach(async () => {
-    rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-diffs-tool-"));
+    rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "bot-diffs-tool-"));
     store = new DiffArtifactStore({ rootDir });
   });
 

@@ -1,5 +1,5 @@
 import JSON5 from "json5";
-import type { ConfigFileSnapshot } from "./types.openclaw.js";
+import type { ConfigFileSnapshot } from "./types.bot.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import {
   replaceSensitiveValuesInRaw,

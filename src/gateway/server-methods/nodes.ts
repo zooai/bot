@@ -215,8 +215,8 @@ async function maybeSendNodeWakeNudge(nodeId: string): Promise<NodeWakeNudgeAtte
       auth: auth.value,
       registration,
       nodeId,
-      title: "OpenClaw needs a quick reopen",
-      body: "Tap to reopen OpenClaw and restore the node connection.",
+      title: "ZooBot needs a quick reopen",
+      body: "Tap to reopen ZooBot and restore the node connection.",
     });
     if (!result.ok) {
       return withDuration({

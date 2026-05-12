@@ -34,7 +34,7 @@ import {
   resolveSystemPromptUsage,
   writeCliImages,
 } from "./cli-runner/helpers.js";
-import { resolveOpenClawDocsPath } from "./docs-path.js";
+import { resolveZooBotDocsPath } from "./docs-path.js";
 import { FailoverError, resolveFailoverStatus } from "./failover-error.js";
 import {
   classifyFailoverReason,
@@ -138,7 +138,7 @@ export async function runCliAgent(params: {
     sessionAgentId === defaultAgentId
       ? resolveHeartbeatPrompt(params.config?.agents?.defaults?.heartbeat?.prompt)
       : undefined;
-  const docsPath = await resolveOpenClawDocsPath({
+  const docsPath = await resolveZooBotDocsPath({
     workspaceDir,
     argv1: process.argv[1],
     cwd: process.cwd(),

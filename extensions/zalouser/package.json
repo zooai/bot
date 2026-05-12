@@ -1,14 +1,14 @@
 {
   "name": "@hanzo/bot-zalouser",
   "version": "2026.4.27",
-  "description": "OpenClaw Zalo Personal Account plugin via native zca-js integration",
+  "description": "ZooBot Zalo Personal Account plugin via native zca-js integration",
   "type": "module",
   "dependencies": {
     "@sinclair/typebox": "0.34.48",
     "zca-js": "2.1.1",
     "zod": "^4.3.6"
   },
-  "openclaw": {
+  "zoo-bot": {
     "extensions": [
       "./index.ts"
     ],

@@ -17,9 +17,9 @@ export type {
 } from "../acp/runtime/types.js";
 export type {
   BotPluginApi,
-  OpenClawPluginConfigSchema,
-  OpenClawPluginService,
-  OpenClawPluginServiceContext,
+  ZooBotPluginConfigSchema,
+  ZooBotPluginService,
+  ZooBotPluginServiceContext,
   PluginLogger,
 } from "../plugins/types.js";
 export type {

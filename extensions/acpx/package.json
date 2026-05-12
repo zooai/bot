@@ -1,12 +1,12 @@
 {
   "name": "@hanzo/bot-acpx",
   "version": "2026.4.27",
-  "description": "OpenClaw ACP runtime backend via acpx",
+  "description": "ZooBot ACP runtime backend via acpx",
   "type": "module",
   "dependencies": {
     "acpx": "0.1.15"
   },
-  "openclaw": {
+  "zoo-bot": {
     "extensions": [
       "./index.ts"
     ]

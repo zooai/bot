@@ -145,7 +145,7 @@ vi.mock("./commands-context-report.js", () => ({
 let testWorkspaceDir = os.tmpdir();
 
 beforeAll(async () => {
-  testWorkspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-commands-"));
+  testWorkspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "bot-commands-"));
   await fs.writeFile(path.join(testWorkspaceDir, "AGENTS.md"), "# Agents\n", "utf-8");
 });
 
@@ -409,13 +409,13 @@ describe("/compact command", () => {
     const cfg = {
       commands: { text: true },
       channels: { whatsapp: { allowFrom: ["*"] } },
-      session: { store: "/tmp/openclaw-session-store.json" },
+      session: { store: "/tmp/bot-session-store.json" },
     } as BotConfig;
     const params = buildParams("/compact: focus on decisions", cfg, {
       From: "+15550001",
       To: "+15550002",
     });
-    const agentDir = "/tmp/openclaw-agent-compact";
+    const agentDir = "/tmp/bot-agent-compact";
     vi.mocked(compactEmbeddedPiSession).mockResolvedValueOnce({
       ok: true,
       compacted: false,

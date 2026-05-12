@@ -1,26 +1,26 @@
 ---
-summary: "CLI reference for `openclaw daemon` (legacy alias for gateway service management)"
+summary: "CLI reference for `zoo-bot daemon` (legacy alias for gateway service management)"
 read_when:
-  - You still use `openclaw daemon ...` in scripts
+  - You still use `zoo-bot daemon ...` in scripts
   - You need service lifecycle commands (install/start/stop/restart/status)
 title: "daemon"
 ---
 
-# `openclaw daemon`
+# `zoo-bot daemon`
 
 Legacy alias for Gateway service management commands.
 
-`openclaw daemon ...` maps to the same service control surface as `openclaw gateway ...` service commands.
+`zoo-bot daemon ...` maps to the same service control surface as `zoo-bot gateway ...` service commands.
 
 ## Usage
 
 ```bash
-openclaw daemon status
-openclaw daemon install
-openclaw daemon start
-openclaw daemon stop
-openclaw daemon restart
-openclaw daemon uninstall
+zoo-bot daemon status
+zoo-bot daemon install
+zoo-bot daemon start
+zoo-bot daemon stop
+zoo-bot daemon restart
+zoo-bot daemon uninstall
 ```
 
 ## Subcommands
@@ -47,4 +47,4 @@ Notes:
 
 ## Prefer
 
-Use [`openclaw gateway`](/cli/gateway) for current docs and examples.
+Use [`zoo-bot gateway`](/cli/gateway) for current docs and examples.

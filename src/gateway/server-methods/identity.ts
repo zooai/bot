@@ -98,7 +98,7 @@ export const identityHandlers: GatewayRequestHandlers = {
     }
 
     const identifier = deriveAgentIdentifier(agentId);
-    const chainId = CHAIN_IDS[method as keyof typeof CHAIN_IDS] ?? CHAIN_IDS.hanzo;
+    const chainId = CHAIN_IDS[method] ?? CHAIN_IDS.hanzo;
     const uri = buildDIDUri(method!, identifier);
 
     const did: DIDConfig = { uri, method, chainId };

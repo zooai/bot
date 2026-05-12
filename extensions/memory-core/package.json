@@ -7,7 +7,7 @@
   "devDependencies": {
     "@hanzo/bot": "workspace:*"
   },
-  "openclaw": {
+  "zoo-bot": {
     "extensions": [
       "./index.ts"
     ]

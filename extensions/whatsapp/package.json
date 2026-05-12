@@ -2,9 +2,9 @@
   "name": "@hanzo/bot-whatsapp",
   "version": "2026.4.27",
   "private": true,
-  "description": "OpenClaw WhatsApp channel plugin",
+  "description": "ZooBot WhatsApp channel plugin",
   "type": "module",
-  "openclaw": {
+  "zoo-bot": {
     "extensions": [
       "./index.ts"
     ]

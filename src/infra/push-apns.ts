@@ -425,7 +425,7 @@ function toApnsPushResult(params: {
   };
 }
 
-function createOpenClawPushMetadata(params: {
+function createZooBotPushMetadata(params: {
   kind: "push.test" | "node.wake";
   nodeId: string;
   reason?: string;
@@ -482,7 +482,7 @@ export async function sendApnsAlert(params: {
       },
       sound: "default",
     },
-    openclaw: createOpenClawPushMetadata({
+    bot: createZooBotPushMetadata({
       kind: "push.test",
       nodeId: params.nodeId,
     }),
@@ -511,7 +511,7 @@ export async function sendApnsBackgroundWake(params: {
     aps: {
       "content-available": 1,
     },
-    openclaw: createOpenClawPushMetadata({
+    bot: createZooBotPushMetadata({
       kind: "node.wake",
       reason: params.wakeReason ?? "node.invoke",
       nodeId: params.nodeId,

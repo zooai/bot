@@ -1,9 +1,9 @@
 {
   "name": "@hanzo/bot-discord",
   "version": "2026.4.27",
-  "description": "OpenClaw Discord channel plugin",
+  "description": "ZooBot Discord channel plugin",
   "type": "module",
-  "openclaw": {
+  "zoo-bot": {
     "extensions": [
       "./index.ts"
     ]

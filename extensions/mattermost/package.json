@@ -1,13 +1,13 @@
 {
   "name": "@hanzo/bot-mattermost",
   "version": "2026.4.27",
-  "description": "OpenClaw Mattermost channel plugin",
+  "description": "ZooBot Mattermost channel plugin",
   "type": "module",
   "dependencies": {
     "ws": "^8.19.0",
     "zod": "^4.3.6"
   },
-  "openclaw": {
+  "zoo-bot": {
     "extensions": [
       "./index.ts"
     ],

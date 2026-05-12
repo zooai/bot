@@ -1,13 +1,13 @@
 {
   "name": "@hanzo/bot-msteams",
   "version": "2026.4.27",
-  "description": "OpenClaw Microsoft Teams channel plugin",
+  "description": "ZooBot Microsoft Teams channel plugin",
   "type": "module",
   "dependencies": {
     "@microsoft/agents-hosting": "^1.3.1",
     "express": "^5.2.1"
   },
-  "openclaw": {
+  "zoo-bot": {
     "extensions": [
       "./index.ts"
     ],

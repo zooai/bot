@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { BotPluginApi } from "@hanzo/bot/plugin-sdk/team";
-import { resolvePreferredOpenClawTmpDir } from "@hanzo/bot/plugin-sdk/team";
+import { resolvePreferredZooBotTmpDir } from "@hanzo/bot/plugin-sdk/team";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { connectWorkspace, getWorkspace, listWorkspaces } from "./workspace.js";
@@ -94,7 +94,7 @@ async function runLlmPrompt(
   const runAgent = await loadRunEmbeddedPiAgent();
   let tmpDir: string | null = null;
   try {
-    tmpDir = await fs.mkdtemp(path.join(resolvePreferredOpenClawTmpDir(), "team-llm-"));
+    tmpDir = await fs.mkdtemp(path.join(resolvePreferredZooBotTmpDir(), "team-llm-"));
     const sessionId = `team-${Date.now()}`;
     const sessionFile = path.join(tmpDir, "session.json");
 

@@ -1,4 +1,4 @@
-import type { OpenClawPluginConfigSchema } from "@hanzo/bot/plugin-sdk/acpx";
+import type { ZooBotPluginConfigSchema } from "@hanzo/bot/plugin-sdk/acpx";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -182,7 +182,7 @@ function resolveConfiguredCommand(params: { configured?: string; workspaceDir?: 
   return configured;
 }
 
-export function createAcpxPluginConfigSchema(): OpenClawPluginConfigSchema {
+export function createAcpxPluginConfigSchema(): ZooBotPluginConfigSchema {
   return {
     safeParse(value: unknown):
       | { success: true; data?: unknown }

@@ -1,17 +1,17 @@
 ---
-summary: "CLI reference for `openclaw reset` (reset local state/config)"
+summary: "CLI reference for `zoo-bot reset` (reset local state/config)"
 read_when:
   - You want to wipe local state while keeping the CLI installed
   - You want a dry-run of what would be removed
 title: "reset"
 ---
 
-# `openclaw reset`
+# `zoo-bot reset`
 
 Reset local config/state (keeps the CLI installed).
 
 ```bash
-openclaw reset
-openclaw reset --dry-run
-openclaw reset --scope config+creds+sessions --yes --non-interactive
+zoo-bot reset
+zoo-bot reset --dry-run
+zoo-bot reset --scope config+creds+sessions --yes --non-interactive
 ```
