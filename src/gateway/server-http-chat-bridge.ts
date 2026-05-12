@@ -86,7 +86,7 @@ async function handleChatBridge(
     try {
       const { getWalletBalance } = await import("../gateway/billing/iam-billing-client.js");
       const walletBalance = await getWalletBalance(walletBotId);
-      if (walletBalance >= 0 && walletBalance <= 0) {
+      if (walletBalance == 0) {
         sendJson(res, 402, {
           ok: false,
           error: "Bot wallet has insufficient funds. Fund your bot wallet to continue.",
@@ -136,9 +136,9 @@ async function handleChatBridge(
       console.error("[chat-bridge] dispatch error:", err);
     },
     deliver: async (payload, info) => {
-      if (info.kind !== "final") return;
+      if (info.kind !== "final") {return;}
       const text = payload.text?.trim() ?? "";
-      if (text) parts.push(text);
+      if (text) {parts.push(text);}
     },
   });
 

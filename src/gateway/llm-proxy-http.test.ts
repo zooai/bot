@@ -73,7 +73,7 @@ describe("LLM Proxy HTTP handler", () => {
       },
       setHeader: (k: string, v: string) => mock._headers.set(k, v),
       end: (body?: string) => {
-        if (body) mock._body.push(body);
+        if (body) {mock._body.push(body);}
       },
     };
     return mock as unknown as ServerResponse & { _statusCode: number };

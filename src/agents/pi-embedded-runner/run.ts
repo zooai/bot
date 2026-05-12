@@ -251,7 +251,7 @@ export async function runEmbeddedPiAgent(
     if (walletBotId) {
       try {
         const walletBalance = await getWalletBalance(walletBotId);
-        if (walletBalance >= 0 && walletBalance <= 0) {
+        if (walletBalance == 0) {
           const errorMsg = "⚠️ Bot wallet has insufficient funds. Fund your bot wallet to continue.";
           return {
             payloads: [{ text: errorMsg, isError: true }],

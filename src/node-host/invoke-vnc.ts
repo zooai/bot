@@ -72,7 +72,7 @@ export async function openVncTunnel(params: VncTunnelParams): Promise<() => void
     let gatewayWs: WebSocket | null = null;
 
     const cleanup = () => {
-      if (disposed) return;
+      if (disposed) {return;}
       disposed = true;
       // eslint-disable-next-line no-console
       console.log("vnc tunnel: cleanup");

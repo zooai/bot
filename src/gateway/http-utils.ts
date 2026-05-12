@@ -18,13 +18,13 @@ export function getBearerToken(req: IncomingMessage): string | undefined {
   const raw = getHeader(req, "authorization")?.trim() ?? "";
   if (raw.toLowerCase().startsWith("bearer ")) {
     const token = raw.slice(7).trim();
-    if (token) return token;
+    if (token) {return token;}
   }
   // Fallback: check ?token= query parameter (used by iframes that can't set headers)
   try {
     const url = new URL(req.url ?? "", `http://${req.headers.host ?? "localhost"}`);
     const qToken = url.searchParams.get("token")?.trim();
-    if (qToken) return qToken;
+    if (qToken) {return qToken;}
   } catch {
     // ignore URL parse errors
   }

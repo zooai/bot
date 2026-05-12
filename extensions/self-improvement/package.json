@@ -5,10 +5,10 @@
   "description": "Self-improvement engine: 4-loop telemetry-driven agent evolution",
   "type": "module",
   "devDependencies": {
-    "@hanzo/bot": "workspace:*"
+    "@zooai/bot": "workspace:*"
   },
   "peerDependencies": {
-    "@hanzo/bot": ">=2026.1.26"
+    "@zooai/bot": ">=2026.1.26"
   },
   "bot": {
     "extensions": [

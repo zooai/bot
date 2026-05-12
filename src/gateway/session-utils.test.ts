@@ -416,7 +416,7 @@ describe("resolveSessionModelRef", () => {
 describe("resolveSessionModelIdentityRef", () => {
   const resolveLegacyIdentityRef = (
     cfg: BotConfig,
-    modelProvider: string | undefined = undefined,
+    modelProvider?: string | undefined,
   ) =>
     resolveSessionModelIdentityRef(cfg, {
       sessionId: "legacy-session",

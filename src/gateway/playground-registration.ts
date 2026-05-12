@@ -103,7 +103,7 @@ export async function startPlaygroundRegistration(
   let stopped = false;
 
   async function heartbeat(): Promise<void> {
-    if (stopped) return;
+    if (stopped) {return;}
     await post(`/api/v1/nodes/${encodeURIComponent(nodeId)}/heartbeat`, {
       status: "ready",
       timestamp: new Date().toISOString(),
@@ -120,7 +120,7 @@ export async function startPlaygroundRegistration(
   // -- shutdown -------------------------------------------------------------
 
   async function stop(): Promise<void> {
-    if (stopped) return;
+    if (stopped) {return;}
     stopped = true;
     clearInterval(timer);
     // Best-effort deregister. The playground SDK does not expose a dedicated

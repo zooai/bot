@@ -239,9 +239,9 @@ export async function ensureZooBotModelsJson(
   if (normalizedProviders && envBaseUrl) {
     for (const name of ["hanzo", "zen"]) {
       if (normalizedProviders[name]) {
-        normalizedProviders[name]!.baseUrl = envBaseUrl;
+        normalizedProviders[name].baseUrl = envBaseUrl;
         // Hanzo gateway uses OpenAI chat completions, not responses API
-        normalizedProviders[name]!.api = "openai-completions";
+        normalizedProviders[name].api = "openai-completions";
       }
     }
   }

@@ -770,7 +770,7 @@ export const chatHandlers: GatewayRequestHandlers = {
       try {
         const { getWalletBalance } = await import("../../gateway/billing/iam-billing-client.js");
         const walletBalance = await getWalletBalance(chatSendWalletBotId);
-        if (walletBalance >= 0 && walletBalance <= 0) {
+        if (walletBalance == 0) {
           respond(
             false,
             undefined,
