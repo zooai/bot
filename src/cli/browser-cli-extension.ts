@@ -1,7 +1,7 @@
-import type { Command } from "commander";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import type { Command } from "commander";
 import { movePathToTrash } from "../browser/trash.js";
 import { resolveStateDir } from "../config/paths.js";
 import { danger, info } from "../globals.js";
@@ -45,7 +45,7 @@ export async function installChromeExtension(opts?: {
 }): Promise<{ path: string }> {
   const src = opts?.sourceDir ?? resolveBundledExtensionRootDir();
   if (!hasManifest(src)) {
-    throw new Error("Bundled Chrome extension is missing. Reinstall ZooBot and try again.");
+    throw new Error("Bundled Chrome extension is missing. Reinstall Bot and try again.");
   }
 
   const stateDir = opts?.stateDir ?? resolveStateDir();
@@ -101,7 +101,7 @@ export function registerBrowserExtensionCommands(
             "Next:",
             `- Chrome → chrome://extensions → enable “Developer mode”`,
             `- “Load unpacked” → select: ${displayPath}`,
-            `- Pin “ZooBot Browser Relay”, then click it on the tab (badge shows ON)`,
+            `- Pin “Bot Browser Relay”, then click it on the tab (badge shows ON)`,
             "",
             `${theme.muted("Docs:")} ${formatDocsLink("/tools/chrome-extension", "docs.bot.ai/tools/chrome-extension")}`,
           ].join("\n"),

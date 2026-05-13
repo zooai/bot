@@ -259,7 +259,7 @@ zoo-bot nodes location get --node <idOrNameOrIp> --accuracy precise --max-age 15
 低级调用：
 
 ```bash
-zoo-bot nodes invoke --node <idOrNameOrIp> --command sms.send --params '{"to":"+15555550123","message":"Hello from ZooBot"}'
+zoo-bot nodes invoke --node <idOrNameOrIp> --command sms.send --params '{"to":"+15555550123","message":"Hello from Bot"}'
 ```
 
 注意事项：
@@ -321,7 +321,7 @@ zoo-bot config unset agents.list[0].tools.exec.node
 
 ## 无头节点主机（跨平台）
 
-ZooBot 可以运行**无头节点主机**（无 UI），它连接到 Gateway 网关
+Bot 可以运行**无头节点主机**（无 UI），它连接到 Gateway 网关
 WebSocket 并暴露 `system.run` / `system.which`。这在 Linux/Windows
 上或在服务器旁运行最小节点时很有用。
 

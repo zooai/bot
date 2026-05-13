@@ -279,9 +279,7 @@ describe("chrome extension relay server", () => {
 
     expect(res.status).toBe(204);
     expect(res.headers.get("access-control-allow-origin")).toBe(origin);
-    expect(res.headers.get("access-control-allow-headers") ?? "").toContain(
-      "x-bot-relay-token",
-    );
+    expect(res.headers.get("access-control-allow-headers") ?? "").toContain("x-bot-relay-token");
   });
 
   it("rejects CORS preflight from non-extension origins", async () => {
@@ -577,9 +575,7 @@ describe("chrome extension relay server", () => {
     const sharedUrl = await ensureSharedRelayServer();
     const sharedPort = new URL(sharedUrl).port;
 
-    const token = relayAuthHeaders(`ws://127.0.0.1:${sharedPort}/extension`)[
-      "x-bot-relay-token"
-    ];
+    const token = relayAuthHeaders(`ws://127.0.0.1:${sharedPort}/extension`)["x-bot-relay-token"];
     expect(token).toBeTruthy();
     const ext = new WebSocket(
       `ws://127.0.0.1:${sharedPort}/extension?token=${encodeURIComponent(String(token))}`,
@@ -952,7 +948,7 @@ describe("chrome extension relay server", () => {
           return;
         }
         res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ Browser: "ZooBot/extension-relay" }));
+        res.end(JSON.stringify({ Browser: "Bot/extension-relay" }));
         return;
       }
       if (req.url?.startsWith("/extension/status")) {

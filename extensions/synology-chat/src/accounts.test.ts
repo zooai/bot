@@ -68,7 +68,7 @@ describe("resolveAccount", () => {
     expect(account.webhookPath).toBe("/webhook/synology");
     expect(account.dmPolicy).toBe("allowlist");
     expect(account.rateLimitPerMinute).toBe(30);
-    expect(account.botName).toBe("ZooBot");
+    expect(account.botName).toBe("Bot");
   });
 
   it("uses env var fallbacks", () => {

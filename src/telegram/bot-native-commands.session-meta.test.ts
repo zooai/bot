@@ -93,7 +93,7 @@ function buildStatusTopicCommandContext() {
       chat: {
         id: -1001234567890,
         type: "supergroup" as const,
-        title: "ZooBot",
+        title: "Bot",
         is_forum: true,
       },
       message_thread_id: 42,

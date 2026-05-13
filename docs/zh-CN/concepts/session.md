@@ -14,7 +14,7 @@ x-i18n:
 
 # 会话管理
 
-ZooBot 将**每个智能体的一个直接聊天会话**视为主会话。直接聊天折叠为 `agent:<agentId>:<mainKey>`（默认 `main`），而群组/频道聊天获得各自的键。`session.mainKey` 会被遵循。
+Bot 将**每个智能体的一个直接聊天会话**视为主会话。直接聊天折叠为 `agent:<agentId>:<mainKey>`（默认 `main`），而群组/频道聊天获得各自的键。`session.mainKey` 会被遵循。
 
 使用 `session.dmScope` 控制**私信**如何分组：
 
@@ -26,7 +26,7 @@ ZooBot 将**每个智能体的一个直接聊天会话**视为主会话。直接
 
 ## Gateway 网关是唯一数据源
 
-所有会话状态都**由 Gateway 网关拥有**（"主" ZooBot）。UI 客户端（macOS 应用、WebChat 等）必须向 Gateway 网关查询会话列表和令牌计数，而不是读取本地文件。
+所有会话状态都**由 Gateway 网关拥有**（"主" Bot）。UI 客户端（macOS 应用、WebChat 等）必须向 Gateway 网关查询会话列表和令牌计数，而不是读取本地文件。
 
 - 在**远程模式**下，你关心的会话存储位于远程 Gateway 网关主机上，而不是你的 Mac 上。
 - UI 中显示的令牌计数来自 Gateway 网关的存储字段（`inputTokens`、`outputTokens`、`totalTokens`、`contextTokens`）。客户端不会解析 JSONL 对话记录来"修正"总数。
@@ -39,16 +39,16 @@ ZooBot 将**每个智能体的一个直接聊天会话**视为主会话。直接
 - 存储是一个映射 `sessionKey -> { sessionId, updatedAt, ... }`。删除条目是安全的；它们会按需重新创建。
 - 群组条目可能包含 `displayName`、`channel`、`subject`、`room` 和 `space` 以在 UI 中标记会话。
 - 会话条目包含 `origin` 元数据（标签 + 路由提示），以便 UI 可以解释会话的来源。
-- ZooBot **不**读取旧版 Pi/Tau 会话文件夹。
+- Bot **不**读取旧版 Pi/Tau 会话文件夹。
 
 ## 会话修剪
 
-默认情况下，ZooBot 在 LLM 调用之前从内存上下文中修剪**旧的工具结果**。
+默认情况下，Bot 在 LLM 调用之前从内存上下文中修剪**旧的工具结果**。
 这**不会**重写 JSONL 历史记录。参见 [/concepts/session-pruning](/concepts/session-pruning)。
 
 ## 压缩前记忆刷新
 
-当会话接近自动压缩时，ZooBot 可以运行一个**静默记忆刷新**轮次，提醒模型将持久性笔记写入磁盘。这仅在工作区可写时运行。参见[记忆](/concepts/memory)和[压缩](/concepts/compaction)。
+当会话接近自动压缩时，Bot 可以运行一个**静默记忆刷新**轮次，提醒模型将持久性笔记写入磁盘。这仅在工作区可写时运行。参见[记忆](/concepts/memory)和[压缩](/concepts/compaction)。
 
 ## 传输到会话键的映射
 
@@ -73,10 +73,10 @@ ZooBot 将**每个智能体的一个直接聊天会话**视为主会话。直接
 - 重置策略：会话被重用直到过期，过期在下一条入站消息时评估。
 - 每日重置：默认为 **Gateway 网关主机本地时间凌晨 4:00**。当会话的最后更新早于最近的每日重置时间时，会话即为过期。
 - 空闲重置（可选）：`idleMinutes` 添加一个滑动空闲窗口。当同时配置每日和空闲重置时，**先过期者**强制新会话。
-- 旧版仅空闲模式：如果你设置了 `session.idleMinutes` 而没有任何 `session.reset`/`resetByType` 配置，ZooBot 会保持仅空闲模式以保持向后兼容。
+- 旧版仅空闲模式：如果你设置了 `session.idleMinutes` 而没有任何 `session.reset`/`resetByType` 配置，Bot 会保持仅空闲模式以保持向后兼容。
 - 按类型覆盖（可选）：`resetByType` 允许你覆盖 `dm`、`group` 和 `thread` 会话的策略（thread = Slack/Discord 线程、Telegram 话题、连接器提供的 Matrix 线程）。
 - 按渠道覆盖（可选）：`resetByChannel` 覆盖渠道的重置策略（适用于该渠道的所有会话类型，优先于 `reset`/`resetByType`）。
-- 重置触发器：精确的 `/new` 或 `/reset`（加上 `resetTriggers` 中的任何额外项）启动新的会话 ID 并传递消息的其余部分。`/new <model>` 接受模型别名、`provider/model` 或提供商名称（模糊匹配）来设置新会话模型。如果单独发送 `/new` 或 `/reset`，ZooBot 会运行一个简短的"问候"轮次来确认重置。
+- 重置触发器：精确的 `/new` 或 `/reset`（加上 `resetTriggers` 中的任何额外项）启动新的会话 ID 并传递消息的其余部分。`/new <model>` 接受模型别名、`provider/model` 或提供商名称（模糊匹配）来设置新会话模型。如果单独发送 `/new` 或 `/reset`，Bot 会运行一个简短的"问候"轮次来确认重置。
 - 手动重置：从存储中删除特定键或删除 JSONL 对话记录；下一条消息会重新创建它们。
 - 隔离的定时任务总是每次运行生成新的 `sessionId`（没有空闲重用）。
 

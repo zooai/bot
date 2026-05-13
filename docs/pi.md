@@ -1,18 +1,18 @@
 ---
 title: "Pi Integration Architecture"
-summary: "Architecture of ZooBot's embedded Pi agent integration and session lifecycle"
+summary: "Architecture of Bot's embedded Pi agent integration and session lifecycle"
 read_when:
-  - Understanding Pi SDK integration design in ZooBot
+  - Understanding Pi SDK integration design in Bot
   - Modifying agent session lifecycle, tooling, or provider wiring for Pi
 ---
 
 # Pi Integration Architecture
 
-This document describes how ZooBot integrates with [pi-coding-agent](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent) and its sibling packages (`pi-ai`, `pi-agent-core`, `pi-tui`) to power its AI agent capabilities.
+This document describes how Bot integrates with [pi-coding-agent](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent) and its sibling packages (`pi-ai`, `pi-agent-core`, `pi-tui`) to power its AI agent capabilities.
 
 ## Overview
 
-ZooBot uses the pi SDK to embed an AI coding agent into its messaging gateway architecture. Instead of spawning pi as a subprocess or using RPC mode, ZooBot directly imports and instantiates pi's `AgentSession` via `createAgentSession()`. This embedded approach provides:
+Bot uses the pi SDK to embed an AI coding agent into its messaging gateway architecture. Instead of spawning pi as a subprocess or using RPC mode, Bot directly imports and instantiates pi's `AgentSession` via `createAgentSession()`. This embedded approach provides:
 
 - Full control over session lifecycle and event handling
 - Custom tool injection (messaging, sandbox, channel-specific actions)
@@ -37,7 +37,7 @@ ZooBot uses the pi SDK to embed an AI coding agent into its messaging gateway ar
 | `pi-ai`           | Core LLM abstractions: `Model`, `streamSimple`, message types, provider APIs                           |
 | `pi-agent-core`   | Agent loop, tool execution, `AgentMessage` types                                                       |
 | `pi-coding-agent` | High-level SDK: `createAgentSession`, `SessionManager`, `AuthStorage`, `ModelRegistry`, built-in tools |
-| `pi-tui`          | Terminal UI components (used in ZooBot's local TUI mode)                                             |
+| `pi-tui`          | Terminal UI components (used in Bot's local TUI mode)                                                  |
 
 ## File Structure
 
@@ -80,7 +80,7 @@ src/agents/
 ├── pi-embedded-helpers.ts         # Error classification, turn validation
 ├── pi-embedded-helpers/           # Helper modules
 ├── pi-embedded-utils.ts           # Formatting utilities
-├── pi-tools.ts                    # createZooBotCodingTools()
+├── pi-tools.ts                    # createBotCodingTools()
 ├── pi-tools.abort.ts              # AbortSignal wrapping for tools
 ├── pi-tools.policy.ts             # Tool allowlist/denylist policy
 ├── pi-tools.read.ts               # Read tool customizations
@@ -112,7 +112,7 @@ src/agents/
 ├── sandbox.ts                     # Sandbox context resolution
 ├── sandbox/                       # Sandbox subsystem
 ├── channel-tools.ts               # Channel-specific tool injection
-├── zoo-bot-tools.ts              # ZooBot-specific tools
+├── zoo-bot-tools.ts              # Bot-specific tools
 ├── bash-tools.ts                  # exec/process tools
 ├── apply-patch.ts                 # apply_patch tool (OpenAI)
 ├── tools/                         # Individual tool implementations
@@ -232,7 +232,7 @@ await session.prompt(effectivePrompt, { images: imageResult.images });
 
 The SDK handles the full agent loop: sending to LLM, executing tool calls, streaming responses.
 
-Image injection is prompt-local: ZooBot loads image refs from the current prompt and
+Image injection is prompt-local: Bot loads image refs from the current prompt and
 passes them via `images` for that turn only. It does not re-scan older history turns
 to re-inject image payloads.
 
@@ -241,8 +241,8 @@ to re-inject image payloads.
 ### Tool Pipeline
 
 1. **Base Tools**: pi's `codingTools` (read, bash, edit, write)
-2. **Custom Replacements**: ZooBot replaces bash with `exec`/`process`, customizes read/edit/write for sandbox
-3. **ZooBot Tools**: messaging, browser, canvas, sessions, cron, gateway, etc.
+2. **Custom Replacements**: Bot replaces bash with `exec`/`process`, customizes read/edit/write for sandbox
+3. **Bot Tools**: messaging, browser, canvas, sessions, cron, gateway, etc.
 4. **Channel Tools**: Discord/Telegram/Slack/WhatsApp-specific action tools
 5. **Policy Filtering**: Tools filtered by profile, provider, agent, group, sandbox policies
 6. **Schema Normalization**: Schemas cleaned for Gemini/OpenAI quirks
@@ -280,11 +280,11 @@ export function splitSdkTools(options: { tools: AnyAgentTool[]; sandboxEnabled: 
 }
 ```
 
-This ensures ZooBot's policy filtering, sandbox integration, and extended toolset remain consistent across providers.
+This ensures Bot's policy filtering, sandbox integration, and extended toolset remain consistent across providers.
 
 ## System Prompt Construction
 
-The system prompt is built in `buildAgentSystemPrompt()` (`system-prompt.ts`). It assembles a full prompt with sections including Tooling, Tool Call Style, Safety guardrails, ZooBot CLI reference, Skills, Docs, Workspace, Sandbox, Messaging, Reply Tags, Voice, Silent Replies, Heartbeats, Runtime metadata, plus Memory and Reactions when enabled, and optional context files and extra system prompt content. Sections are trimmed for minimal prompt mode used by subagents.
+The system prompt is built in `buildAgentSystemPrompt()` (`system-prompt.ts`). It assembles a full prompt with sections including Tooling, Tool Call Style, Safety guardrails, Bot CLI reference, Skills, Docs, Workspace, Sandbox, Messaging, Reply Tags, Voice, Silent Replies, Heartbeats, Runtime metadata, plus Memory and Reactions when enabled, and optional context files and extra system prompt content. Sections are trimmed for minimal prompt mode used by subagents.
 
 The prompt is applied after session creation via `applySystemPromptOverrideToSession()`:
 
@@ -303,7 +303,7 @@ Sessions are JSONL files with tree structure (id/parentId linking). Pi's `Sessio
 const sessionManager = SessionManager.open(params.sessionFile);
 ```
 
-ZooBot wraps this with `guardSessionManager()` for tool result safety.
+Bot wraps this with `guardSessionManager()` for tool result safety.
 
 ### Session Caching
 
@@ -333,7 +333,7 @@ const compactResult = await compactEmbeddedPiSessionDirect({
 
 ### Auth Profiles
 
-ZooBot maintains an auth profile store with multiple API keys per provider:
+Bot maintains an auth profile store with multiple API keys per provider:
 
 ```typescript
 const authStore = ensureAuthProfileStore(agentDir, { allowKeychainPrompt: false });
@@ -381,7 +381,7 @@ if (fallbackConfigured && isFailoverErrorMessage(errorText)) {
 
 ## Pi Extensions
 
-ZooBot loads custom pi extensions for specialized behavior:
+Bot loads custom pi extensions for specialized behavior:
 
 ### Compaction Safeguard
 
@@ -508,7 +508,7 @@ if (sandboxRoot) {
 
 ## TUI Integration
 
-ZooBot also has a local TUI mode that uses pi-tui components directly:
+Bot also has a local TUI mode that uses pi-tui components directly:
 
 ```typescript
 // src/tui/tui.ts
@@ -519,15 +519,15 @@ This provides the interactive terminal experience similar to pi's native mode.
 
 ## Key Differences from Pi CLI
 
-| Aspect          | Pi CLI                  | ZooBot Embedded                                                                              |
-| --------------- | ----------------------- | ---------------------------------------------------------------------------------------------- |
-| Invocation      | `pi` command / RPC      | SDK via `createAgentSession()`                                                                 |
-| Tools           | Default coding tools    | Custom ZooBot tool suite                                                                     |
-| System prompt   | AGENTS.md + prompts     | Dynamic per-channel/context                                                                    |
+| Aspect          | Pi CLI                  | Bot Embedded                                                                             |
+| --------------- | ----------------------- | ---------------------------------------------------------------------------------------- |
+| Invocation      | `pi` command / RPC      | SDK via `createAgentSession()`                                                           |
+| Tools           | Default coding tools    | Custom Bot tool suite                                                                    |
+| System prompt   | AGENTS.md + prompts     | Dynamic per-channel/context                                                              |
 | Session storage | `~/.pi/agent/sessions/` | `~/.zoo-bot/agents/<agentId>/sessions/` (or `$BOT_STATE_DIR/agents/<agentId>/sessions/`) |
-| Auth            | Single credential       | Multi-profile with rotation                                                                    |
-| Extensions      | Loaded from disk        | Programmatic + disk paths                                                                      |
-| Event handling  | TUI rendering           | Callback-based (onBlockReply, etc.)                                                            |
+| Auth            | Single credential       | Multi-profile with rotation                                                              |
+| Extensions      | Loaded from disk        | Programmatic + disk paths                                                                |
+| Event handling  | TUI rendering           | Callback-based (onBlockReply, etc.)                                                      |
 
 ## Future Considerations
 

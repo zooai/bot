@@ -165,7 +165,7 @@ const entries: SubCliEntry[] = [
   },
   {
     name: "docs",
-    description: "Search the live ZooBot docs",
+    description: "Search the live Bot docs",
     hasSubcommands: false,
     register: async (program) => {
       const mod = await import("../docs-cli.js");
@@ -224,7 +224,7 @@ const entries: SubCliEntry[] = [
   },
   {
     name: "plugins",
-    description: "Manage ZooBot plugins and extensions",
+    description: "Manage Bot plugins and extensions",
     hasSubcommands: true,
     register: async (program) => {
       const mod = await import("../plugins-cli.js");
@@ -280,7 +280,7 @@ const entries: SubCliEntry[] = [
   },
   {
     name: "update",
-    description: "Update ZooBot and inspect update channel status",
+    description: "Update Bot and inspect update channel status",
     hasSubcommands: true,
     register: async (program) => {
       const mod = await import("../update-cli.js");

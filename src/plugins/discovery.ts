@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { PluginDiagnostic, PluginOrigin } from "./types.js";
 import { openBoundaryFileSync } from "../infra/boundary-file-read.js";
 import { resolveConfigDir, resolveUserPath } from "../utils.js";
 import { resolveBundledPluginsDir } from "./bundled-dir.js";
@@ -8,10 +7,11 @@ import {
   DEFAULT_PLUGIN_ENTRY_CANDIDATES,
   getPackageManifestMetadata,
   resolvePackageExtensionEntries,
-  type ZooBotPackageManifest,
+  type BotPackageManifest,
   type PackageManifest,
 } from "./manifest.js";
 import { formatPosixMode, isPathInside, safeRealpathSync, safeStatSync } from "./path-safety.js";
+import type { PluginDiagnostic, PluginOrigin } from "./types.js";
 
 const EXTENSION_EXTS = new Set([".ts", ".js", ".mts", ".cts", ".mjs", ".cjs"]);
 
@@ -25,7 +25,7 @@ export type PluginCandidate = {
   packageVersion?: string;
   packageDescription?: string;
   packageDir?: string;
-  packageManifest?: ZooBotPackageManifest;
+  packageManifest?: BotPackageManifest;
 };
 
 export type PluginDiscoveryResult = {
@@ -615,7 +615,7 @@ function discoverFromPath(params: {
   }
 }
 
-export function discoverZooBotPlugins(params: {
+export function discoverBotPlugins(params: {
   workspaceDir?: string;
   extraPaths?: string[];
   ownershipUid?: number | null;

@@ -1,7 +1,7 @@
 ---
-summary: "Use Anthropic Claude via API keys or setup-token in ZooBot"
+summary: "Use Anthropic Claude via API keys or setup-token in Bot"
 read_when:
-  - You want to use Anthropic models in ZooBot
+  - You want to use Anthropic models in Bot
   - You want setup-token instead of API keys
 title: "Anthropic"
 ---
@@ -9,7 +9,7 @@ title: "Anthropic"
 # Anthropic (Claude)
 
 Anthropic builds the **Claude** model family and provides access via an API.
-In ZooBot you can authenticate with an API key or a **setup-token**.
+In Bot you can authenticate with an API key or a **setup-token**.
 
 ## Option A: Anthropic API key
 
@@ -37,7 +37,7 @@ zoo-bot onboard --anthropic-api-key "$ANTHROPIC_API_KEY"
 
 ## Thinking defaults (Claude 4.6)
 
-- Anthropic Claude 4.6 models default to `adaptive` thinking in ZooBot when no explicit thinking level is set.
+- Anthropic Claude 4.6 models default to `adaptive` thinking in Bot when no explicit thinking level is set.
 - You can override per-message (`/think:<level>`) or in model params:
   `agents.defaults.models["anthropic/<model>"].params.thinking`.
 - Related Anthropic docs:
@@ -46,7 +46,7 @@ zoo-bot onboard --anthropic-api-key "$ANTHROPIC_API_KEY"
 
 ## Prompt caching (Anthropic API)
 
-ZooBot supports Anthropic's prompt caching feature. This is **API-only**; subscription auth does not honor cache settings.
+Bot supports Anthropic's prompt caching feature. This is **API-only**; subscription auth does not honor cache settings.
 
 ### Configuration
 
@@ -74,7 +74,7 @@ Use the `cacheRetention` parameter in your model config:
 
 ### Defaults
 
-When using Anthropic API Key authentication, ZooBot automatically applies `cacheRetention: "short"` (5-minute cache) for all Anthropic models. You can override this by explicitly setting `cacheRetention` in your config.
+When using Anthropic API Key authentication, Bot automatically applies `cacheRetention: "short"` (5-minute cache) for all Anthropic models. You can override this by explicitly setting `cacheRetention` in your config.
 
 ### Per-agent cacheRetention overrides
 
@@ -121,12 +121,12 @@ The older `cacheControlTtl` parameter is still supported for backwards compatibi
 
 We recommend migrating to the new `cacheRetention` parameter.
 
-ZooBot includes the `extended-cache-ttl-2025-04-11` beta flag for Anthropic API
+Bot includes the `extended-cache-ttl-2025-04-11` beta flag for Anthropic API
 requests; keep it if you override provider headers (see [/gateway/configuration](/gateway/configuration)).
 
 ## 1M context window (Anthropic beta)
 
-Anthropic's 1M context window is beta-gated. In ZooBot, enable it per model
+Anthropic's 1M context window is beta-gated. In Bot, enable it per model
 with `params.context1m: true` for supported Opus/Sonnet models.
 
 ```json5
@@ -143,7 +143,7 @@ with `params.context1m: true` for supported Opus/Sonnet models.
 }
 ```
 
-ZooBot maps this to `anthropic-beta: context-1m-2025-08-07` on Anthropic
+Bot maps this to `anthropic-beta: context-1m-2025-08-07` on Anthropic
 requests.
 
 This only activates when `params.context1m` is explicitly set to `true` for
@@ -155,7 +155,7 @@ enabled). Otherwise Anthropic returns:
 `HTTP 429: rate_limit_error: Extra usage is required for long context requests`.
 
 Note: Anthropic currently rejects `context-1m-*` beta requests when using
-OAuth/subscription tokens (`sk-ant-oat-*`). ZooBot automatically skips the
+OAuth/subscription tokens (`sk-ant-oat-*`). Bot automatically skips the
 context1m beta header for OAuth auth and keeps the required OAuth betas.
 
 ## Option B: Claude setup-token
@@ -170,7 +170,7 @@ Setup-tokens are created by the **Claude Code CLI**, not the Anthropic Console. 
 claude setup-token
 ```
 
-Paste the token into ZooBot (wizard: **Anthropic token (paste setup-token)**), or run it on the gateway host:
+Paste the token into Bot (wizard: **Anthropic token (paste setup-token)**), or run it on the gateway host:
 
 ```bash
 zoo-bot models auth setup-token --provider anthropic

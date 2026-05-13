@@ -1,6 +1,4 @@
 import type { BotConfig } from "../../../config/config.js";
-import type { WizardPrompter } from "../../../wizard/prompts.js";
-import type { ChannelOnboardingAdapter, ChannelOnboardingDmPolicy } from "../onboarding-types.js";
 import { hasConfiguredSecretInput } from "../../../config/types.secrets.js";
 import { DEFAULT_ACCOUNT_ID } from "../../../routing/session-key.js";
 import { inspectSlackAccount } from "../../../slack/account-inspect.js";
@@ -12,6 +10,8 @@ import {
 import { resolveSlackChannelAllowlist } from "../../../slack/resolve-channels.js";
 import { resolveSlackUserAllowlist } from "../../../slack/resolve-users.js";
 import { formatDocsLink } from "../../../terminal/links.js";
+import type { WizardPrompter } from "../../../wizard/prompts.js";
+import type { ChannelOnboardingAdapter, ChannelOnboardingDmPolicy } from "../onboarding-types.js";
 import { configureChannelAccessWithAllowlist } from "./channel-access-configure.js";
 import {
   parseMentionOrPrefixedId,
@@ -30,11 +30,11 @@ import {
 const channel = "slack" as const;
 
 function buildSlackManifest(botName: string) {
-  const safeName = botName.trim() || "ZooBot";
+  const safeName = botName.trim() || "Bot";
   const manifest = {
     display_information: {
       name: safeName,
-      description: `${safeName} connector for ZooBot`,
+      description: `${safeName} connector for Bot`,
     },
     features: {
       bot_user: {
@@ -48,7 +48,7 @@ function buildSlackManifest(botName: string) {
       slash_commands: [
         {
           command: "/bot",
-          description: "Send a message to ZooBot",
+          description: "Send a message to Bot",
           should_escape: false,
         },
       ],
@@ -242,7 +242,7 @@ export const slackOnboardingAdapter: ChannelOnboardingAdapter = {
     const slackBotName = String(
       await prompter.text({
         message: "Slack bot display name (used for manifest)",
-        initialValue: "ZooBot",
+        initialValue: "Bot",
       }),
     ).trim();
     if (!accountConfigured) {

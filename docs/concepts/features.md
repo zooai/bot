@@ -1,7 +1,7 @@
 ---
-summary: "ZooBot capabilities across channels, routing, media, and UX."
+summary: "Bot capabilities across channels, routing, media, and UX."
 read_when:
-  - You want a full list of what ZooBot supports
+  - You want a full list of what Bot supports
 title: "Features"
 ---
 

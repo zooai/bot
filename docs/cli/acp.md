@@ -8,7 +8,7 @@ title: "acp"
 
 # acp
 
-Run the [Agent Client Protocol (ACP)](https://agentclientprotocol.com/) bridge that talks to a ZooBot Gateway.
+Run the [Agent Client Protocol (ACP)](https://agentclientprotocol.com/) bridge that talks to a Bot Gateway.
 
 This command speaks ACP over stdio for IDEs and forwards prompts to the Gateway
 over WebSocket. It keeps ACP sessions mapped to Gateway session keys.
@@ -59,7 +59,7 @@ Permission model (client debug mode):
 ## How to use this
 
 Use ACP when an IDE (or other client) speaks Agent Client Protocol and you want
-it to drive a ZooBot Gateway session.
+it to drive a Bot Gateway session.
 
 1. Ensure the Gateway is running (local or remote).
 2. Configure the Gateway target (config or flags).
@@ -103,7 +103,7 @@ Add a custom ACP agent in `~/.config/zed/settings.json` (or use Zed’s Settings
 ```json
 {
   "agent_servers": {
-    "ZooBot ACP": {
+    "Bot ACP": {
       "type": "custom",
       "command": "zoo-bot",
       "args": ["acp"],
@@ -118,7 +118,7 @@ To target a specific Gateway or agent:
 ```json
 {
   "agent_servers": {
-    "ZooBot ACP": {
+    "Bot ACP": {
       "type": "custom",
       "command": "zoo-bot",
       "args": [
@@ -136,7 +136,7 @@ To target a specific Gateway or agent:
 }
 ```
 
-In Zed, open the Agent panel and select “ZooBot ACP” to start a thread.
+In Zed, open the Agent panel and select “Bot ACP” to start a thread.
 
 ## Session mapping
 

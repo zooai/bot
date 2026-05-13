@@ -99,7 +99,7 @@ export async function enforceMatrixDirectMessageAccess(params: {
       upsertPairingRequest: params.upsertPairingRequest,
       buildReplyText: ({ code }) =>
         [
-          "ZooBot: access not configured.",
+          "Bot: access not configured.",
           "",
           `Pairing code: ${code}`,
           "",

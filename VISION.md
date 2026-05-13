@@ -1,6 +1,6 @@
-## ZooBot Vision
+## Bot Vision
 
-ZooBot is the AI that actually does things.
+Bot is the AI that actually does things.
 It runs on your devices, in your channels, with your rules.
 
 This document explains the current state and direction of the project.
@@ -8,9 +8,9 @@ We are still early, so iteration is fast.
 Project overview and developer docs: [`README.md`](README.md)
 Contribution guide: [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
-ZooBot started as a personal playground to learn AI and build something genuinely useful:
+Bot started as a personal playground to learn AI and build something genuinely useful:
 an assistant that can run real tasks on a real computer.
-It evolved through several names and shells: Warelay -> Clawdbot -> Moltbot -> ZooBot.
+It evolved through several names and shells: Warelay -> Clawdbot -> Moltbot -> Bot.
 
 The goal: a personal assistant that is easy to use, supports a wide range of platforms, and respects privacy and security.
 
@@ -40,7 +40,7 @@ Contribution rules:
 
 ## Security
 
-Security in ZooBot is a deliberate tradeoff: strong defaults without killing capability.
+Security in Bot is a deliberate tradeoff: strong defaults without killing capability.
 The goal is to stay powerful for real work while making risky paths explicit and operator-controlled.
 
 Canonical security policy and reporting:
@@ -51,7 +51,7 @@ We prioritize secure defaults, but also expose clear knobs for trusted high-powe
 
 ## Plugins & Memory
 
-ZooBot has an extensive plugin API.
+Bot has an extensive plugin API.
 Core stays lean; optional capability should usually ship as plugins.
 
 Preferred plugin path is npm package distribution plus local extension loading for development.
@@ -71,7 +71,7 @@ Core skill additions should be rare and require a strong product or security rea
 
 ### MCP Support
 
-ZooBot supports MCP through `mcporter`: https://github.com/steipete/mcporter
+Bot supports MCP through `mcporter`: https://github.com/steipete/mcporter
 
 This keeps MCP integration flexible and decoupled from core runtime:
 
@@ -84,7 +84,7 @@ If there is an MCP server or feature `mcporter` does not support yet, please ope
 
 ### Setup
 
-ZooBot is currently terminal-first by design.
+Bot is currently terminal-first by design.
 This keeps setup explicit: users see docs, auth, permissions, and security posture up front.
 
 Long term, we want easier onboarding flows as hardening matures.
@@ -92,8 +92,8 @@ We do not want convenience wrappers that hide critical security decisions from u
 
 ### Why TypeScript?
 
-ZooBot is primarily an orchestration system: prompts, tools, protocols, and integrations.
-TypeScript was chosen to keep ZooBot hackable by default.
+Bot is primarily an orchestration system: prompts, tools, protocols, and integrations.
+TypeScript was chosen to keep Bot hackable by default.
 It is widely known, fast to iterate in, and easy to read, modify, and extend.
 
 ## What We Will Not Merge (For Now)

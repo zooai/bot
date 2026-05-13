@@ -1,19 +1,19 @@
 ---
-summary: "Run ZooBot through LiteLLM Proxy for unified model access and cost tracking"
+summary: "Run Bot through LiteLLM Proxy for unified model access and cost tracking"
 read_when:
-  - You want to route ZooBot through a LiteLLM proxy
+  - You want to route Bot through a LiteLLM proxy
   - You need cost tracking, logging, or model routing through LiteLLM
 ---
 
 # LiteLLM
 
-[LiteLLM](https://litellm.ai) is an open-source LLM gateway that provides a unified API to 100+ model providers. Route ZooBot through LiteLLM to get centralized cost tracking, logging, and the flexibility to switch backends without changing your ZooBot config.
+[LiteLLM](https://litellm.ai) is an open-source LLM gateway that provides a unified API to 100+ model providers. Route Bot through LiteLLM to get centralized cost tracking, logging, and the flexibility to switch backends without changing your Bot config.
 
-## Why use LiteLLM with ZooBot?
+## Why use LiteLLM with Bot?
 
-- **Cost tracking** — See exactly what ZooBot spends across all models
+- **Cost tracking** — See exactly what Bot spends across all models
 - **Model routing** — Switch between Claude, GPT-4, Gemini, Bedrock without config changes
-- **Virtual keys** — Create keys with spend limits for ZooBot
+- **Virtual keys** — Create keys with spend limits for Bot
 - **Logging** — Full request/response logs for debugging
 - **Fallbacks** — Automatic failover if your primary provider is down
 
@@ -34,7 +34,7 @@ pip install 'litellm[proxy]'
 litellm --model claude-opus-4-6
 ```
 
-2. Point ZooBot to LiteLLM:
+2. Point Bot to LiteLLM:
 
 ```bash
 export LITELLM_API_KEY="your-litellm-key"
@@ -42,7 +42,7 @@ export LITELLM_API_KEY="your-litellm-key"
 zoo-bot
 ```
 
-That's it. ZooBot now routes through LiteLLM.
+That's it. Bot now routes through LiteLLM.
 
 ## Configuration
 
@@ -93,7 +93,7 @@ export LITELLM_API_KEY="sk-litellm-key"
 
 ## Virtual keys
 
-Create a dedicated key for ZooBot with spend limits:
+Create a dedicated key for Bot with spend limits:
 
 ```bash
 curl -X POST "http://localhost:4000/key/generate" \
@@ -125,7 +125,7 @@ model_list:
       api_key: os.environ/OPENAI_API_KEY
 ```
 
-ZooBot keeps requesting `claude-opus-4-6` — LiteLLM handles the routing.
+Bot keeps requesting `claude-opus-4-6` — LiteLLM handles the routing.
 
 ## Viewing usage
 
@@ -144,8 +144,8 @@ curl "http://localhost:4000/spend/logs" \
 ## Notes
 
 - LiteLLM runs on `http://localhost:4000` by default
-- ZooBot connects via the OpenAI-compatible `/v1/chat/completions` endpoint
-- All ZooBot features work through LiteLLM — no limitations
+- Bot connects via the OpenAI-compatible `/v1/chat/completions` endpoint
+- All Bot features work through LiteLLM — no limitations
 
 ## See also
 

@@ -16,8 +16,12 @@
     "oxc/no-accumulating-spread": "off",
     "oxc/no-async-endpoint-handlers": "off",
     "oxc/no-map-spread": "off",
+    "eslint/no-underscore-dangle": "off",
+    "eslint/no-unused-vars": "off",
     "typescript/no-explicit-any": "error",
     "typescript/no-extraneous-class": "off",
+    "typescript/no-unnecessary-type-conversion": "off",
+    "typescript/no-unnecessary-type-parameters": "off",
     "typescript/no-unsafe-type-assertion": "off",
     "unicorn/consistent-function-scoping": "off",
     "unicorn/require-post-message-target-origin": "off"

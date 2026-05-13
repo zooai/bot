@@ -1,10 +1,10 @@
 ---
 read_when:
-  - 你想让 ZooBot 在云 VPS 上 24/7 运行（而不是你的笔记本电脑）
+  - 你想让 Bot 在云 VPS 上 24/7 运行（而不是你的笔记本电脑）
   - 你想在自己的 VPS 上运行生产级、永久在线的 Gateway 网关
   - 你想完全控制持久化、二进制文件和重启行为
-  - 你在 Hetzner 或类似提供商上用 Docker 运行 ZooBot
-summary: 在廉价的 Hetzner VPS（Docker）上 24/7 运行 ZooBot Gateway 网关，带持久状态和内置二进制文件
+  - 你在 Hetzner 或类似提供商上用 Docker 运行 Bot
+summary: 在廉价的 Hetzner VPS（Docker）上 24/7 运行 Bot Gateway 网关，带持久状态和内置二进制文件
 title: Hetzner
 x-i18n:
   generated_at: "2026-02-03T07:52:17Z"
@@ -15,20 +15,20 @@ x-i18n:
   workflow: 15
 ---
 
-# 在 Hetzner 上运行 ZooBot（Docker，生产 VPS 指南）
+# 在 Hetzner 上运行 Bot（Docker，生产 VPS 指南）
 
 ## 目标
 
-使用 Docker 在 Hetzner VPS 上运行持久的 ZooBot Gateway 网关，带持久状态、内置二进制文件和安全的重启行为。
+使用 Docker 在 Hetzner VPS 上运行持久的 Bot Gateway 网关，带持久状态、内置二进制文件和安全的重启行为。
 
-如果你想要"约 $5 实现 ZooBot 24/7"，这是最简单可靠的设置。
+如果你想要"约 $5 实现 Bot 24/7"，这是最简单可靠的设置。
 Hetzner 定价会变化；选择最小的 Debian/Ubuntu VPS，如果遇到 OOM 再扩容。
 
 ## 我们在做什么（简单说明）？
 
 - 租用一台小型 Linux 服务器（Hetzner VPS）
 - 安装 Docker（隔离的应用运行时）
-- 在 Docker 中启动 ZooBot Gateway 网关
+- 在 Docker 中启动 Bot Gateway 网关
 - 在主机上持久化 `~/.zoo-bot` + `~/.zoo-bot/workspace`（重启/重建后保留）
 - 通过 SSH 隧道从你的笔记本电脑访问控制 UI
 
@@ -47,7 +47,7 @@ Gateway 网关可以通过以下方式访问：
 
 1. 配置 Hetzner VPS
 2. 安装 Docker
-3. 克隆 ZooBot 仓库
+3. 克隆 Bot 仓库
 4. 创建持久化主机目录
 5. 配置 `.env` 和 `docker-compose.yml`
 6. 将所需二进制文件烘焙到镜像中
@@ -103,7 +103,7 @@ docker compose version
 
 ---
 
-## 3) 克隆 ZooBot 仓库
+## 3) 克隆 Bot 仓库
 
 ```bash
 git clone https://github.com/zoo-bot/zoo-bot.git
@@ -320,18 +320,18 @@ ssh -N -L 18789:127.0.0.1:18789 root@YOUR_VPS_IP
 
 ## 持久化位置（事实来源）
 
-ZooBot 在 Docker 中运行，但 Docker 不是事实来源。
+Bot 在 Docker 中运行，但 Docker 不是事实来源。
 所有长期状态必须在重启、重建和重启后保留。
 
-| 组件             | 位置                              | 持久化机制    | 说明                        |
-| ---------------- | --------------------------------- | ------------- | --------------------------- |
-| Gateway 网关配置 | `/home/node/.zoo-bot/`           | 主机卷挂载    | 包括 `zoo-bot.json`、令牌  |
+| 组件             | 位置                             | 持久化机制    | 说明                        |
+| ---------------- | -------------------------------- | ------------- | --------------------------- |
+| Gateway 网关配置 | `/home/node/.zoo-bot/`           | 主机卷挂载    | 包括 `zoo-bot.json`、令牌   |
 | 模型认证配置文件 | `/home/node/.zoo-bot/`           | 主机卷挂载    | OAuth 令牌、API 密钥        |
 | Skill 配置       | `/home/node/.zoo-bot/skills/`    | 主机卷挂载    | Skill 级别状态              |
 | 智能体工作区     | `/home/node/.zoo-bot/workspace/` | 主机卷挂载    | 代码和智能体产物            |
 | WhatsApp 会话    | `/home/node/.zoo-bot/`           | 主机卷挂载    | 保留二维码登录              |
 | Gmail 密钥环     | `/home/node/.zoo-bot/`           | 主机卷 + 密码 | 需要 `GOG_KEYRING_PASSWORD` |
-| 外部二进制文件   | `/usr/local/bin/`                 | Docker 镜像   | 必须在构建时烘焙            |
-| Node 运行时      | 容器文件系统                      | Docker 镜像   | 每次镜像构建时重建          |
-| 操作系统包       | 容器文件系统                      | Docker 镜像   | 不要在运行时安装            |
-| Docker 容器      | 临时的                            | 可重启        | 可以安全销毁                |
+| 外部二进制文件   | `/usr/local/bin/`                | Docker 镜像   | 必须在构建时烘焙            |
+| Node 运行时      | 容器文件系统                     | Docker 镜像   | 每次镜像构建时重建          |
+| 操作系统包       | 容器文件系统                     | Docker 镜像   | 不要在运行时安装            |
+| Docker 容器      | 临时的                           | 可重启        | 可以安全销毁                |

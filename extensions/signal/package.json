@@ -2,7 +2,7 @@
   "name": "@hanzo/bot-signal",
   "version": "2026.4.27",
   "private": true,
-  "description": "ZooBot Signal channel plugin",
+  "description": "Bot Signal channel plugin",
   "type": "module",
   "zoo-bot": {
     "extensions": [

@@ -1,14 +1,14 @@
 ---
-summary: "Agent tool surface for ZooBot (browser, canvas, nodes, message, cron) replacing legacy `zoo-bot-*` skills"
+summary: "Agent tool surface for Bot (browser, canvas, nodes, message, cron) replacing legacy `zoo-bot-*` skills"
 read_when:
   - Adding or modifying agent tools
   - Retiring or changing `zoo-bot-*` skills
 title: "Tools"
 ---
 
-# Tools (ZooBot)
+# Tools (Bot)
 
-ZooBot exposes **first-class agent tools** for browser, canvas, nodes, and cron.
+Bot exposes **first-class agent tools** for browser, canvas, nodes, and cron.
 These replace the old `zoo-bot-*` skills: the tools are typed, no shelling,
 and the agent should rely on them directly.
 
@@ -27,7 +27,7 @@ Notes:
 
 - Matching is case-insensitive.
 - `*` wildcards are supported (`"*"` means all tools).
-- If `tools.allow` only references unknown or unloaded plugin tool names, ZooBot logs a warning and ignores the allowlist so core tools stay available.
+- If `tools.allow` only references unknown or unloaded plugin tool names, Bot logs a warning and ignores the allowlist so core tools stay available.
 
 ## Tool profiles (base allowlist)
 
@@ -151,7 +151,7 @@ Available groups:
 - `group:automation`: `cron`, `gateway`
 - `group:messaging`: `message`
 - `group:nodes`: `nodes`
-- `group:zoo-bot`: all built-in ZooBot tools (excludes provider plugins)
+- `group:zoo-bot`: all built-in Bot tools (excludes provider plugins)
 
 Example (allow only file tools + browser):
 
@@ -227,7 +227,7 @@ Notes:
 
 ### `loop-detection` (tool-call loop guardrails)
 
-ZooBot tracks recent tool-call history and blocks or warns when it detects repetitive no-progress loops.
+Bot tracks recent tool-call history and blocks or warns when it detects repetitive no-progress loops.
 Enable with `tools.loopDetection.enabled: true` (default is `false`).
 
 ```json5
@@ -291,7 +291,7 @@ Notes:
 
 ### `browser`
 
-Control the dedicated ZooBot-managed browser.
+Control the dedicated Bot-managed browser.
 
 Core actions:
 
@@ -492,7 +492,7 @@ Notes:
   - Supports one-shot mode (`mode: "run"`) and persistent thread-bound mode (`mode: "session"` with `thread: true`).
   - If `thread: true` and `mode` is omitted, mode defaults to `session`.
   - `mode: "session"` requires `thread: true`.
-  - If `runTimeoutSeconds` is omitted, ZooBot uses `agents.defaults.subagents.runTimeoutSeconds` when set; otherwise timeout defaults to `0` (no timeout).
+  - If `runTimeoutSeconds` is omitted, Bot uses `agents.defaults.subagents.runTimeoutSeconds` when set; otherwise timeout defaults to `0` (no timeout).
   - Discord thread-bound flows depend on `session.threadBindings.*` and `channels.discord.threadBindings.*`.
   - Reply format includes `Status`, `Result`, and compact stats.
   - `Result` is the assistant completion text; if missing, the latest `toolResult` is used as fallback.
@@ -504,7 +504,7 @@ Notes:
 - ACP `streamTo: "parent"` responses may include `streamLogPath` (session-scoped `*.acp-stream.jsonl`) for tailing progress history.
 - `sessions_send` runs a reply‑back ping‑pong (reply `REPLY_SKIP` to stop; max turns via `session.agentToAgent.maxPingPongTurns`, 0–5).
 - After the ping‑pong, the target agent runs an **announce step**; reply `ANNOUNCE_SKIP` to suppress the announcement.
-- Sandbox clamp: when the current session is sandboxed and `agents.defaults.sandbox.sessionToolsVisibility: "spawned"`, ZooBot clamps `tools.sessions.visibility` to `tree`.
+- Sandbox clamp: when the current session is sandboxed and `agents.defaults.sandbox.sessionToolsVisibility: "spawned"`, Bot clamps `tools.sessions.visibility` to `tree`.
 
 ### `agents_list`
 

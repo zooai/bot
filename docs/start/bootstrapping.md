@@ -16,7 +16,7 @@ for the first time.
 
 ## What bootstrapping does
 
-On the first agent run, ZooBot bootstraps the workspace (default
+On the first agent run, Bot bootstraps the workspace (default
 `~/.zoo-bot/workspace`):
 
 - Seeds `AGENTS.md`, `BOOTSTRAP.md`, `IDENTITY.md`, `USER.md`.

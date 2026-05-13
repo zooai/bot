@@ -212,14 +212,14 @@ describe("DiscordMessageListener", () => {
 
 describe("discord allowlist helpers", () => {
   it("normalizes slugs", () => {
-    expect(normalizeDiscordSlug("Friends of ZooBot")).toBe("friends-of-bot");
+    expect(normalizeDiscordSlug("Friends of Bot")).toBe("friends-of-bot");
     expect(normalizeDiscordSlug("#General")).toBe("general");
     expect(normalizeDiscordSlug("Dev__Chat")).toBe("dev-chat");
   });
 
   it("matches ids by default and names only when enabled", () => {
     const allow = normalizeDiscordAllowList(
-      ["123", "steipete", "Friends of ZooBot"],
+      ["123", "steipete", "Friends of Bot"],
       ["discord:", "user:", "guild:", "channel:"],
     );
     expect(allow).not.toBeNull();
@@ -230,9 +230,9 @@ describe("discord allowlist helpers", () => {
     expect(allowListMatches(allow, { name: "steipete" })).toBe(false);
     expect(allowListMatches(allow, { name: "friends-of-bot" })).toBe(false);
     expect(allowListMatches(allow, { name: "steipete" }, { allowNameMatching: true })).toBe(true);
-    expect(
-      allowListMatches(allow, { name: "friends-of-bot" }, { allowNameMatching: true }),
-    ).toBe(true);
+    expect(allowListMatches(allow, { name: "friends-of-bot" }, { allowNameMatching: true })).toBe(
+      true,
+    );
     expect(allowListMatches(allow, { name: "other" })).toBe(false);
   });
 
@@ -253,7 +253,7 @@ describe("discord guild/channel resolution", () => {
       "123": { slug: "friends-of-bot" },
     });
     const resolved = resolveDiscordGuildEntry({
-      guild: fakeGuild("123", "Friends of ZooBot"),
+      guild: fakeGuild("123", "Friends of Bot"),
       guildEntries,
     });
     expect(resolved?.id).toBe("123");
@@ -265,7 +265,7 @@ describe("discord guild/channel resolution", () => {
       "friends-of-bot": { slug: "friends-of-bot" },
     });
     const resolved = resolveDiscordGuildEntry({
-      guild: fakeGuild("123", "Friends of ZooBot"),
+      guild: fakeGuild("123", "Friends of Bot"),
       guildEntries,
     });
     expect(resolved?.id).toBe("123");
@@ -277,7 +277,7 @@ describe("discord guild/channel resolution", () => {
       "*": { requireMention: false },
     });
     const resolved = resolveDiscordGuildEntry({
-      guild: fakeGuild("123", "Friends of ZooBot"),
+      guild: fakeGuild("123", "Friends of Bot"),
       guildEntries,
     });
     expect(resolved?.id).toBe("123");
@@ -627,7 +627,7 @@ describe("discord group DM gating", () => {
       resolveGroupDmAllow({
         channels: ["bot-dm"],
         channelId: "1",
-        channelName: "ZooBot DM",
+        channelName: "Bot DM",
         channelSlug: "bot-dm",
       }),
     ).toBe(true);

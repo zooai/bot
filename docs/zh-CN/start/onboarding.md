@@ -2,7 +2,7 @@
 read_when:
   - 设计 macOS 新手引导助手
   - 实现认证或身份设置
-summary: ZooBot 的首次运行新手引导流程（macOS 应用）
+summary: Bot 的首次运行新手引导流程（macOS 应用）
 title: 新手引导
 x-i18n:
   generated_at: "2026-02-03T07:54:07Z"
@@ -80,7 +80,7 @@ macOS 应用支持 Anthropic OAuth（Claude Pro/Max）。流程：
 
 ## 智能体引导仪式
 
-在首次智能体运行时，ZooBot 会引导一个工作区（默认 `~/.zoo-bot/workspace`）：
+在首次智能体运行时，Bot 会引导一个工作区（默认 `~/.zoo-bot/workspace`）：
 
 - 初始化 `AGENTS.md`、`BOOTSTRAP.md`、`IDENTITY.md`、`USER.md`
 - 运行简短的问答仪式（一次一个问题）

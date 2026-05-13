@@ -1,14 +1,14 @@
 ---
-summary: "Use Mistral models and Voxtral transcription with ZooBot"
+summary: "Use Mistral models and Voxtral transcription with Bot"
 read_when:
-  - You want to use Mistral models in ZooBot
+  - You want to use Mistral models in Bot
   - You need Mistral API key onboarding and model refs
 title: "Mistral"
 ---
 
 # Mistral
 
-ZooBot supports Mistral for both text/image model routing (`mistral/...`) and
+Bot supports Mistral for both text/image model routing (`mistral/...`) and
 audio transcription via Voxtral in media understanding.
 Mistral can also be used for memory embeddings (`memorySearch.provider = "mistral"`).
 

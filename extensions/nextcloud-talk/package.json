@@ -1,7 +1,7 @@
 {
   "name": "@hanzo/bot-nextcloud-talk",
   "version": "2026.4.27",
-  "description": "ZooBot Nextcloud Talk channel plugin",
+  "description": "Bot Nextcloud Talk channel plugin",
   "type": "module",
   "dependencies": {
     "zod": "^4.3.6"

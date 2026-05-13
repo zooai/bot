@@ -1,5 +1,4 @@
 import type { BrowserConfig, BrowserProfileConfig, BotConfig } from "../config/config.js";
-import type { SsrFPolicy } from "../infra/net/ssrf.js";
 import { resolveGatewayPort } from "../config/paths.js";
 import {
   deriveDefaultBrowserCdpPortRange,
@@ -7,6 +6,7 @@ import {
   DEFAULT_BROWSER_CONTROL_PORT,
 } from "../config/port-defaults.js";
 import { isLoopbackHost } from "../gateway/net.js";
+import type { SsrFPolicy } from "../infra/net/ssrf.js";
 import {
   DEFAULT_BOT_BROWSER_COLOR,
   DEFAULT_BOT_BROWSER_ENABLED,
@@ -174,7 +174,7 @@ function ensureDefaultProfile(
 /**
  * Ensure a built-in "chrome" profile exists for the Chrome extension relay.
  *
- * Note: this is an ZooBot browser profile (routing config), not a Chrome user profile.
+ * Note: this is an Bot browser profile (routing config), not a Chrome user profile.
  * It points at the local relay CDP endpoint (controlPort + 1).
  */
 function ensureDefaultChromeExtensionProfile(

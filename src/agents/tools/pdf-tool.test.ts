@@ -150,7 +150,7 @@ async function stubPdfToolInfra(
   vi.spyOn(modelDiscovery, "discoverModels").mockReturnValue({ find } as never);
 
   const modelsConfig = await import("../models-config.js");
-  vi.spyOn(modelsConfig, "ensureZooBotModelsJson").mockResolvedValue({
+  vi.spyOn(modelsConfig, "ensureBotModelsJson").mockResolvedValue({
     agentDir,
     wrote: false,
   });

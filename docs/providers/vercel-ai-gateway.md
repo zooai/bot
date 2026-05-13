@@ -2,7 +2,7 @@
 title: "Vercel AI Gateway"
 summary: "Vercel AI Gateway setup (auth + model selection)"
 read_when:
-  - You want to use Vercel AI Gateway with ZooBot
+  - You want to use Vercel AI Gateway with Bot
   - You need the API key env var or CLI auth choice
 ---
 
@@ -51,7 +51,7 @@ is available to that process (for example, in `~/.zoo-bot/.env` or via
 
 ## Model ID shorthand
 
-ZooBot accepts Vercel Claude shorthand model refs and normalizes them at
+Bot accepts Vercel Claude shorthand model refs and normalizes them at
 runtime:
 
 - `vercel-ai-gateway/claude-opus-4.6` -> `vercel-ai-gateway/anthropic/claude-opus-4.6`

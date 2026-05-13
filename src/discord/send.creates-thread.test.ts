@@ -303,7 +303,7 @@ describe("uploadStickerDiscord", () => {
       {
         guildId: "g1",
         name: "bot_wave",
-        description: "ZooBot waving",
+        description: "Bot waving",
         tags: "👋",
         mediaUrl: "file:///tmp/wave.png",
       },
@@ -314,7 +314,7 @@ describe("uploadStickerDiscord", () => {
       expect.objectContaining({
         body: {
           name: "bot_wave",
-          description: "ZooBot waving",
+          description: "Bot waving",
           tags: "👋",
           files: [
             expect.objectContaining({

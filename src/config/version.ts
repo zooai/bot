@@ -1,4 +1,4 @@
-export type ZooBotVersion = {
+export type BotVersion = {
   major: number;
   minor: number;
   patch: number;
@@ -7,7 +7,7 @@ export type ZooBotVersion = {
 
 const VERSION_RE = /^v?(\d+)\.(\d+)\.(\d+)(?:-(\d+))?/;
 
-export function parseZooBotVersion(raw: string | null | undefined): ZooBotVersion | null {
+export function parseBotVersion(raw: string | null | undefined): BotVersion | null {
   if (!raw) {
     return null;
   }
@@ -24,12 +24,12 @@ export function parseZooBotVersion(raw: string | null | undefined): ZooBotVersio
   };
 }
 
-export function compareZooBotVersions(
+export function compareBotVersions(
   a: string | null | undefined,
   b: string | null | undefined,
 ): number | null {
-  const parsedA = parseZooBotVersion(a);
-  const parsedB = parseZooBotVersion(b);
+  const parsedA = parseBotVersion(a);
+  const parsedB = parseBotVersion(b);
   if (!parsedA || !parsedB) {
     return null;
   }

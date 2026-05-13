@@ -31,7 +31,7 @@ export function parseFrontmatterBool(value: string | undefined, fallback: boolea
   return parsed === undefined ? fallback : parsed;
 }
 
-export function resolveZooBotManifestBlock(params: {
+export function resolveBotManifestBlock(params: {
   frontmatter: Record<string, unknown>;
   key?: string;
 }): Record<string, unknown> | undefined {
@@ -59,16 +59,16 @@ export function resolveZooBotManifestBlock(params: {
   }
 }
 
-export type ZooBotManifestRequires = {
+export type BotManifestRequires = {
   bins: string[];
   anyBins: string[];
   env: string[];
   config: string[];
 };
 
-export function resolveZooBotManifestRequires(
+export function resolveBotManifestRequires(
   metadataObj: Record<string, unknown>,
-): ZooBotManifestRequires | undefined {
+): BotManifestRequires | undefined {
   const requiresRaw =
     typeof metadataObj.requires === "object" && metadataObj.requires !== null
       ? (metadataObj.requires as Record<string, unknown>)
@@ -84,7 +84,7 @@ export function resolveZooBotManifestRequires(
   };
 }
 
-export function resolveZooBotManifestInstall<T>(
+export function resolveBotManifestInstall<T>(
   metadataObj: Record<string, unknown>,
   parseInstallSpec: (input: unknown) => T | undefined,
 ): T[] {
@@ -94,11 +94,11 @@ export function resolveZooBotManifestInstall<T>(
     .filter((entry): entry is T => Boolean(entry));
 }
 
-export function resolveZooBotManifestOs(metadataObj: Record<string, unknown>): string[] {
+export function resolveBotManifestOs(metadataObj: Record<string, unknown>): string[] {
   return normalizeStringList(metadataObj.os);
 }
 
-export type ParsedZooBotManifestInstallBase = {
+export type ParsedBotManifestInstallBase = {
   raw: Record<string, unknown>;
   kind: string;
   id?: string;
@@ -106,10 +106,10 @@ export type ParsedZooBotManifestInstallBase = {
   bins?: string[];
 };
 
-export function parseZooBotManifestInstallBase(
+export function parseBotManifestInstallBase(
   input: unknown,
   allowedKinds: readonly string[],
-): ParsedZooBotManifestInstallBase | undefined {
+): ParsedBotManifestInstallBase | undefined {
   if (!input || typeof input !== "object") {
     return undefined;
   }
@@ -121,7 +121,7 @@ export function parseZooBotManifestInstallBase(
     return undefined;
   }
 
-  const spec: ParsedZooBotManifestInstallBase = {
+  const spec: ParsedBotManifestInstallBase = {
     raw,
     kind,
   };

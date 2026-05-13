@@ -1,7 +1,7 @@
 ---
-summary: "Use NVIDIA's OpenAI-compatible API in ZooBot"
+summary: "Use NVIDIA's OpenAI-compatible API in Bot"
 read_when:
-  - You want to use NVIDIA models in ZooBot
+  - You want to use NVIDIA models in Bot
   - You need NVIDIA_API_KEY setup
 title: "NVIDIA"
 ---

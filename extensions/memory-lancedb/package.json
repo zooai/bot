@@ -2,7 +2,7 @@
   "name": "@hanzo/bot-memory-lancedb",
   "version": "2026.4.27",
   "private": true,
-  "description": "ZooBot LanceDB-backed long-term memory plugin with auto-recall/capture",
+  "description": "Bot LanceDB-backed long-term memory plugin with auto-recall/capture",
   "type": "module",
   "dependencies": {
     "@lancedb/lancedb": "^0.26.2",

@@ -1,12 +1,11 @@
-import type { Api, Model } from "@mariozechner/pi-ai";
 import { randomBytes, randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import { createServer } from "node:net";
 import os from "node:os";
 import path from "node:path";
+import type { Api, Model } from "@mariozechner/pi-ai";
 import { describe, it } from "vitest";
-import type { ModelsConfig, BotConfig, ModelProviderConfig } from "../config/types.js";
-import { resolveZooBotAgentDir } from "../agents/agent-paths.js";
+import { resolveBotAgentDir } from "../agents/agent-paths.js";
 import { resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
 import {
   type AuthProfileStore,
@@ -21,10 +20,11 @@ import {
 } from "../agents/live-auth-keys.js";
 import { isModernModelRef } from "../agents/live-model-filter.js";
 import { getApiKeyForModel } from "../agents/model-auth.js";
-import { ensureZooBotModelsJson } from "../agents/models-config.js";
+import { ensureBotModelsJson } from "../agents/models-config.js";
 import { isRateLimitErrorMessage } from "../agents/pi-embedded-helpers/errors.js";
 import { discoverAuthStorage, discoverModels } from "../agents/pi-model-discovery.js";
 import { loadConfig } from "../config/config.js";
+import type { ModelsConfig, BotConfig, ModelProviderConfig } from "../config/types.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import { DEFAULT_AGENT_ID } from "../routing/session-key.js";
 import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.js";
@@ -658,7 +658,7 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
   process.env.BOT_GATEWAY_TOKEN = token;
   const agentId = "dev";
 
-  const hostAgentDir = resolveZooBotAgentDir();
+  const hostAgentDir = resolveBotAgentDir();
   const hostStore = ensureAuthProfileStore(hostAgentDir, {
     allowKeychainPrompt: false,
   });
@@ -689,7 +689,7 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
   const toolProbePath = path.join(workspaceDir, `.bot-live-tool-probe.${nonceA}.txt`);
   await fs.writeFile(toolProbePath, `nonceA=${nonceA}\nnonceB=${nonceB}\n`);
 
-  const agentDir = resolveZooBotAgentDir();
+  const agentDir = resolveBotAgentDir();
   const sanitizedCfg: BotConfig = {
     ...params.cfg,
     auth: sanitizeAuthConfig({ cfg: params.cfg, agentDir }),
@@ -887,10 +887,10 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
                   sessionKey,
                   idempotencyKey: `idem-${runIdTool}-tool-${toolReadAttempt + 1}`,
                   message: strictReply
-                    ? "ZooBot live tool probe (local, safe): " +
+                    ? "Bot live tool probe (local, safe): " +
                       `use the tool named \`read\` (or \`Read\`) with JSON arguments {"path":"${toolProbePath}"}. ` +
                       `Then reply with exactly: ${nonceA} ${nonceB}. No extra text.`
-                    : "ZooBot live tool probe (local, safe): " +
+                    : "Bot live tool probe (local, safe): " +
                       `use the tool named \`read\` (or \`Read\`) with JSON arguments {"path":"${toolProbePath}"}. ` +
                       "Then reply with the two nonce values you read (include both).",
                   thinking: params.thinkingLevel,
@@ -966,12 +966,12 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
                     sessionKey,
                     idempotencyKey: `idem-${runIdTool}-exec-read-${execReadAttempt + 1}`,
                     message: strictReply
-                      ? "ZooBot live tool probe (local, safe): " +
+                      ? "Bot live tool probe (local, safe): " +
                         "use the tool named `exec` (or `Exec`) to run this command: " +
                         `mkdir -p "${tempDir}" && printf '%s' '${nonceC}' > "${toolWritePath}". ` +
                         `Then use the tool named \`read\` (or \`Read\`) with JSON arguments {"path":"${toolWritePath}"}. ` +
                         `Then reply with exactly: ${nonceC}. No extra text.`
-                      : "ZooBot live tool probe (local, safe): " +
+                      : "Bot live tool probe (local, safe): " +
                         "use the tool named `exec` (or `Exec`) to run this command: " +
                         `mkdir -p "${tempDir}" && printf '%s' '${nonceC}' > "${toolWritePath}". ` +
                         `Then use the tool named \`read\` (or \`Read\`) with JSON arguments {"path":"${toolWritePath}"}. ` +
@@ -1316,9 +1316,9 @@ describeLive("gateway live (dev agent, profile keys)", () => {
     "runs meaningful prompts across models with available keys",
     async () => {
       const cfg = loadConfig();
-      await ensureZooBotModelsJson(cfg);
+      await ensureBotModelsJson(cfg);
 
-      const agentDir = resolveZooBotAgentDir();
+      const agentDir = resolveBotAgentDir();
       const authStore = ensureAuthProfileStore(agentDir, {
         allowKeychainPrompt: false,
       });
@@ -1435,9 +1435,9 @@ describeLive("gateway live (dev agent, profile keys)", () => {
     process.env.BOT_GATEWAY_TOKEN = token;
 
     const cfg = loadConfig();
-    await ensureZooBotModelsJson(cfg);
+    await ensureBotModelsJson(cfg);
 
-    const agentDir = resolveZooBotAgentDir();
+    const agentDir = resolveBotAgentDir();
     const authStorage = discoverAuthStorage(agentDir);
     const modelRegistry = discoverModels(authStorage, agentDir);
     const anthropic = modelRegistry.find("anthropic", "claude-opus-4-5") as Model<Api> | null;

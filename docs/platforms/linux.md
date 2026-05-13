@@ -64,7 +64,7 @@ zoo-bot doctor
 
 ## System control (systemd user unit)
 
-ZooBot installs a systemd **user** service by default. Use a **system**
+Bot installs a systemd **user** service by default. Use a **system**
 service for shared or always-on servers. The full unit example and guidance
 live in the [Gateway runbook](/gateway).
 
@@ -74,7 +74,7 @@ Create `~/.config/systemd/user/zoo-bot-gateway[-<profile>].service`:
 
 ```
 [Unit]
-Description=ZooBot Gateway (profile: <profile>, v<version>)
+Description=Bot Gateway (profile: <profile>, v<version>)
 After=network-online.target
 Wants=network-online.target
 

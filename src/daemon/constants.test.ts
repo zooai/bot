@@ -58,12 +58,12 @@ describe("resolveGatewayWindowsTaskName", () => {
   it("returns default task name when no profile is set", () => {
     const result = resolveGatewayWindowsTaskName();
     expect(result).toBe(GATEWAY_WINDOWS_TASK_NAME);
-    expect(result).toBe("ZooBot Gateway");
+    expect(result).toBe("Bot Gateway");
   });
 
   it("returns profile-specific task name when profile is set", () => {
     const result = resolveGatewayWindowsTaskName("dev");
-    expect(result).toBe("ZooBot Gateway (dev)");
+    expect(result).toBe("Bot Gateway (dev)");
   });
 });
 
@@ -88,24 +88,24 @@ describe("resolveGatewayProfileSuffix", () => {
 
 describe("formatGatewayServiceDescription", () => {
   it("returns default description when no profile/version", () => {
-    expect(formatGatewayServiceDescription()).toBe("ZooBot Gateway");
+    expect(formatGatewayServiceDescription()).toBe("Bot Gateway");
   });
 
   it("includes profile when set", () => {
     expect(formatGatewayServiceDescription({ profile: "work" })).toBe(
-      "ZooBot Gateway (profile: work)",
+      "Bot Gateway (profile: work)",
     );
   });
 
   it("includes version when set", () => {
     expect(formatGatewayServiceDescription({ version: "2026.1.10" })).toBe(
-      "ZooBot Gateway (v2026.1.10)",
+      "Bot Gateway (v2026.1.10)",
     );
   });
 
   it("includes profile and version when set", () => {
     expect(formatGatewayServiceDescription({ profile: "dev", version: "1.2.3" })).toBe(
-      "ZooBot Gateway (profile: dev, v1.2.3)",
+      "Bot Gateway (profile: dev, v1.2.3)",
     );
   });
 });
@@ -126,7 +126,7 @@ describe("resolveGatewayServiceDescription", () => {
         env: { BOT_PROFILE: "work", BOT_SERVICE_VERSION: "local" },
         environment: { BOT_SERVICE_VERSION: "remote" },
       }),
-    ).toBe("ZooBot Gateway (profile: work, vremote)");
+    ).toBe("Bot Gateway (profile: work, vremote)");
   });
 });
 

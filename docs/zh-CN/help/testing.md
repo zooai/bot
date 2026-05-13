@@ -16,7 +16,7 @@ x-i18n:
 
 # 测试
 
-ZooBot 包含三个 Vitest 测试套件（单元/集成、端到端、实时）以及一小组 Docker 运行器。
+Bot 包含三个 Vitest 测试套件（单元/集成、端到端、实时）以及一小组 Docker 运行器。
 
 本文档是一份"我们如何测试"的指南：
 
@@ -242,8 +242,8 @@ BOT_LIVE_CLI_BACKEND=1 \
 - `google-antigravity/...` 使用 Antigravity OAuth 桥接（Cloud Code Assist 风格的智能体端点）。
 - `google-gemini-cli/...` 使用你机器上的本地 Gemini CLI（独立的认证 + 工具怪癖）。
 - Gemini API 与 Gemini CLI：
-  - API：ZooBot 通过 HTTP 调用 Google 托管的 Gemini API（API 密钥/配置文件认证）；这是大多数用户说的"Gemini"。
-  - CLI：ZooBot 调用本地 `gemini` 二进制文件；它有自己的认证，行为可能不同（流式传输/工具支持/版本差异）。
+  - API：Bot 通过 HTTP 调用 Google 托管的 Gemini API（API 密钥/配置文件认证）；这是大多数用户说的"Gemini"。
+  - CLI：Bot 调用本地 `gemini` 二进制文件；它有自己的认证，行为可能不同（流式传输/工具支持/版本差异）。
 
 ## 实时测试：模型矩阵（我们覆盖什么）
 

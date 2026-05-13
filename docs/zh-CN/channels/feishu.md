@@ -34,7 +34,7 @@ zoo-bot plugins install ./extensions/feishu
 
 ### 方式一：通过安装向导添加（推荐）
 
-如果您刚安装完 ZooBot，可以直接运行向导，根据提示添加飞书：
+如果您刚安装完 Bot，可以直接运行向导，根据提示添加飞书：
 
 ```bash
 zoo-bot onboard
@@ -167,7 +167,7 @@ Lark（国际版）请使用 https://open.larksuite.com/app，并在配置中设
 
 ---
 
-## 第二步：配置 ZooBot
+## 第二步：配置 Bot
 
 ### 通过向导配置（推荐）
 
@@ -445,8 +445,8 @@ zoo-bot pairing list feishu
 
 在配置和使用飞书渠道时，您可能需要使用以下网关管理命令：
 
-| 命令                       | 说明              |
-| -------------------------- | ----------------- |
+| 命令                      | 说明              |
+| ------------------------- | ----------------- |
 | `zoo-bot gateway status`  | 查看网关运行状态  |
 | `zoo-bot gateway install` | 安装/启动网关服务 |
 | `zoo-bot gateway stop`    | 停止网关服务      |

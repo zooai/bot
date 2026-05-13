@@ -316,7 +316,7 @@ File rendering hardening:
 
 Resolution order:
 
-1. `browser.executablePath` in ZooBot config.
+1. `browser.executablePath` in Bot config.
 2. Environment variables:
    - `BOT_BROWSER_EXECUTABLE_PATH`
    - `BROWSER_EXECUTABLE_PATH`

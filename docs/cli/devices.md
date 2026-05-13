@@ -42,7 +42,7 @@ zoo-bot devices clear --yes --pending --json
 
 ### `zoo-bot devices approve [requestId] [--latest]`
 
-Approve a pending device pairing request. If `requestId` is omitted, ZooBot
+Approve a pending device pairing request. If `requestId` is omitted, Bot
 automatically approves the most recent pending request.
 
 ```

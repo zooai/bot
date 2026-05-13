@@ -1,6 +1,6 @@
 ---
 read_when:
-  - 你想将 Gmail Pub/Sub 事件接入 ZooBot
+  - 你想将 Gmail Pub/Sub 事件接入 Bot
   - 你需要 Webhook 辅助命令
 summary: "`zoo-bot webhooks`（Webhook 辅助工具 + Gmail Pub/Sub）的 CLI 参考"
 title: webhooks

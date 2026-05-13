@@ -9,13 +9,13 @@ import {
   type DmPolicy,
   type WizardPrompter,
 } from "@hanzo/bot/plugin-sdk/irc";
-import type { CoreConfig, IrcAccountConfig, IrcNickServConfig } from "./types.js";
 import { listIrcAccountIds, resolveDefaultIrcAccountId, resolveIrcAccount } from "./accounts.js";
 import {
   isChannelTarget,
   normalizeIrcAllowEntry,
   normalizeIrcMessagingTarget,
 } from "./normalize.js";
+import type { CoreConfig, IrcAccountConfig, IrcNickServConfig } from "./types.js";
 
 const channel = "irc" as const;
 
@@ -387,7 +387,7 @@ export const ircOnboardingAdapter: ChannelOnboardingAdapter = {
       const realname = String(
         await prompter.text({
           message: "IRC real name",
-          initialValue: resolved.config.realname || "ZooBot",
+          initialValue: resolved.config.realname || "Bot",
           validate: (value) => (String(value ?? "").trim() ? undefined : "Required"),
         }),
       ).trim();

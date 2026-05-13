@@ -7,7 +7,7 @@ title: "OpenAI Chat Completions"
 
 # OpenAI Chat Completions (HTTP)
 
-ZooBot’s Gateway can serve a small OpenAI-compatible Chat Completions endpoint.
+Bot’s Gateway can serve a small OpenAI-compatible Chat Completions endpoint.
 
 This endpoint is **disabled by default**. Enable it in config first.
 
@@ -47,7 +47,7 @@ No custom headers required: encode the agent id in the OpenAI `model` field:
 - `model: "zoo-bot:<agentId>"` (example: `"zoo-bot:main"`, `"zoo-bot:beta"`)
 - `model: "agent:<agentId>"` (alias)
 
-Or target a specific ZooBot agent by header:
+Or target a specific Bot agent by header:
 
 - `x-zoo-bot-agent-id: <agentId>` (default: `main`)
 

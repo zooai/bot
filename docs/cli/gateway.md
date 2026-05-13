@@ -1,5 +1,5 @@
 ---
-summary: "ZooBot Gateway CLI (`zoo-bot gateway`) — run, query, and discover gateways"
+summary: "Bot Gateway CLI (`zoo-bot gateway`) — run, query, and discover gateways"
 read_when:
   - Running the Gateway from the CLI (dev or servers)
   - Debugging Gateway auth, bind modes, and connectivity
@@ -9,7 +9,7 @@ title: "gateway"
 
 # Gateway CLI
 
-The Gateway is ZooBot’s WebSocket server (channels, nodes, sessions, hooks).
+The Gateway is Bot’s WebSocket server (channels, nodes, sessions, hooks).
 
 Subcommands in this page live under `zoo-bot gateway …`.
 

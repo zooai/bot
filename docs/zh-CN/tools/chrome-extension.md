@@ -3,7 +3,7 @@ read_when:
   - 你希望智能体驱动现有的 Chrome 标签页（工具栏按钮）
   - 你需要通过 Tailscale 实现远程 Gateway 网关 + 本地浏览器自动化
   - 你想了解浏览器接管的安全影响
-summary: Chrome 扩展：让 ZooBot 驱动你现有的 Chrome 标签页
+summary: Chrome 扩展：让 Bot 驱动你现有的 Chrome 标签页
 title: Chrome 扩展
 x-i18n:
   generated_at: "2026-02-03T07:55:32Z"
@@ -16,7 +16,7 @@ x-i18n:
 
 # Chrome 扩展（浏览器中继）
 
-ZooBot Chrome 扩展让智能体控制你**现有的 Chrome 标签页**（你的正常 Chrome 窗口），而不是启动一个单独的 zoo-bot 管理的 Chrome 配置文件。
+Bot Chrome 扩展让智能体控制你**现有的 Chrome 标签页**（你的正常 Chrome 窗口），而不是启动一个单独的 zoo-bot 管理的 Chrome 配置文件。
 
 附加/分离通过一个**单独的 Chrome 工具栏按钮**实现。
 
@@ -28,7 +28,7 @@ ZooBot Chrome 扩展让智能体控制你**现有的 Chrome 标签页**（你的
 - **本地中继服务器**（loopback CDP）：在控制服务器和扩展之间桥接（默认 `http://127.0.0.1:18792`）
 - **Chrome MV3 扩展**：使用 `chrome.debugger` 附加到活动标签页，并将 CDP 消息传送到中继
 
-然后 ZooBot 通过正常的 `browser` 工具界面控制附加的标签页（选择正确的配置文件）。
+然后 Bot 通过正常的 `browser` 工具界面控制附加的标签页（选择正确的配置文件）。
 
 ## 安装/加载（未打包）
 
@@ -53,16 +53,16 @@ zoo-bot browser extension path
 
 ## 更新（无构建步骤）
 
-扩展作为静态文件包含在 ZooBot 发布版（npm 包）中。没有单独的"构建"步骤。
+扩展作为静态文件包含在 Bot 发布版（npm 包）中。没有单独的"构建"步骤。
 
-升级 ZooBot 后：
+升级 Bot 后：
 
-- 重新运行 `zoo-bot browser extension install` 以刷新 ZooBot 状态目录下的已安装文件。
+- 重新运行 `zoo-bot browser extension install` 以刷新 Bot 状态目录下的已安装文件。
 - Chrome → `chrome://extensions` → 点击扩展上的"重新加载"。
 
 ## 使用它（无需额外配置）
 
-ZooBot 附带一个名为 `chrome` 的内置浏览器配置文件，它指向默认端口上的扩展中继。
+Bot 附带一个名为 `chrome` 的内置浏览器配置文件，它指向默认端口上的扩展中继。
 
 使用它：
 
@@ -81,7 +81,7 @@ zoo-bot browser create-profile \
 
 ## 附加/分离（工具栏按钮）
 
-- 打开你希望 ZooBot 控制的标签页。
+- 打开你希望 Bot 控制的标签页。
 - 点击扩展图标。
   - 附加时徽章显示 `ON`。
 - 再次点击以分离。
@@ -94,7 +94,7 @@ zoo-bot browser create-profile \
 
 ## 徽章 + 常见错误
 
-- `ON`：已附加；ZooBot 可以驱动该标签页。
+- `ON`：已附加；Bot 可以驱动该标签页。
 - `…`：正在连接到本地中继。
 - `!`：中继不可达（最常见：浏览器中继服务器未在此机器上运行）。
 
@@ -154,7 +154,7 @@ zoo-bot browser create-profile \
 
 `zoo-bot browser extension path` 打印包含扩展文件的**已安装**磁盘目录。
 
-CLI 有意**不**打印 `node_modules` 路径。始终先运行 `zoo-bot browser extension install` 将扩展复制到 ZooBot 状态目录下的稳定位置。
+CLI 有意**不**打印 `node_modules` 路径。始终先运行 `zoo-bot browser extension install` 将扩展复制到 Bot 状态目录下的稳定位置。
 
 如果你移动或删除该安装目录，Chrome 将把扩展标记为损坏，直到你从有效路径重新加载它。
 

@@ -1,9 +1,9 @@
-import type { BotPluginApi, ZooBotPluginToolContext } from "@hanzo/bot/plugin-sdk/lobster";
 import { EventEmitter } from "node:events";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { PassThrough } from "node:stream";
+import type { BotPluginApi, BotPluginToolContext } from "@hanzo/bot/plugin-sdk/lobster";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createWindowsCmdShimFixture,
@@ -53,7 +53,7 @@ function fakeApi(overrides: Partial<BotPluginApi> = {}): BotPluginApi {
   };
 }
 
-function fakeCtx(overrides: Partial<ZooBotPluginToolContext> = {}): ZooBotPluginToolContext {
+function fakeCtx(overrides: Partial<BotPluginToolContext> = {}): BotPluginToolContext {
   return {
     config: {},
     workspaceDir: "/tmp",
@@ -298,7 +298,7 @@ describe("lobster plugin tool", () => {
 
   it("can be gated off in sandboxed contexts", async () => {
     const api = fakeApi();
-    const factoryTool = (ctx: ZooBotPluginToolContext) => {
+    const factoryTool = (ctx: BotPluginToolContext) => {
       if (ctx.sandboxed) {
         return null;
       }

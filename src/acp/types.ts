@@ -29,6 +29,6 @@ export type AcpServerOptions = {
 
 export const ACP_AGENT_INFO = {
   name: "bot-acp",
-  title: "ZooBot ACP Gateway",
+  title: "Bot ACP Gateway",
   version: VERSION,
 };

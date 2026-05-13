@@ -33,7 +33,7 @@ import { createExecApprovalForwarder } from "../infra/exec-approval-forwarder.js
 import { onHeartbeatEvent } from "../infra/heartbeat-events.js";
 import { startHeartbeatRunner, type HeartbeatRunner } from "../infra/heartbeat-runner.js";
 import { getMachineDisplayName } from "../infra/machine-name.js";
-import { ensureZooBotCliOnPath } from "../infra/path-env.js";
+import { ensureBotCliOnPath } from "../infra/path-env.js";
 import { setGatewaySigusr1RestartPolicy, setPreRestartDeferralCheck } from "../infra/restart.js";
 import {
   primeRemoteSkillsCache,
@@ -73,6 +73,11 @@ import {
 } from "./events.js";
 import { ExecApprovalManager } from "./exec-approval-manager.js";
 import { NodeRegistry } from "./node-registry.js";
+import {
+  type PlaygroundRegistrationHandle,
+  resolvePlaygroundRegistrationConfig,
+  startPlaygroundRegistration,
+} from "./playground-registration.js";
 import type { startBrowserControlServerIfEnabled } from "./server-browser.js";
 import { createChannelManager } from "./server-channels.js";
 import { createAgentEventHandler } from "./server-chat.js";
@@ -112,16 +117,11 @@ import {
   mergeGatewayAuthConfig,
   mergeGatewayTailscaleConfig,
 } from "./startup-auth.js";
-import {
-  type PlaygroundRegistrationHandle,
-  resolvePlaygroundRegistrationConfig,
-  startPlaygroundRegistration,
-} from "./playground-registration.js";
 import { maybeSeedControlUiAllowedOriginsAtStartup } from "./startup-control-ui-origins.js";
 
 export { __resetModelCatalogCacheForTest } from "./server-model-catalog.js";
 
-ensureZooBotCliOnPath();
+ensureBotCliOnPath();
 
 const log = createSubsystemLogger("gateway");
 const logCanvas = log.child("canvas");

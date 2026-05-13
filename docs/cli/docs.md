@@ -1,7 +1,7 @@
 ---
 summary: "CLI reference for `zoo-bot docs` (search the live docs index)"
 read_when:
-  - You want to search the live ZooBot docs from the terminal
+  - You want to search the live Bot docs from the terminal
 title: "docs"
 ---
 

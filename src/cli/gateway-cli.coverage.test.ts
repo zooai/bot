@@ -142,7 +142,7 @@ describe("gateway-cli coverage", () => {
     discoverGatewayBeacons.mockClear();
     discoverGatewayBeacons.mockResolvedValueOnce([
       {
-        instanceName: "Studio (ZooBot)",
+        instanceName: "Studio (Bot)",
         displayName: "Studio",
         domain: "bot.internal.",
         host: "studio.bot.internal",

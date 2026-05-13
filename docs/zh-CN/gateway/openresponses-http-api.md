@@ -15,7 +15,7 @@ x-i18n:
 
 # OpenResponses API（HTTP）
 
-ZooBot 的 Gateway 网关可以提供兼容 OpenResponses 的 `POST /v1/responses` 端点。
+Bot 的 Gateway 网关可以提供兼容 OpenResponses 的 `POST /v1/responses` 端点。
 
 此端点**默认禁用**。请先在配置中启用。
 
@@ -42,7 +42,7 @@ ZooBot 的 Gateway 网关可以提供兼容 OpenResponses 的 `POST /v1/response
 - `model: "zoo-bot:<agentId>"`（示例：`"zoo-bot:main"`、`"zoo-bot:beta"`）
 - `model: "agent:<agentId>"`（别名）
 
-或通过头指定特定的 ZooBot 智能体：
+或通过头指定特定的 Bot 智能体：
 
 - `x-zoo-bot-agent-id: <agentId>`（默认：`main`）
 

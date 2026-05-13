@@ -1,7 +1,7 @@
 {
   "name": "@hanzo/bot-synology-chat",
   "version": "2026.4.27",
-  "description": "Synology Chat channel plugin for ZooBot",
+  "description": "Synology Chat channel plugin for Bot",
   "type": "module",
   "dependencies": {
     "zod": "^4.3.6"
@@ -16,7 +16,7 @@
       "selectionLabel": "Synology Chat (Webhook)",
       "docsPath": "/channels/synology-chat",
       "docsLabel": "synology-chat",
-      "blurb": "Connect your Synology NAS Chat to ZooBot with full agent capabilities.",
+      "blurb": "Connect your Synology NAS Chat to Bot with full agent capabilities.",
       "order": 90
     },
     "install": {

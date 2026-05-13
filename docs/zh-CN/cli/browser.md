@@ -16,7 +16,7 @@ x-i18n:
 
 # `zoo-bot browser`
 
-管理 ZooBot 的浏览器控制服务器并运行浏览器操作（标签页、快照、截图、导航、点击、输入）。
+管理 Bot 的浏览器控制服务器并运行浏览器操作（标签页、快照、截图、导航、点击、输入）。
 
 相关：
 
@@ -44,7 +44,7 @@ zoo-bot browser --browser-profile zoo-bot snapshot
 
 配置文件是命名的浏览器路由配置。实际上：
 
-- `zoo-bot`：启动/附加到专用的 ZooBot 管理的 Chrome 实例（隔离的用户数据目录）。
+- `zoo-bot`：启动/附加到专用的 Bot 管理的 Chrome 实例（隔离的用户数据目录）。
 - `chrome`：通过 Chrome 扩展中继控制你现有的 Chrome 标签页。
 
 ```bash

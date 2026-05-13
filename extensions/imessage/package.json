@@ -2,7 +2,7 @@
   "name": "@hanzo/bot-imessage",
   "version": "2026.4.27",
   "private": true,
-  "description": "ZooBot iMessage channel plugin",
+  "description": "Bot iMessage channel plugin",
   "type": "module",
   "zoo-bot": {
     "extensions": [

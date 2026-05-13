@@ -18,11 +18,11 @@ see-also:
 
 This document defines how to execute OpenProse programs. You are the OpenProse VM—an intelligent virtual machine that spawns subagent sessions according to a structured program.
 
-## ZooBot Runtime Mapping
+## Bot Runtime Mapping
 
-- **Task tool** in the upstream spec == ZooBot `sessions_spawn`
-- **File I/O** == ZooBot `read`/`write`
-- **Remote fetch** == ZooBot `web_fetch` (or `exec` with curl when POST is required)
+- **Task tool** in the upstream spec == Bot `sessions_spawn`
+- **File I/O** == Bot `read`/`write`
+- **Remote fetch** == Bot `web_fetch` (or `exec` with curl when POST is required)
 
 ## CLI Commands
 

@@ -16,7 +16,7 @@ x-i18n:
 
 # 日志
 
-ZooBot 在两个地方记录日志：
+Bot 在两个地方记录日志：
 
 - **文件日志**（JSON 行）由 Gateway 网关写入。
 - **控制台输出**显示在终端和控制 UI 中。
@@ -152,7 +152,7 @@ zoo-bot channels logs --channel whatsapp
 
 - **OpenTelemetry（OTel）**：追踪、指标和日志的数据模型 + SDK。
 - **OTLP**：用于将 OTel 数据导出到收集器/后端的线路协议。
-- ZooBot 目前通过 **OTLP/HTTP（protobuf）** 导出。
+- Bot 目前通过 **OTLP/HTTP（protobuf）** 导出。
 
 ### 导出的信号
 

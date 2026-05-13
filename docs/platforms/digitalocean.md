@@ -1,16 +1,16 @@
 ---
-summary: "ZooBot on DigitalOcean (simple paid VPS option)"
+summary: "Bot on DigitalOcean (simple paid VPS option)"
 read_when:
-  - Setting up ZooBot on DigitalOcean
-  - Looking for cheap VPS hosting for ZooBot
+  - Setting up Bot on DigitalOcean
+  - Looking for cheap VPS hosting for Bot
 title: "DigitalOcean"
 ---
 
-# ZooBot on DigitalOcean
+# Bot on DigitalOcean
 
 ## Goal
 
-Run a persistent ZooBot Gateway on DigitalOcean for **$6/month** (or $4/mo with reserved pricing).
+Run a persistent Bot Gateway on DigitalOcean for **$6/month** (or $4/mo with reserved pricing).
 
 If you want a $0/month option and don’t mind ARM + provider-specific setup, see the [Oracle Cloud guide](/platforms/oracle).
 
@@ -60,7 +60,7 @@ Use a clean base image (Ubuntu 24.04 LTS). Avoid third-party Marketplace 1-click
 ssh root@YOUR_DROPLET_IP
 ```
 
-## 3) Install ZooBot
+## 3) Install Bot
 
 ```bash
 # Update system
@@ -70,7 +70,7 @@ apt update && apt upgrade -y
 curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
 apt install -y nodejs
 
-# Install ZooBot
+# Install Bot
 curl -fsSL https://zoo-bot.ai/install.sh | bash
 
 # Verify

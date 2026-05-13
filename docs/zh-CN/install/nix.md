@@ -3,7 +3,7 @@ read_when:
   - 你想要可复现、可回滚的安装
   - 你已经在使用 Nix/NixOS/Home Manager
   - 你想要所有内容都固定并以声明式管理
-summary: 使用 Nix 声明式安装 ZooBot
+summary: 使用 Nix 声明式安装 Bot
 title: Nix
 x-i18n:
   generated_at: "2026-02-03T07:49:51Z"
@@ -16,7 +16,7 @@ x-i18n:
 
 # Nix 安装
 
-使用 Nix 运行 ZooBot 的推荐方式是通过 **[nix-zoo-bot](https://github.com/zoo-bot/nix-zoo-bot)** — 一个开箱即用的 Home Manager 模块。
+使用 Nix 运行 Bot 的推荐方式是通过 **[nix-zoo-bot](https://github.com/zoo-bot/nix-zoo-bot)** — 一个开箱即用的 Home Manager 模块。
 
 ## 快速开始
 
@@ -54,7 +54,7 @@ Reference the nix-zoo-bot README for module options.
 
 当设置 `BOT_NIX_MODE=1` 时（nix-zoo-bot 会自动设置）：
 
-ZooBot 支持 **Nix 模式**，使配置确定性并禁用自动安装流程。
+Bot 支持 **Nix 模式**，使配置确定性并禁用自动安装流程。
 通过导出以下环境变量启用：
 
 ```bash
@@ -69,7 +69,7 @@ defaults write bot.molt.mac zoo-bot.nixMode -bool true
 
 ### 配置 + 状态路径
 
-ZooBot 从 `BOT_CONFIG_PATH` 读取 JSON5 配置，并将可变数据存储在 `BOT_STATE_DIR` 中。
+Bot 从 `BOT_CONFIG_PATH` 读取 JSON5 配置，并将可变数据存储在 `BOT_STATE_DIR` 中。
 
 - `BOT_STATE_DIR`（默认：`~/.zoo-bot`）
 - `BOT_CONFIG_PATH`（默认：`$BOT_STATE_DIR/zoo-bot.json`）
@@ -87,7 +87,7 @@ ZooBot 从 `BOT_CONFIG_PATH` 读取 JSON5 配置，并将可变数据存储在 `
 macOS 打包流程期望在以下位置有一个稳定的 Info.plist 模板：
 
 ```
-apps/macos/Sources/ZooBot/Resources/Info.plist
+apps/macos/Sources/Bot/Resources/Info.plist
 ```
 
 [`scripts/package-mac-app.sh`](https://github.com/zoo-bot/zoo-bot/blob/main/scripts/package-mac-app.sh) 将此模板复制到应用包中并修补动态字段（bundle ID、版本/构建号、Git SHA、Sparkle 密钥）。这使 plist 对于 SwiftPM 打包和 Nix 构建保持确定性（它们不依赖完整的 Xcode 工具链）。

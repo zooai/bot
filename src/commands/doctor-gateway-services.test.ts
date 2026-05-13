@@ -285,7 +285,7 @@ describe("maybeScanExtraGatewayServices", () => {
       "Legacy gateway removed",
     );
     expect(runtime.log).toHaveBeenCalledWith(
-      "Legacy gateway services removed. Installing ZooBot gateway next.",
+      "Legacy gateway services removed. Installing Bot gateway next.",
     );
   });
 });

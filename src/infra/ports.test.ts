@@ -44,7 +44,7 @@ describe("ports helpers", () => {
     expect(runtime.exit).toHaveBeenCalledWith(1);
   });
 
-  it("prints an ZooBot-specific hint when port details look like another ZooBot instance", async () => {
+  it("prints an Bot-specific hint when port details look like another Bot instance", async () => {
     const runtime = {
       error: vi.fn(),
       log: vi.fn(),
@@ -59,7 +59,7 @@ describe("ports helpers", () => {
     ).catch(() => {});
 
     const messages = runtime.error.mock.calls.map((call) => stripAnsi(String(call[0] ?? "")));
-    expect(messages.join("\n")).toContain("another ZooBot instance is already running");
+    expect(messages.join("\n")).toContain("another Bot instance is already running");
   });
 
   it("classifies ssh and gateway listeners", () => {

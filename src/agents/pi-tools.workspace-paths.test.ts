@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import type { BotConfig } from "../config/config.js";
-import { createZooBotCodingTools } from "./pi-tools.js";
+import { createBotCodingTools } from "./pi-tools.js";
 import { createHostSandboxFsBridge } from "./test-helpers/host-sandbox-fs-bridge.js";
 import { expectReadWriteEditTools, getTextContent } from "./test-helpers/pi-tools-fs-helpers.js";
 import { createPiToolsSandboxContext } from "./test-helpers/pi-tools-sandbox-context.js";
@@ -22,7 +22,7 @@ async function withTempDir<T>(prefix: string, fn: (dir: string) => Promise<T>) {
 }
 
 function createExecTool(workspaceDir: string) {
-  const tools = createZooBotCodingTools({
+  const tools = createBotCodingTools({
     workspaceDir,
     exec: { host: "gateway", ask: "off", security: "full" },
   });
@@ -56,7 +56,7 @@ describe("workspace path resolution", () => {
       await withTempDir("bot-cwd-", async (otherDir) => {
         const cwdSpy = vi.spyOn(process, "cwd").mockReturnValue(otherDir);
         try {
-          const tools = createZooBotCodingTools({ workspaceDir });
+          const tools = createBotCodingTools({ workspaceDir });
           const { readTool, writeTool, editTool } = expectReadWriteEditTools(tools);
 
           const readFile = "read.txt";
@@ -80,9 +80,7 @@ describe("workspace path resolution", () => {
             oldText: "world",
             newText: "bot",
           });
-          expect(await fs.readFile(path.join(workspaceDir, editFile), "utf8")).toBe(
-            "hello bot",
-          );
+          expect(await fs.readFile(path.join(workspaceDir, editFile), "utf8")).toBe("hello bot");
         } finally {
           cwdSpy.mockRestore();
         }
@@ -98,7 +96,7 @@ describe("workspace path resolution", () => {
 
         const cwdSpy = vi.spyOn(process, "cwd").mockReturnValue(otherDir);
         try {
-          const tools = createZooBotCodingTools({ workspaceDir });
+          const tools = createBotCodingTools({ workspaceDir });
           const { editTool } = expectReadWriteEditTools(tools);
 
           await editTool.execute("ws-edit-delete", {
@@ -139,7 +137,7 @@ describe("workspace path resolution", () => {
   it("rejects @-prefixed absolute paths outside workspace when workspaceOnly is enabled", async () => {
     await withTempDir("bot-ws-", async (workspaceDir) => {
       const cfg: BotConfig = { tools: { fs: { workspaceOnly: true } } };
-      const tools = createZooBotCodingTools({ workspaceDir, config: cfg });
+      const tools = createBotCodingTools({ workspaceDir, config: cfg });
       const { readTool } = expectReadWriteEditTools(tools);
 
       const outsideAbsolute = path.resolve(path.parse(workspaceDir).root, "outside-bot.txt");
@@ -155,7 +153,7 @@ describe("workspace path resolution", () => {
     }
     await withTempDir("bot-ws-", async (workspaceDir) => {
       const cfg: BotConfig = { tools: { fs: { workspaceOnly: true } } };
-      const tools = createZooBotCodingTools({ workspaceDir, config: cfg });
+      const tools = createBotCodingTools({ workspaceDir, config: cfg });
       const { readTool, writeTool } = expectReadWriteEditTools(tools);
       const outsidePath = path.join(
         path.dirname(workspaceDir),
@@ -206,7 +204,7 @@ describe("sandboxed workspace paths", () => {
         await fs.writeFile(path.join(sandboxDir, testFile), "sandbox read", "utf8");
         await fs.writeFile(path.join(workspaceDir, testFile), "workspace read", "utf8");
 
-        const tools = createZooBotCodingTools({ workspaceDir, sandbox });
+        const tools = createBotCodingTools({ workspaceDir, sandbox });
         const { readTool, writeTool, editTool } = expectReadWriteEditTools(tools);
 
         const result = await readTool?.execute("sbx-read", { path: testFile });

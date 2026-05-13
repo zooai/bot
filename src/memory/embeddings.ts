@@ -1,5 +1,5 @@
-import type { Llama, LlamaEmbeddingContext, LlamaModel } from "node-llama-cpp";
 import fsSync from "node:fs";
+import type { Llama, LlamaEmbeddingContext, LlamaModel } from "node-llama-cpp";
 import type { BotConfig } from "../config/config.js";
 import type { SecretInput } from "../config/types.secrets.js";
 import { formatErrorMessage } from "../infra/errors.js";
@@ -309,9 +309,7 @@ function formatLocalSetupError(err: unknown): string {
     missing && detail ? `Detail: ${detail}` : null,
     "To enable local embeddings:",
     "1) Use Node 22 LTS (recommended for installs/updates)",
-    missing
-      ? "2) Reinstall ZooBot (this should install node-llama-cpp): npm i -g bot@latest"
-      : null,
+    missing ? "2) Reinstall Bot (this should install node-llama-cpp): npm i -g bot@latest" : null,
     "3) If you use pnpm: pnpm approve-builds (select node-llama-cpp), then pnpm rebuild node-llama-cpp",
     ...REMOTE_EMBEDDING_PROVIDER_IDS.map(
       (provider) => `Or set agents.defaults.memorySearch.provider = "${provider}" (remote).`,

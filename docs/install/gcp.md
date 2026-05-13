@@ -1,19 +1,19 @@
 ---
-summary: "Run ZooBot Gateway 24/7 on a GCP Compute Engine VM (Docker) with durable state"
+summary: "Run Bot Gateway 24/7 on a GCP Compute Engine VM (Docker) with durable state"
 read_when:
-  - You want ZooBot running 24/7 on GCP
+  - You want Bot running 24/7 on GCP
   - You want a production-grade, always-on Gateway on your own VM
   - You want full control over persistence, binaries, and restart behavior
 title: "GCP"
 ---
 
-# ZooBot on GCP Compute Engine (Docker, Production VPS Guide)
+# Bot on GCP Compute Engine (Docker, Production VPS Guide)
 
 ## Goal
 
-Run a persistent ZooBot Gateway on a GCP Compute Engine VM using Docker, with durable state, baked-in binaries, and safe restart behavior.
+Run a persistent Bot Gateway on a GCP Compute Engine VM using Docker, with durable state, baked-in binaries, and safe restart behavior.
 
-If you want "ZooBot 24/7 for ~$5-12/mo", this is a reliable setup on Google Cloud.
+If you want "Bot 24/7 for ~$5-12/mo", this is a reliable setup on Google Cloud.
 Pricing varies by machine type and region; pick the smallest VM that fits your workload and scale up if you hit OOMs.
 
 ## What are we doing (simple terms)?
@@ -21,7 +21,7 @@ Pricing varies by machine type and region; pick the smallest VM that fits your w
 - Create a GCP project and enable billing
 - Create a Compute Engine VM
 - Install Docker (isolated app runtime)
-- Start the ZooBot Gateway in Docker
+- Start the Bot Gateway in Docker
 - Persist `~/.zoo-bot` + `~/.zoo-bot/workspace` on the host (survives restarts/rebuilds)
 - Access the Control UI from your laptop via an SSH tunnel
 
@@ -42,7 +42,7 @@ For the generic Docker flow, see [Docker](/install/docker).
 2. Create Compute Engine VM (e2-small, Debian 12, 20GB)
 3. SSH into the VM
 4. Install Docker
-5. Clone ZooBot repository
+5. Clone Bot repository
 6. Create persistent host directories
 7. Configure `.env` and `docker-compose.yml`
 8. Bake required binaries, build, and launch
@@ -89,7 +89,7 @@ All steps can be done via the web UI at [https://console.cloud.google.com](https
 **CLI:**
 
 ```bash
-gcloud projects create my-zoo-bot-project --name="ZooBot Gateway"
+gcloud projects create my-zoo-bot-project --name="Bot Gateway"
 gcloud config set project my-zoo-bot-project
 ```
 
@@ -188,7 +188,7 @@ docker compose version
 
 ---
 
-## 6) Clone the ZooBot repository
+## 6) Clone the Bot repository
 
 ```bash
 git clone https://github.com/zoo-bot/zoo-bot.git
@@ -424,27 +424,27 @@ docker compose run --rm zoo-bot-cli devices approve <requestId>
 
 ## What persists where (source of truth)
 
-ZooBot runs in Docker, but Docker is not the source of truth.
+Bot runs in Docker, but Docker is not the source of truth.
 All long-lived state must survive restarts, rebuilds, and reboots.
 
-| Component           | Location                          | Persistence mechanism  | Notes                            |
-| ------------------- | --------------------------------- | ---------------------- | -------------------------------- |
+| Component           | Location                         | Persistence mechanism  | Notes                           |
+| ------------------- | -------------------------------- | ---------------------- | ------------------------------- |
 | Gateway config      | `/home/node/.zoo-bot/`           | Host volume mount      | Includes `zoo-bot.json`, tokens |
-| Model auth profiles | `/home/node/.zoo-bot/`           | Host volume mount      | OAuth tokens, API keys           |
-| Skill configs       | `/home/node/.zoo-bot/skills/`    | Host volume mount      | Skill-level state                |
-| Agent workspace     | `/home/node/.zoo-bot/workspace/` | Host volume mount      | Code and agent artifacts         |
-| WhatsApp session    | `/home/node/.zoo-bot/`           | Host volume mount      | Preserves QR login               |
-| Gmail keyring       | `/home/node/.zoo-bot/`           | Host volume + password | Requires `GOG_KEYRING_PASSWORD`  |
-| External binaries   | `/usr/local/bin/`                 | Docker image           | Must be baked at build time      |
-| Node runtime        | Container filesystem              | Docker image           | Rebuilt every image build        |
-| OS packages         | Container filesystem              | Docker image           | Do not install at runtime        |
-| Docker container    | Ephemeral                         | Restartable            | Safe to destroy                  |
+| Model auth profiles | `/home/node/.zoo-bot/`           | Host volume mount      | OAuth tokens, API keys          |
+| Skill configs       | `/home/node/.zoo-bot/skills/`    | Host volume mount      | Skill-level state               |
+| Agent workspace     | `/home/node/.zoo-bot/workspace/` | Host volume mount      | Code and agent artifacts        |
+| WhatsApp session    | `/home/node/.zoo-bot/`           | Host volume mount      | Preserves QR login              |
+| Gmail keyring       | `/home/node/.zoo-bot/`           | Host volume + password | Requires `GOG_KEYRING_PASSWORD` |
+| External binaries   | `/usr/local/bin/`                | Docker image           | Must be baked at build time     |
+| Node runtime        | Container filesystem             | Docker image           | Rebuilt every image build       |
+| OS packages         | Container filesystem             | Docker image           | Do not install at runtime       |
+| Docker container    | Ephemeral                        | Restartable            | Safe to destroy                 |
 
 ---
 
 ## Updates
 
-To update ZooBot on the VM:
+To update Bot on the VM:
 
 ```bash
 cd ~/zoo-bot
@@ -500,7 +500,7 @@ For automation or CI/CD pipelines, create a dedicated service account with minim
 
    ```bash
    gcloud iam service-accounts create zoo-bot-deploy \
-     --display-name="ZooBot Deployment"
+     --display-name="Bot Deployment"
    ```
 
 2. Grant Compute Instance Admin role (or narrower custom role):

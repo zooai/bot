@@ -8,7 +8,7 @@ title: Feishu
 
 # Feishu bot
 
-Feishu (Lark) is a team chat platform used by companies for messaging and collaboration. This plugin connects ZooBot to a Feishu/Lark bot using the platform’s WebSocket event subscription so messages can be received without exposing a public webhook URL.
+Feishu (Lark) is a team chat platform used by companies for messaging and collaboration. This plugin connects Bot to a Feishu/Lark bot using the platform’s WebSocket event subscription so messages can be received without exposing a public webhook URL.
 
 ---
 
@@ -34,7 +34,7 @@ There are two ways to add the Feishu channel:
 
 ### Method 1: onboarding wizard (recommended)
 
-If you just installed ZooBot, run the wizard:
+If you just installed Bot, run the wizard:
 
 ```bash
 zoo-bot onboard
@@ -43,7 +43,7 @@ zoo-bot onboard
 The wizard guides you through:
 
 1. Creating a Feishu app and collecting credentials
-2. Configuring app credentials in ZooBot
+2. Configuring app credentials in Bot
 3. Starting the gateway
 
 ✅ **After configuration**, check gateway status:
@@ -163,7 +163,7 @@ In **Event Subscription**:
 
 ---
 
-## Step 2: Configure ZooBot
+## Step 2: Configure Bot
 
 ### Configure with the wizard (recommended)
 
@@ -439,8 +439,8 @@ zoo-bot pairing list feishu
 
 ## Gateway management commands
 
-| Command                    | Description                   |
-| -------------------------- | ----------------------------- |
+| Command                   | Description                   |
+| ------------------------- | ----------------------------- |
 | `zoo-bot gateway status`  | Show gateway status           |
 | `zoo-bot gateway install` | Install/start gateway service |
 | `zoo-bot gateway stop`    | Stop gateway service          |

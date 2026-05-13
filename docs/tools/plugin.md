@@ -1,5 +1,5 @@
 ---
-summary: "ZooBot plugins/extensions: discovery, config, and safety"
+summary: "Bot plugins/extensions: discovery, config, and safety"
 read_when:
   - Adding or modifying plugins/extensions
   - Documenting plugin install or load rules
@@ -10,11 +10,11 @@ title: "Plugins"
 
 ## Quick start (new to plugins?)
 
-A plugin is just a **small code module** that extends ZooBot with extra
+A plugin is just a **small code module** that extends Bot with extra
 features (commands, tools, and Gateway RPC).
 
 Most of the time, you’ll use plugins when you want a feature that’s not built
-into core ZooBot yet (or you want to keep optional features out of your main
+into core Bot yet (or you want to keep optional features out of your main
 install).
 
 Fast path:
@@ -55,7 +55,7 @@ Looking for third-party listings? See [Community plugins](/plugins/community).
 - Qwen OAuth (provider auth) — bundled as `qwen-portal-auth` (disabled by default)
 - Copilot Proxy (provider auth) — local VS Code Copilot Proxy bridge; distinct from built-in `github-copilot` device login (bundled, disabled by default)
 
-ZooBot plugins are **TypeScript modules** loaded at runtime via jiti. **Config
+Bot plugins are **TypeScript modules** loaded at runtime via jiti. **Config
 validation does not execute plugin code**; it uses the plugin manifest and JSON
 Schema instead. See [Plugin manifest](/plugins/manifest).
 
@@ -80,7 +80,7 @@ Plugins can access selected core helpers via `api.runtime`. For telephony TTS:
 
 ```ts
 const result = await api.runtime.tts.textToSpeechTelephony({
-  text: "Hello from ZooBot",
+  text: "Hello from Bot",
   cfg: api.config,
 });
 ```
@@ -222,7 +222,7 @@ Performance note:
 
 ## Discovery & precedence
 
-ZooBot scans, in order:
+Bot scans, in order:
 
 1. Config paths
 
@@ -238,7 +238,7 @@ ZooBot scans, in order:
 - `~/.zoo-bot/extensions/*.ts`
 - `~/.zoo-bot/extensions/*/index.ts`
 
-4. Bundled extensions (shipped with ZooBot, mostly disabled by default)
+4. Bundled extensions (shipped with Bot, mostly disabled by default)
 
 - `<zoo-bot>/extensions/*`
 
@@ -256,8 +256,8 @@ Installed plugins are enabled by default, but can be disabled the same way.
 
 Hardening notes:
 
-- If `plugins.allow` is empty and non-bundled plugins are discoverable, ZooBot logs a startup warning with plugin ids and sources.
-- Candidate paths are safety-checked before discovery admission. ZooBot blocks candidates when:
+- If `plugins.allow` is empty and non-bundled plugins are discoverable, Bot logs a startup warning with plugin ids and sources.
+- Candidate paths are safety-checked before discovery admission. Bot blocks candidates when:
   - extension entry resolves outside plugin root (including symlink/path traversal escapes),
   - plugin root/source path is world-writable,
   - path ownership is suspicious for non-bundled plugins (POSIX owner is neither current uid nor root).
@@ -328,7 +328,7 @@ Example:
 }
 ```
 
-ZooBot can also merge **external channel catalogs** (for example, an MPM
+Bot can also merge **external channel catalogs** (for example, an MPM
 registry export). Drop a JSON file at one of:
 
 - `~/.zoo-bot/mpm/plugins.json`
@@ -346,7 +346,7 @@ Default plugin ids:
 - Package packs: `package.json` `name`
 - Standalone file: file base name (`~/.../voice-call.ts` → `voice-call`)
 
-If a plugin exports `id`, ZooBot uses it but warns when it doesn’t match the
+If a plugin exports `id`, Bot uses it but warns when it doesn’t match the
 configured id.
 
 ## Config
@@ -423,7 +423,7 @@ pipeline rather than just add memory search or hooks.
 
 The Control UI uses `config.schema` (JSON Schema + `uiHints`) to render better forms.
 
-ZooBot augments `uiHints` at runtime based on discovered plugins:
+Bot augments `uiHints` at runtime based on discovered plugins:
 
 - Adds per-plugin labels for `plugins.entries.<id>` / `.enabled` / `.config`
 - Merges optional plugin-provided config field hints under:
@@ -472,7 +472,7 @@ zoo-bot plugins doctor
 ```
 
 `plugins update` only works for npm installs tracked under `plugins.installs`.
-If stored integrity metadata changes between updates, ZooBot warns and asks for confirmation (use global `--yes` to bypass prompts).
+If stored integrity metadata changes between updates, Bot warns and asks for confirmation (use global `--yes` to bypass prompts).
 
 Plugins may also register their own top‑level commands (example: `zoo-bot voicecall`).
 
@@ -570,7 +570,7 @@ Important hooks for prompt construction:
 Core-enforced hook policy:
 
 - Operators can disable prompt mutation hooks per plugin via `plugins.entries.<id>.hooks.allowPromptInjection: false`.
-- When disabled, ZooBot blocks `before_prompt_build` and ignores prompt-mutating fields returned from legacy `before_agent_start` while preserving legacy `modelOverride` and `providerOverride`.
+- When disabled, Bot blocks `before_prompt_build` and ignores prompt-mutating fields returned from legacy `before_agent_start` while preserving legacy `modelOverride` and `providerOverride`.
 
 `before_prompt_build` result fields:
 
@@ -599,7 +599,7 @@ Migration guidance:
 ## Provider plugins (model auth)
 
 Plugins can register **model provider auth** flows so users can run OAuth or
-API-key setup inside ZooBot (no external scripts needed).
+API-key setup inside Bot (no external scripts needed).
 
 Register a provider via `api.registerProvider(...)`. Each provider exposes one
 or more auth methods (OAuth, API key, device code, etc.). These methods power:
@@ -853,7 +853,7 @@ Command handler context:
 - `isAuthorizedSender`: Whether the sender is an authorized user
 - `args`: Arguments passed after the command (if `acceptsArgs: true`)
 - `commandBody`: The full command text
-- `config`: The current ZooBot config
+- `config`: The current Bot config
 
 Command options:
 

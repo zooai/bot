@@ -7,7 +7,7 @@ status: active
 
 # Sandbox vs Tool Policy vs Elevated
 
-ZooBot has three related (but different) controls:
+Bot has three related (but different) controls:
 
 1. **Sandbox** (`agents.defaults.sandbox.*` / `agents.list[].sandbox.*`) decides **where tools run** (Docker vs host).
 2. **Tool policy** (`tools.*`, `tools.sandbox.tools.*`, `agents.list[].tools.*`) decides **which tools are available/allowed**.
@@ -15,7 +15,7 @@ ZooBot has three related (but different) controls:
 
 ## Quick debug
 
-Use the inspector to see what ZooBot is _actually_ doing:
+Use the inspector to see what Bot is _actually_ doing:
 
 ```bash
 zoo-bot sandbox explain
@@ -93,7 +93,7 @@ Available groups:
 - `group:automation`: `cron`, `gateway`
 - `group:messaging`: `message`
 - `group:nodes`: `nodes`
-- `group:zoo-bot`: all built-in ZooBot tools (excludes provider plugins)
+- `group:zoo-bot`: all built-in Bot tools (excludes provider plugins)
 
 ## Elevated: exec-only “run on host”
 

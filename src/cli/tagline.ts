@@ -1,4 +1,4 @@
-const DEFAULT_TAGLINE = "All your chats, one ZooBot.";
+const DEFAULT_TAGLINE = "All your chats, one Bot.";
 export type TaglineMode = "random" | "default" | "off";
 
 const HOLIDAY_TAGLINES = {

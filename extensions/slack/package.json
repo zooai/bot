@@ -2,7 +2,7 @@
   "name": "@hanzo/bot-slack",
   "version": "2026.4.27",
   "private": true,
-  "description": "ZooBot Slack channel plugin",
+  "description": "Bot Slack channel plugin",
   "type": "module",
   "zoo-bot": {
     "extensions": [

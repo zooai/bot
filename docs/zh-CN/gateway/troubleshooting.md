@@ -1,7 +1,7 @@
 ---
 read_when:
   - 调查运行时问题或故障
-summary: ZooBot 常见故障的快速故障排除指南
+summary: Bot 常见故障的快速故障排除指南
 title: 故障排除
 x-i18n:
   generated_at: "2026-02-03T10:09:42Z"
@@ -14,7 +14,7 @@ x-i18n:
 
 # 故障排除 🔧
 
-当 ZooBot 出现异常时，以下是解决方法。
+当 Bot 出现异常时，以下是解决方法。
 
 如果你只想快速分类问题，请先查看常见问题的[最初的六十秒](/help/faq#first-60-seconds-if-somethings-broken)。本页深入介绍运行时故障和诊断。
 
@@ -24,8 +24,8 @@ x-i18n:
 
 快速分类命令（按顺序）：
 
-| 命令                               | 它告诉你什么                                                                          | 何时使用                              |
-| ---------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------- |
+| 命令                              | 它告诉你什么                                                                          | 何时使用                              |
+| --------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------- |
 | `zoo-bot status`                  | 本地摘要：操作系统 + 更新、Gateway 网关可达性/模式、服务、智能体/会话、提供商配置状态 | 首次检查，快速概览                    |
 | `zoo-bot status --all`            | 完整本地诊断（只读、可粘贴、相对安全）包括日志尾部                                    | 当你需要分享调试报告时                |
 | `zoo-bot status --deep`           | 运行 Gateway 网关健康检查（包括提供商探测；需要可达的 Gateway 网关）                  | 当"已配置"不意味着"正常工作"时        |
@@ -122,7 +122,7 @@ Doctor/service 将显示运行时状态（PID/最后退出）和日志提示。
 - 文件日志（始终）：`/tmp/zoo-bot/zoo-bot-YYYY-MM-DD.log`（或你配置的 `logging.file`）
 - macOS LaunchAgent（如果已安装）：`$BOT_STATE_DIR/logs/gateway.log` 和 `gateway.err.log`
 - Linux systemd（如果已安装）：`journalctl --user -u zoo-bot-gateway[-<profile>].service -n 200 --no-pager`
-- Windows：`schtasks /Query /TN "ZooBot Gateway (<profile>)" /V /FO LIST`
+- Windows：`schtasks /Query /TN "Bot Gateway (<profile>)" /V /FO LIST`
 
 **启用更多日志：**
 
@@ -295,7 +295,7 @@ zoo-bot gateway status
 
 ### "Agent failed before reply: Unknown model: anthropic/claude-haiku-3-5"
 
-ZooBot 有意拒绝**较旧/不安全的模型**（尤其是那些更容易受到提示词注入攻击的模型）。如果你看到此错误，该模型名称已不再支持。
+Bot 有意拒绝**较旧/不安全的模型**（尤其是那些更容易受到提示词注入攻击的模型）。如果你看到此错误，该模型名称已不再支持。
 
 **修复：**
 
@@ -448,7 +448,7 @@ grep "media\\|fetch\\|download" "$(ls -t /tmp/zoo-bot/zoo-bot-*.log | head -1)" 
 
 ### 高内存使用
 
-ZooBot 在内存中保留对话历史。
+Bot 在内存中保留对话历史。
 
 **修复：** 定期重启或设置会话限制：
 
@@ -464,7 +464,7 @@ ZooBot 在内存中保留对话历史。
 
 ### "Gateway won't start — configuration invalid"
 
-当配置包含未知键、格式错误的值或无效类型时，ZooBot 现在拒绝启动。
+当配置包含未知键、格式错误的值或无效类型时，Bot 现在拒绝启动。
 这是为了安全而故意设计的。
 
 用 Doctor 修复：
@@ -602,13 +602,13 @@ curl -fsSL https://zoo-bot.ai/install.sh | bash
 ### Cloud Code Assist API 错误：invalid tool schema（400）。现在怎么办？
 
 这几乎总是**工具模式兼容性**问题。Cloud Code Assist
-端点接受 JSON Schema 的严格子集。ZooBot 在当前 `main` 中清理/规范化工具
+端点接受 JSON Schema 的严格子集。Bot 在当前 `main` 中清理/规范化工具
 模式，但修复尚未包含在最后一个版本中（截至
 2026 年 1 月 13 日）。
 
 修复清单：
 
-1. **更新 ZooBot**：
+1. **更新 Bot**：
    - 如果你可以从源代码运行，拉取 `main` 并重启 Gateway 网关。
    - 否则，等待包含模式清理器的下一个版本。
 2. 避免不支持的关键字如 `anyOf/oneOf/allOf`、`patternProperties`、
@@ -683,13 +683,13 @@ zoo-bot channels login --verbose
 
 ## 日志位置
 
-| 日志                             | 位置                                                                                                                                                                                                                                                                                                                      |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Gateway 网关文件日志（结构化）   | `/tmp/zoo-bot/zoo-bot-YYYY-MM-DD.log`（或 `logging.file`）                                                                                                                                                                                                                                                              |
-| Gateway 网关服务日志（监管程序） | macOS：`$BOT_STATE_DIR/logs/gateway.log` + `gateway.err.log`（默认：`~/.zoo-bot/logs/...`；配置文件使用 `~/.zoo-bot-<profile>/logs/...`）<br />Linux：`journalctl --user -u zoo-bot-gateway[-<profile>].service -n 200 --no-pager`<br />Windows：`schtasks /Query /TN "ZooBot Gateway (<profile>)" /V /FO LIST` |
-| 会话文件                         | `$BOT_STATE_DIR/agents/<agentId>/sessions/`                                                                                                                                                                                                                                                                          |
-| 媒体缓存                         | `$BOT_STATE_DIR/media/`                                                                                                                                                                                                                                                                                              |
-| 凭证                             | `$BOT_STATE_DIR/credentials/`                                                                                                                                                                                                                                                                                        |
+| 日志                             | 位置                                                                                                                                                                                                                                                                                                         |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Gateway 网关文件日志（结构化）   | `/tmp/zoo-bot/zoo-bot-YYYY-MM-DD.log`（或 `logging.file`）                                                                                                                                                                                                                                                   |
+| Gateway 网关服务日志（监管程序） | macOS：`$BOT_STATE_DIR/logs/gateway.log` + `gateway.err.log`（默认：`~/.zoo-bot/logs/...`；配置文件使用 `~/.zoo-bot-<profile>/logs/...`）<br />Linux：`journalctl --user -u zoo-bot-gateway[-<profile>].service -n 200 --no-pager`<br />Windows：`schtasks /Query /TN "Bot Gateway (<profile>)" /V /FO LIST` |
+| 会话文件                         | `$BOT_STATE_DIR/agents/<agentId>/sessions/`                                                                                                                                                                                                                                                                  |
+| 媒体缓存                         | `$BOT_STATE_DIR/media/`                                                                                                                                                                                                                                                                                      |
+| 凭证                             | `$BOT_STATE_DIR/credentials/`                                                                                                                                                                                                                                                                                |
 
 ## 健康检查
 
@@ -734,7 +734,7 @@ zoo-bot gateway restart           # 或：zoo-bot gateway
 1. 首先检查日志：`/tmp/zoo-bot/`（默认：`zoo-bot-YYYY-MM-DD.log`，或你配置的 `logging.file`）
 2. 在 GitHub 上搜索现有问题
 3. 提交新问题时包含：
-   - ZooBot 版本
+   - Bot 版本
    - 相关日志片段
    - 重现步骤
    - 你的配置（隐藏密钥！）

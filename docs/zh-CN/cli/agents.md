@@ -58,7 +58,7 @@ zoo-bot agents set-identity --workspace ~/.zoo-bot/workspace --from-identity
 显式覆盖字段：
 
 ```bash
-zoo-bot agents set-identity --agent main --name "ZooBot" --emoji "🦞" --avatar avatars/zoo-bot.png
+zoo-bot agents set-identity --agent main --name "Bot" --emoji "🦞" --avatar avatars/zoo-bot.png
 ```
 
 配置示例：
@@ -70,7 +70,7 @@ zoo-bot agents set-identity --agent main --name "ZooBot" --emoji "🦞" --avatar
       {
         id: "main",
         identity: {
-          name: "ZooBot",
+          name: "Bot",
           theme: "space lobster",
           emoji: "🦞",
           avatar: "avatars/zoo-bot.png",

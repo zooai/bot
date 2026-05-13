@@ -1,15 +1,15 @@
 ---
 title: Fly.io
-description: Deploy ZooBot on Fly.io
-summary: "Step-by-step Fly.io deployment for ZooBot with persistent storage and HTTPS"
+description: Deploy Bot on Fly.io
+summary: "Step-by-step Fly.io deployment for Bot with persistent storage and HTTPS"
 read_when:
-  - Deploying ZooBot on Fly.io
+  - Deploying Bot on Fly.io
   - Setting up Fly volumes, secrets, and first-run config
 ---
 
 # Fly.io Deployment
 
-**Goal:** ZooBot Gateway running on a [Fly.io](https://fly.io) machine with persistent storage, automatic HTTPS, and Discord/channel access.
+**Goal:** Bot Gateway running on a [Fly.io](https://fly.io) machine with persistent storage, automatic HTTPS, and Discord/channel access.
 
 ## What you need
 
@@ -82,13 +82,13 @@ primary_region = "iad"
 
 **Key settings:**
 
-| Setting                        | Why                                                                         |
-| ------------------------------ | --------------------------------------------------------------------------- |
-| `--bind lan`                   | Binds to `0.0.0.0` so Fly's proxy can reach the gateway                     |
-| `--allow-unconfigured`         | Starts without a config file (you'll create one after)                      |
-| `internal_port = 3000`         | Must match `--port 3000` (or `BOT_GATEWAY_PORT`) for Fly health checks |
-| `memory = "2048mb"`            | 512MB is too small; 2GB recommended                                         |
-| `BOT_STATE_DIR = "/data"` | Persists state on the volume                                                |
+| Setting                   | Why                                                                    |
+| ------------------------- | ---------------------------------------------------------------------- |
+| `--bind lan`              | Binds to `0.0.0.0` so Fly's proxy can reach the gateway                |
+| `--allow-unconfigured`    | Starts without a config file (you'll create one after)                 |
+| `internal_port = 3000`    | Must match `--port 3000` (or `BOT_GATEWAY_PORT`) for Fly health checks |
+| `memory = "2048mb"`       | 512MB is too small; 2GB recommended                                    |
+| `BOT_STATE_DIR = "/data"` | Persists state on the volume                                           |
 
 ## 3) Set secrets
 

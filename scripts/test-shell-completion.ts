@@ -23,9 +23,9 @@
  *   node --import tsx scripts/test-shell-completion.ts --force
  */
 
-import { confirm, isCancel } from "@clack/prompts";
 import os from "node:os";
 import path from "node:path";
+import { confirm, isCancel } from "@clack/prompts";
 import { installCompletion } from "../src/cli/completion-cli.js";
 import {
   checkShellCompletionStatus,
@@ -180,9 +180,7 @@ async function main() {
   // Both profile and cache exist - nothing to do
   if (status.profileInstalled && status.cacheExists && !options.force) {
     console.log(theme.muted("Shell completion is fully configured. To test the prompt:"));
-    console.log(
-      theme.muted("  1. Remove the '# ZooBot Completion' block from your shell profile"),
-    );
+    console.log(theme.muted("  1. Remove the '# Bot Completion' block from your shell profile"));
     console.log(theme.muted("  2. Re-run this script"));
     console.log(theme.muted("  Or use --force to prompt anyway"));
     console.log("");

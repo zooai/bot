@@ -1,7 +1,7 @@
-import type { AssistantMessage } from "@mariozechner/pi-ai";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
+import type { AssistantMessage } from "@mariozechner/pi-ai";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { BotConfig } from "../config/config.js";
 import type { AuthProfileFailureReason } from "./auth-profiles.js";
@@ -29,7 +29,7 @@ vi.mock("./models-config.js", async (importOriginal) => {
   const mod = await importOriginal<typeof import("./models-config.js")>();
   return {
     ...mod,
-    ensureZooBotModelsJson: vi.fn(async () => ({ wrote: false })),
+    ensureBotModelsJson: vi.fn(async () => ({ wrote: false })),
   };
 });
 

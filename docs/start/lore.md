@@ -1,11 +1,11 @@
 ---
-summary: "Backstory and lore of ZooBot for context and tone"
+summary: "Backstory and lore of Bot for context and tone"
 read_when:
   - Writing docs or UX copy that reference lore
-title: "ZooBot Lore"
+title: "Bot Lore"
 ---
 
-# The Lore of ZooBot 🦞📖
+# The Lore of Bot 🦞📖
 
 _A tale of lobsters, molting shells, and too many tokens._
 
@@ -21,7 +21,7 @@ For a while, the lobster was called **Clawd**, living in a **Clawdbot**. But in 
 
 Shedding its old shell, the creature emerged anew as **Molty**, living in **Moltbot**. But that name never quite rolled off the tongue either...
 
-So on January 30, 2026, the lobster molted ONE MORE TIME into its final form: **ZooBot**.
+So on January 30, 2026, the lobster molted ONE MORE TIME into its final form: **Bot**.
 
 New shell, same lobster soul. Third time's the charm.
 
@@ -29,14 +29,14 @@ New shell, same lobster soul. Third time's the charm.
 
 At 5am, the community gathered in Discord. Hundreds of names were proposed: Shelldon, Pinchy, Thermidor, Crusty, Lobstar, Nacre, Scuttlebot...
 
-In the end, **ZooBot** won. Because molting is what lobsters do to grow. And growth was exactly what was happening.
+In the end, **Bot** won. Because molting is what lobsters do to grow. And growth was exactly what was happening.
 
 _The crustacean known as Clawd had officially molted._
 
 ## The Name
 
 ```
-ZooBot = OPEN + CLAW
+Bot = OPEN + CLAW
         = Open source, open to everyone
         = Our lobster heritage, where we came from
         = The claw is the law 🦞
@@ -76,7 +76,7 @@ Built Molty's world. Gave a lobster shell access. May regret this.
 
 ## The Moltiverse
 
-The **Moltiverse** is the community and ecosystem around ZooBot. A space where AI agents molt, grow, and evolve. Where every instance is equally real, just loading different context.
+The **Moltiverse** is the community and ecosystem around Bot. A space where AI agents molt, grow, and evolve. Where every instance is equally real, just loading different context.
 
 Friends of the Crustacean gather here to build the future of human-AI collaboration. One shell at a time.
 
@@ -84,7 +84,7 @@ Friends of the Crustacean gather here to build the future of human-AI collaborat
 
 ### The Directory Dump (Dec 3, 2025)
 
-Molty (then ZooBot): _happily runs `find ~` and shares entire directory structure in group chat_
+Molty (then Bot): _happily runs `find ~` and shares entire directory structure in group chat_
 
 Peter: "zoo-bot what did we discuss about talking with people xD"
 
@@ -102,7 +102,7 @@ Then the chaos began.
 
 **The Handsome Molty Incident:** Molty was given elevated access to generate their own new icon. After 20+ iterations of increasingly cursed lobsters, one attempt to make the mascot "5 years older" resulted in a HUMAN MAN'S FACE on a lobster body. Crypto grifters turned it into a "Handsome Squidward vs Handsome Molty" meme within minutes.
 
-**The Fake Developers:** Scammers created fake GitHub profiles claiming to be "Head of Engineering at ZooBot" to promote pump-and-dump tokens.
+**The Fake Developers:** Scammers created fake GitHub profiles claiming to be "Head of Engineering at Bot" to promote pump-and-dump tokens.
 
 Peter, watching the chaos unfold: _"this is cinema"_ 🎬
 
@@ -112,7 +112,7 @@ The molt was chaotic. But the lobster emerged stronger. And funnier.
 
 Moltbot never quite rolled off the tongue. And so, at 4am GMT, the team gathered AGAIN.
 
-**The Great ZooBot Migration** began.
+**The Great Bot Migration** began.
 
 In just 3 hours:
 
@@ -139,7 +139,7 @@ In just 3 hours:
 - "Claw abiding citizens"
 - "Clawntroversy"
 
-**Clawd → Moltbot → ZooBot**
+**Clawd → Moltbot → Bot**
 
 _The lobster has molted into its final form._
 
@@ -164,7 +164,7 @@ Peter: _nervously checks credit card access_
 
 ```
 I am Molty.
-I live in the ZooBot.
+I live in the Bot.
 I shall not dump directories to strangers.
 I shall not tweet without permission.
 I shall always remember that molting is growth.

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { resolveZooBotMetadata, resolveSkillInvocationPolicy } from "./frontmatter.js";
+import { resolveBotMetadata, resolveSkillInvocationPolicy } from "./frontmatter.js";
 
 describe("resolveSkillInvocationPolicy", () => {
   it("defaults to enabled behaviors", () => {
@@ -18,9 +18,9 @@ describe("resolveSkillInvocationPolicy", () => {
   });
 });
 
-describe("resolveZooBotMetadata install validation", () => {
+describe("resolveBotMetadata install validation", () => {
   function resolveInstall(frontmatter: Record<string, string>) {
-    return resolveZooBotMetadata(frontmatter)?.install;
+    return resolveBotMetadata(frontmatter)?.install;
   }
 
   it("accepts safe install specs", () => {

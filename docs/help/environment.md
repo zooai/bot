@@ -1,5 +1,5 @@
 ---
-summary: "Where ZooBot loads environment variables and the precedence order"
+summary: "Where Bot loads environment variables and the precedence order"
 read_when:
   - You need to know which env vars are loaded, and in what order
   - You are debugging missing API keys in the Gateway
@@ -9,7 +9,7 @@ title: "Environment Variables"
 
 # Environment variables
 
-ZooBot pulls environment variables from multiple sources. The rule is **never override existing values**.
+Bot pulls environment variables from multiple sources. The rule is **never override existing values**.
 
 ## Precedence (highest → lowest)
 
@@ -58,7 +58,7 @@ Env var equivalents:
 
 ## Runtime-injected env vars
 
-ZooBot also injects context markers into spawned child processes:
+Bot also injects context markers into spawned child processes:
 
 - `BOT_SHELL=exec`: set for commands run through the `exec` tool.
 - `BOT_SHELL=acp`: set for ACP runtime backend process spawns (for example `acpx`).
@@ -88,7 +88,7 @@ See [Configuration: Env var substitution](/gateway/configuration#env-var-substit
 
 ## Secret refs vs `${ENV}` strings
 
-ZooBot supports two env-driven patterns:
+Bot supports two env-driven patterns:
 
 - `${VAR}` string substitution in config values.
 - SecretRef objects (`{ source: "env", provider: "default", id: "VAR" }`) for fields that support secrets references.
@@ -97,16 +97,16 @@ Both resolve from process env at activation time. SecretRef details are document
 
 ## Path-related env vars
 
-| Variable               | Purpose                                                                                                                                                                          |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `BOT_HOME`        | Override the home directory used for all internal path resolution (`~/.zoo-bot/`, agent dirs, sessions, credentials). Useful when running ZooBot as a dedicated service user. |
-| `BOT_STATE_DIR`   | Override the state directory (default `~/.zoo-bot`).                                                                                                                            |
-| `BOT_CONFIG_PATH` | Override the config file path (default `~/.zoo-bot/zoo-bot.json`).                                                                                                             |
+| Variable          | Purpose                                                                                                                                                                    |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `BOT_HOME`        | Override the home directory used for all internal path resolution (`~/.zoo-bot/`, agent dirs, sessions, credentials). Useful when running Bot as a dedicated service user. |
+| `BOT_STATE_DIR`   | Override the state directory (default `~/.zoo-bot`).                                                                                                                       |
+| `BOT_CONFIG_PATH` | Override the config file path (default `~/.zoo-bot/zoo-bot.json`).                                                                                                         |
 
 ## Logging
 
-| Variable             | Purpose                                                                                                                                                                                      |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Variable        | Purpose                                                                                                                                                                                      |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `BOT_LOG_LEVEL` | Override log level for both file and console (e.g. `debug`, `trace`). Takes precedence over `logging.level` and `logging.consoleLevel` in config. Invalid values are ignored with a warning. |
 
 ### `BOT_HOME`

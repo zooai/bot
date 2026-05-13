@@ -1,7 +1,7 @@
 ---
-summary: "Use MiniMax M2.5 in ZooBot"
+summary: "Use MiniMax M2.5 in Bot"
 read_when:
-  - You want MiniMax models in ZooBot
+  - You want MiniMax models in Bot
   - You need MiniMax setup guidance
 title: "MiniMax"
 ---
@@ -31,7 +31,7 @@ MiniMax highlights these improvements in M2.5:
 
 - **Speed:** `MiniMax-M2.5-highspeed` is the official fast tier in MiniMax docs.
 - **Cost:** MiniMax pricing lists the same input cost and a higher output cost for highspeed.
-- **Compatibility:** ZooBot still accepts legacy `MiniMax-M2.5-Lightning` configs, but prefer
+- **Compatibility:** Bot still accepts legacy `MiniMax-M2.5-Lightning` configs, but prefer
   `MiniMax-M2.5-highspeed` for new setup.
 
 ## Choose a setup

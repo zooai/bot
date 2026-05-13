@@ -1,15 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { BotConfig } from "../config/config.js";
-import type {
-  Hook,
-  HookEligibilityContext,
-  HookEntry,
-  HookSnapshot,
-  HookSource,
-  ParsedHookFrontmatter,
-} from "./types.js";
 import { MANIFEST_KEY } from "../compat/legacy-names.js";
+import type { BotConfig } from "../config/config.js";
 import { openBoundaryFileSync } from "../infra/boundary-file-read.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { isPathInsideWithRealpath } from "../security/scan-paths.js";
@@ -18,9 +10,17 @@ import { resolveBundledHooksDir } from "./bundled-dir.js";
 import { shouldIncludeHook } from "./config.js";
 import {
   parseFrontmatter,
-  resolveZooBotMetadata,
+  resolveBotMetadata,
   resolveHookInvocationPolicy,
 } from "./frontmatter.js";
+import type {
+  Hook,
+  HookEligibilityContext,
+  HookEntry,
+  HookSnapshot,
+  HookSource,
+  ParsedHookFrontmatter,
+} from "./types.js";
 
 type HookPackageManifest = {
   name?: string;
@@ -220,7 +220,7 @@ export function loadHookEntriesFromDir(params: {
         pluginId: params.pluginId,
       },
       frontmatter,
-      metadata: resolveZooBotMetadata(frontmatter),
+      metadata: resolveBotMetadata(frontmatter),
       invocation: resolveHookInvocationPolicy(frontmatter),
     };
     return entry;
@@ -293,7 +293,7 @@ function loadHookEntries(
     return {
       hook,
       frontmatter,
-      metadata: resolveZooBotMetadata(frontmatter),
+      metadata: resolveBotMetadata(frontmatter),
       invocation: resolveHookInvocationPolicy(frontmatter),
     };
   });

@@ -45,13 +45,13 @@ Add bindings:
 zoo-bot agents bind --agent work --bind telegram:ops --bind discord:guild-a
 ```
 
-If you omit `accountId` (`--bind <channel>`), ZooBot resolves it from channel defaults and plugin setup hooks when available.
+If you omit `accountId` (`--bind <channel>`), Bot resolves it from channel defaults and plugin setup hooks when available.
 
 ### Binding scope behavior
 
 - A binding without `accountId` matches the channel default account only.
 - `accountId: "*"` is the channel-wide fallback (all accounts) and is less specific than an explicit account binding.
-- If the same agent already has a matching channel binding without `accountId`, and you later bind with an explicit or resolved `accountId`, ZooBot upgrades that existing binding in place instead of adding a duplicate.
+- If the same agent already has a matching channel binding without `accountId`, and you later bind with an explicit or resolved `accountId`, Bot upgrades that existing binding in place instead of adding a duplicate.
 
 Example:
 
@@ -99,7 +99,7 @@ zoo-bot agents set-identity --workspace ~/.zoo-bot/workspace --from-identity
 Override fields explicitly:
 
 ```bash
-zoo-bot agents set-identity --agent main --name "ZooBot" --emoji "🦞" --avatar avatars/zoo-bot.png
+zoo-bot agents set-identity --agent main --name "Bot" --emoji "🦞" --avatar avatars/zoo-bot.png
 ```
 
 Config sample:
@@ -111,7 +111,7 @@ Config sample:
       {
         id: "main",
         identity: {
-          name: "ZooBot",
+          name: "Bot",
           theme: "space lobster",
           emoji: "🦞",
           avatar: "avatars/zoo-bot.png",

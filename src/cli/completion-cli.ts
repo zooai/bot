@@ -1,7 +1,7 @@
-import { Command, Option } from "commander";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
+import { Command, Option } from "commander";
 import { resolveStateDir } from "../config/paths.js";
 import { routeLogsToStderr } from "../logging/console.js";
 import { formatDocsLink } from "../terminal/links.js";
@@ -108,7 +108,7 @@ function formatCompletionSourceLine(
 }
 
 function isCompletionProfileHeader(line: string): boolean {
-  return line.trim() === "# ZooBot Completion";
+  return line.trim() === "# Bot Completion";
 }
 
 function isCompletionProfileLine(line: string, binName: string, cachePath: string | null): boolean {
@@ -155,7 +155,7 @@ function updateCompletionProfile(
   }
 
   const trimmed = filtered.join("\n").trimEnd();
-  const block = `# ZooBot Completion\n${sourceLine}`;
+  const block = `# Bot Completion\n${sourceLine}`;
   const next = trimmed ? `${trimmed}\n\n${block}\n` : `${block}\n`;
   return { next, changed: next !== content, hadExisting };
 }
@@ -243,10 +243,7 @@ export function registerCompletionCli(program: Command) {
       ),
     )
     .option("-i, --install", "Install completion script to shell profile")
-    .option(
-      "--write-state",
-      "Write completion scripts to $BOT_STATE_DIR/completions (no stdout)",
-    )
+    .option("--write-state", "Write completion scripts to $BOT_STATE_DIR/completions (no stdout)")
     .option("-y, --yes", "Skip confirmation (non-interactive)", false)
     .action(async (options) => {
       // Route logs to stderr so plugin loading messages do not corrupt

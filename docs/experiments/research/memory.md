@@ -2,7 +2,7 @@
 summary: "Research notes: offline memory system for Clawd workspaces (Markdown source-of-truth + derived index)"
 read_when:
   - Designing workspace memory (~/.zoo-bot/workspace) beyond daily Markdown logs
-  - Deciding: standalone CLI vs deep ZooBot integration
+  - Deciding: standalone CLI vs deep Bot integration
   - Adding offline recall + reflection (retain/recall/reflect)
 title: "Workspace Memory Research"
 ---
@@ -168,11 +168,11 @@ Opinion evolution (simple, explainable):
 
 ## CLI integration: standalone vs deep integration
 
-Recommendation: **deep integration in ZooBot**, but keep a separable core library.
+Recommendation: **deep integration in Bot**, but keep a separable core library.
 
-### Why integrate into ZooBot?
+### Why integrate into Bot?
 
-- ZooBot already knows:
+- Bot already knows:
   - the workspace path (`agents.defaults.workspace`)
   - the session model + heartbeats
   - logging + troubleshooting patterns

@@ -1,8 +1,8 @@
-import type { AddressInfo } from "node:net";
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
+import type { AddressInfo } from "node:net";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
-  probeAuthenticatedZooBotRelay,
+  probeAuthenticatedBotRelay,
   resolveRelayAcceptedTokensForPort,
   resolveRelayAuthTokenForPort,
 } from "./extension-relay-auth.js";
@@ -36,7 +36,7 @@ function handleNonVersionRequest(req: IncomingMessage, res: ServerResponse): boo
 }
 
 async function probeRelay(baseUrl: string, relayAuthToken: string): Promise<boolean> {
-  return await probeAuthenticatedZooBotRelay({
+  return await probeAuthenticatedBotRelay({
     baseUrl,
     relayAuthHeader: "x-bot-relay-token",
     relayAuthToken,
@@ -86,7 +86,7 @@ describe("extension-relay-auth", () => {
         const header = req.headers["x-bot-relay-token"];
         seenToken = Array.isArray(header) ? header[0] : header;
         res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ Browser: "ZooBot/extension-relay" }));
+        res.end(JSON.stringify({ Browser: "Bot/extension-relay" }));
       },
       async ({ port }) => {
         const token = await resolveRelayAuthTokenForPort(port);

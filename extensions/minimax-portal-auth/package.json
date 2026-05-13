@@ -2,7 +2,7 @@
   "name": "@hanzo/bot-minimax-portal-auth",
   "version": "2026.4.27",
   "private": true,
-  "description": "ZooBot MiniMax Portal OAuth provider plugin",
+  "description": "Bot MiniMax Portal OAuth provider plugin",
   "type": "module",
   "zoo-bot": {
     "extensions": [

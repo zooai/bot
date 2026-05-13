@@ -17,9 +17,9 @@ export type {
 } from "../acp/runtime/types.js";
 export type {
   BotPluginApi,
-  ZooBotPluginConfigSchema,
-  ZooBotPluginService,
-  ZooBotPluginServiceContext,
+  BotPluginConfigSchema,
+  BotPluginService,
+  BotPluginServiceContext,
   PluginLogger,
 } from "../plugins/types.js";
 export type {

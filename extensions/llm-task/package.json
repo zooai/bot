@@ -2,7 +2,7 @@
   "name": "@hanzo/bot-llm-task",
   "version": "2026.4.27",
   "private": true,
-  "description": "ZooBot JSON-only LLM task plugin",
+  "description": "Bot JSON-only LLM task plugin",
   "type": "module",
   "dependencies": {
     "@sinclair/typebox": "0.34.48",

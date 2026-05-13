@@ -1,3 +1,4 @@
+import os from "node:os";
 import type { BotPluginApi } from "@hanzo/bot/plugin-sdk/device-pair";
 import {
   approveDevicePairing,
@@ -6,7 +7,6 @@ import {
   runPluginCommandWithTimeout,
   resolveTailnetHostWithRunner,
 } from "@hanzo/bot/plugin-sdk/device-pair";
-import os from "node:os";
 import qrcode from "qrcode-terminal";
 import {
   armPairNotifyOnce,
@@ -436,9 +436,7 @@ export default function register(api: BotPluginApi) {
             if (send) {
               await send(
                 target,
-                ["Scan this QR code with the ZooBot iOS app:", "", "```", qrAscii, "```"].join(
-                  "\n",
-                ),
+                ["Scan this QR code with the Bot iOS app:", "", "```", qrAscii, "```"].join("\n"),
                 {
                   ...(ctx.messageThreadId != null ? { messageThreadId: ctx.messageThreadId } : {}),
                   ...(ctx.accountId ? { accountId: ctx.accountId } : {}),
@@ -490,7 +488,7 @@ export default function register(api: BotPluginApi) {
         // WebUI + CLI/TUI: ASCII QR
         return {
           text: [
-            "Scan this QR code with the ZooBot iOS app:",
+            "Scan this QR code with the Bot iOS app:",
             "",
             "```",
             qrAscii,

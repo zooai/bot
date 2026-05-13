@@ -1,9 +1,9 @@
 ---
 read_when:
-  - 在 Oracle Cloud 上设置 ZooBot
-  - 寻找 ZooBot 的低成本 VPS 托管
-  - 想要在小型服务器上 24/7 运行 ZooBot
-summary: 在 Oracle Cloud 上运行 ZooBot（Always Free ARM）
+  - 在 Oracle Cloud 上设置 Bot
+  - 寻找 Bot 的低成本 VPS 托管
+  - 想要在小型服务器上 24/7 运行 Bot
+summary: 在 Oracle Cloud 上运行 Bot（Always Free ARM）
 title: Oracle Cloud
 x-i18n:
   generated_at: "2026-02-03T07:53:25Z"
@@ -14,13 +14,13 @@ x-i18n:
   workflow: 15
 ---
 
-# 在 Oracle Cloud（OCI）上运行 ZooBot
+# 在 Oracle Cloud（OCI）上运行 Bot
 
 ## 目标
 
-在 Oracle Cloud 的 **Always Free** ARM 层上运行持久化的 ZooBot Gateway 网关。
+在 Oracle Cloud 的 **Always Free** ARM 层上运行持久化的 Bot Gateway 网关。
 
-Oracle 的免费层非常适合 ZooBot（特别是如果你已经有 OCI 账户），但有一些权衡：
+Oracle 的免费层非常适合 Bot（特别是如果你已经有 OCI 账户），但有一些权衡：
 
 - ARM 架构（大多数东西都能工作，但某些二进制文件可能仅支持 x86）
 - 容量和注册可能比较麻烦
@@ -103,7 +103,7 @@ tailscale status
 
 **从现在开始，通过 Tailscale 连接：** `ssh ubuntu@zoo-bot`（或使用 Tailscale IP）。
 
-## 5) 安装 ZooBot
+## 5) 安装 Bot
 
 ```bash
 curl -fsSL https://zoo-bot.ai/install.sh | bash

@@ -1,14 +1,14 @@
 ---
 summary: "Windows (WSL2) support + companion app status"
 read_when:
-  - Installing ZooBot on Windows
+  - Installing Bot on Windows
   - Looking for Windows companion app status
 title: "Windows (WSL2)"
 ---
 
 # Windows (WSL2)
 
-ZooBot on Windows is recommended **via WSL2** (Ubuntu recommended). The
+Bot on Windows is recommended **via WSL2** (Ubuntu recommended). The
 CLI + Gateway run inside Linux, which keeps the runtime consistent and makes
 tooling far more compatible (Node/Bun/pnpm, Linux binaries, skills). Native
 Windows might be trickier. WSL2 gives you the full Linux experience — one command
@@ -68,7 +68,7 @@ Inside WSL:
 sudo loginctl enable-linger "$(whoami)"
 ```
 
-### 2) Install the ZooBot gateway user service
+### 2) Install the Bot gateway user service
 
 Inside WSL:
 
@@ -182,7 +182,7 @@ Re-open Ubuntu, then verify:
 systemctl --user status
 ```
 
-### 3) Install ZooBot (inside WSL)
+### 3) Install Bot (inside WSL)
 
 Follow the Linux Getting Started flow inside WSL:
 

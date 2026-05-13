@@ -1,7 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import type { WebInboundMsg } from "./types.js";
 import { saveSessionStore } from "../../config/sessions.js";
 import { withTempDir } from "../../test-utils/temp-dir.js";
 import {
@@ -11,6 +10,7 @@ import {
   resolveOwnerList,
 } from "./mentions.js";
 import { getSessionSnapshot } from "./session-snapshot.js";
+import type { WebInboundMsg } from "./types.js";
 import { elide, isLikelyWhatsAppCryptoError } from "./util.js";
 
 const makeMsg = (overrides: Partial<WebInboundMsg>): WebInboundMsg =>
@@ -43,7 +43,7 @@ describe("isBotMentionedFromTargets", () => {
 
   it("ignores regex matches when other mentions are present", () => {
     const msg = makeMsg({
-      body: "@ZooBot please help",
+      body: "@Bot please help",
       mentionedJids: ["19998887777@s.whatsapp.net"],
       selfE164: "+15551234567",
       selfJid: "15551234567@s.whatsapp.net",

@@ -1,8 +1,8 @@
-import { cancel, confirm, isCancel, multiselect } from "@clack/prompts";
 import path from "node:path";
-import type { RuntimeEnv } from "../runtime.js";
+import { cancel, confirm, isCancel, multiselect } from "@clack/prompts";
 import { isNixMode } from "../config/config.js";
 import { resolveGatewayService } from "../daemon/service.js";
+import type { RuntimeEnv } from "../runtime.js";
 import { stylePromptHint, stylePromptMessage, stylePromptTitle } from "../terminal/prompt-style.js";
 import { resolveHomeDir } from "../utils.js";
 import { resolveCleanupPlanFromDisk } from "./cleanup-plan.js";
@@ -86,9 +86,9 @@ async function removeMacApp(runtime: RuntimeEnv, dryRun?: boolean) {
   if (process.platform !== "darwin") {
     return;
   }
-  await removePath("/Applications/ZooBot.app", runtime, {
+  await removePath("/Applications/Bot.app", runtime, {
     dryRun,
-    label: "/Applications/ZooBot.app",
+    label: "/Applications/Bot.app",
   });
 }
 
@@ -120,7 +120,7 @@ export async function uninstallCommand(runtime: RuntimeEnv, opts: UninstallOptio
         {
           value: "app",
           label: "macOS app",
-          hint: "/Applications/ZooBot.app",
+          hint: "/Applications/Bot.app",
         },
       ],
       initialValues: ["service", "state", "workspace"],

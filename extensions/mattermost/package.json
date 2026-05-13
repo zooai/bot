@@ -1,7 +1,7 @@
 {
   "name": "@hanzo/bot-mattermost",
   "version": "2026.4.27",
-  "description": "ZooBot Mattermost channel plugin",
+  "description": "Bot Mattermost channel plugin",
   "type": "module",
   "dependencies": {
     "ws": "^8.19.0",

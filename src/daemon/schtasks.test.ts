@@ -12,7 +12,7 @@ import {
 describe("schtasks runtime parsing", () => {
   it.each(["Ready", "Running"])("parses %s status", (status) => {
     const output = [
-      "TaskName: \\ZooBot Gateway",
+      "TaskName: \\Bot Gateway",
       `Status: ${status}`,
       "Last Run Time: 1/8/2026 1:23:45 AM",
       "Last Run Result: 0x0",
@@ -162,7 +162,7 @@ describe("readScheduledTaskCommand", () => {
       {
         scriptLines: [
           "@echo off",
-          "rem ZooBot Gateway",
+          "rem Bot Gateway",
           "cd /d C:\\Projects\\bot",
           "set NODE_ENV=production",
           "set BOT_PORT=18789",
@@ -211,15 +211,15 @@ describe("readScheduledTaskCommand", () => {
       {
         scriptLines: [
           "@echo off",
-          '"\\\\fileserver\\ZooBot Share\\node.exe" "\\\\fileserver\\ZooBot Share\\dist\\index.js" gateway --port 18789',
+          '"\\\\fileserver\\Bot Share\\node.exe" "\\\\fileserver\\Bot Share\\dist\\index.js" gateway --port 18789',
         ],
       },
       async (env) => {
         const result = await readScheduledTaskCommand(env);
         expect(result).toEqual({
           programArguments: [
-            "\\\\fileserver\\ZooBot Share\\node.exe",
-            "\\\\fileserver\\ZooBot Share\\dist\\index.js",
+            "\\\\fileserver\\Bot Share\\node.exe",
+            "\\\\fileserver\\Bot Share\\dist\\index.js",
             "gateway",
             "--port",
             "18789",

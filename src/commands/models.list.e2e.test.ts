@@ -5,14 +5,12 @@ let loadModelRegistry: typeof import("./models/list.registry.js").loadModelRegis
 let toModelRow: typeof import("./models/list.registry.js").toModelRow;
 
 const loadConfig = vi.fn();
-const ensureZooBotModelsJson = vi.fn().mockResolvedValue(undefined);
-const resolveZooBotAgentDir = vi.fn().mockReturnValue("/tmp/bot-agent");
+const ensureBotModelsJson = vi.fn().mockResolvedValue(undefined);
+const resolveBotAgentDir = vi.fn().mockReturnValue("/tmp/bot-agent");
 const ensureAuthProfileStore = vi.fn().mockReturnValue({ version: 1, profiles: {} });
 const listProfilesForProvider = vi.fn().mockReturnValue([]);
 const resolveAuthProfileDisplayLabel = vi.fn(({ profileId }: { profileId: string }) => profileId);
-const resolveAuthStorePathForDisplay = vi
-  .fn()
-  .mockReturnValue("/tmp/bot-agent/auth-profiles.json");
+const resolveAuthStorePathForDisplay = vi.fn().mockReturnValue("/tmp/bot-agent/auth-profiles.json");
 const resolveProfileUnusableUntilForDisplay = vi.fn().mockReturnValue(null);
 const resolveEnvApiKey = vi.fn().mockReturnValue(undefined);
 const resolveAwsSdkEnvVarName = vi.fn().mockReturnValue(undefined);
@@ -32,11 +30,11 @@ vi.mock("../config/config.js", () => ({
 }));
 
 vi.mock("../agents/models-config.js", () => ({
-  ensureZooBotModelsJson,
+  ensureBotModelsJson,
 }));
 
 vi.mock("../agents/agent-paths.js", () => ({
-  resolveZooBotAgentDir,
+  resolveBotAgentDir,
 }));
 
 vi.mock("../agents/auth-profiles.js", () => ({

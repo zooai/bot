@@ -1,7 +1,7 @@
 ---
-summary: "Uninstall ZooBot completely (CLI, service, state, workspace)"
+summary: "Uninstall Bot completely (CLI, service, state, workspace)"
 read_when:
-  - You want to remove ZooBot from a machine
+  - You want to remove Bot from a machine
   - The gateway service is still running after uninstall
 title: "Uninstall"
 ---
@@ -67,7 +67,7 @@ bun remove -g zoo-bot
 6. If you installed the macOS app:
 
 ```bash
-rm -rf /Applications/ZooBot.app
+rm -rf /Applications/Bot.app
 ```
 
 Notes:
@@ -102,11 +102,11 @@ systemctl --user daemon-reload
 
 ### Windows (Scheduled Task)
 
-Default task name is `ZooBot Gateway` (or `ZooBot Gateway (<profile>)`).
+Default task name is `Bot Gateway` (or `Bot Gateway (<profile>)`).
 The task script lives under your state dir.
 
 ```powershell
-schtasks /Delete /F /TN "ZooBot Gateway"
+schtasks /Delete /F /TN "Bot Gateway"
 Remove-Item -Force "$env:USERPROFILE\.zoo-bot\gateway.cmd"
 ```
 

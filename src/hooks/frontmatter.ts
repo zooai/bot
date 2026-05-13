@@ -1,28 +1,28 @@
+import { parseFrontmatterBlock } from "../markdown/frontmatter.js";
+import {
+  getFrontmatterString,
+  normalizeStringList,
+  parseBotManifestInstallBase,
+  parseFrontmatterBool,
+  resolveBotManifestBlock,
+  resolveBotManifestInstall,
+  resolveBotManifestOs,
+  resolveBotManifestRequires,
+} from "../shared/frontmatter.js";
 import type {
-  ZooBotHookMetadata,
+  BotHookMetadata,
   HookEntry,
   HookInstallSpec,
   HookInvocationPolicy,
   ParsedHookFrontmatter,
 } from "./types.js";
-import { parseFrontmatterBlock } from "../markdown/frontmatter.js";
-import {
-  getFrontmatterString,
-  normalizeStringList,
-  parseZooBotManifestInstallBase,
-  parseFrontmatterBool,
-  resolveZooBotManifestBlock,
-  resolveZooBotManifestInstall,
-  resolveZooBotManifestOs,
-  resolveZooBotManifestRequires,
-} from "../shared/frontmatter.js";
 
 export function parseFrontmatter(content: string): ParsedHookFrontmatter {
   return parseFrontmatterBlock(content);
 }
 
 function parseInstallSpec(input: unknown): HookInstallSpec | undefined {
-  const parsed = parseZooBotManifestInstallBase(input, ["bundled", "npm", "git"]);
+  const parsed = parseBotManifestInstallBase(input, ["bundled", "npm", "git"]);
   if (!parsed) {
     return undefined;
   }
@@ -50,16 +50,16 @@ function parseInstallSpec(input: unknown): HookInstallSpec | undefined {
   return spec;
 }
 
-export function resolveZooBotMetadata(
+export function resolveBotMetadata(
   frontmatter: ParsedHookFrontmatter,
-): ZooBotHookMetadata | undefined {
-  const metadataObj = resolveZooBotManifestBlock({ frontmatter });
+): BotHookMetadata | undefined {
+  const metadataObj = resolveBotManifestBlock({ frontmatter });
   if (!metadataObj) {
     return undefined;
   }
-  const requires = resolveZooBotManifestRequires(metadataObj);
-  const install = resolveZooBotManifestInstall(metadataObj, parseInstallSpec);
-  const osRaw = resolveZooBotManifestOs(metadataObj);
+  const requires = resolveBotManifestRequires(metadataObj);
+  const install = resolveBotManifestInstall(metadataObj, parseInstallSpec);
+  const osRaw = resolveBotManifestOs(metadataObj);
   const eventsRaw = normalizeStringList(metadataObj.events);
   return {
     always: typeof metadataObj.always === "boolean" ? metadataObj.always : undefined,

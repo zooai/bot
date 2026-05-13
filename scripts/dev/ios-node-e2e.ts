@@ -154,7 +154,7 @@ async function main() {
     {
       id: "system.notify",
       command: "system.notify",
-      params: { title: "ZooBot E2E", body: `ios-node-e2e @ ${isoNow()}`, delivery: "system" },
+      params: { title: "Bot E2E", body: `ios-node-e2e @ ${isoNow()}`, delivery: "system" },
     },
     {
       id: "contacts.search",

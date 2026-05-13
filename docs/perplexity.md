@@ -8,7 +8,7 @@ title: "Perplexity Search"
 
 # Perplexity Search API
 
-ZooBot uses Perplexity Search API for the `web_search` tool when `provider: "perplexity"` is set.
+Bot uses Perplexity Search API for the `web_search` tool when `provider: "perplexity"` is set.
 Perplexity Search returns structured results (title, URL, snippet) for fast research.
 
 ## Getting a Perplexity API key

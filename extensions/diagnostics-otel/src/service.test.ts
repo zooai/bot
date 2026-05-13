@@ -108,7 +108,7 @@ vi.mock("@hanzo/bot/plugin-sdk/diagnostics-otel", async () => {
   };
 });
 
-import type { ZooBotPluginServiceContext } from "@hanzo/bot/plugin-sdk/diagnostics-otel";
+import type { BotPluginServiceContext } from "@hanzo/bot/plugin-sdk/diagnostics-otel";
 import { emitDiagnosticEvent } from "@hanzo/bot/plugin-sdk/diagnostics-otel";
 import { createDiagnosticsOtelService } from "./service.js";
 
@@ -133,7 +133,7 @@ type OtelContextFlags = {
 function createOtelContext(
   endpoint: string,
   { traces = false, metrics = false, logs = false }: OtelContextFlags = {},
-): ZooBotPluginServiceContext {
+): BotPluginServiceContext {
   return {
     config: {
       diagnostics: {
@@ -153,7 +153,7 @@ function createOtelContext(
   };
 }
 
-function createTraceOnlyContext(endpoint: string): ZooBotPluginServiceContext {
+function createTraceOnlyContext(endpoint: string): BotPluginServiceContext {
   return createOtelContext(endpoint, { traces: true });
 }
 
@@ -244,19 +244,13 @@ describe("diagnostics-otel service", () => {
     });
 
     expect(telemetryState.counters.get("bot.webhook.received")?.add).toHaveBeenCalled();
-    expect(
-      telemetryState.histograms.get("bot.webhook.duration_ms")?.record,
-    ).toHaveBeenCalled();
+    expect(telemetryState.histograms.get("bot.webhook.duration_ms")?.record).toHaveBeenCalled();
     expect(telemetryState.counters.get("bot.message.queued")?.add).toHaveBeenCalled();
     expect(telemetryState.counters.get("bot.message.processed")?.add).toHaveBeenCalled();
-    expect(
-      telemetryState.histograms.get("bot.message.duration_ms")?.record,
-    ).toHaveBeenCalled();
+    expect(telemetryState.histograms.get("bot.message.duration_ms")?.record).toHaveBeenCalled();
     expect(telemetryState.histograms.get("bot.queue.wait_ms")?.record).toHaveBeenCalled();
     expect(telemetryState.counters.get("bot.session.stuck")?.add).toHaveBeenCalled();
-    expect(
-      telemetryState.histograms.get("bot.session.stuck_age_ms")?.record,
-    ).toHaveBeenCalled();
+    expect(telemetryState.histograms.get("bot.session.stuck_age_ms")?.record).toHaveBeenCalled();
     expect(telemetryState.counters.get("bot.run.attempt")?.add).toHaveBeenCalled();
 
     const spanNames = telemetryState.tracer.startSpan.mock.calls.map((call) => call[0]);
@@ -361,9 +355,7 @@ describe("diagnostics-otel service", () => {
     );
     const attrs = sessionCounter?.add.mock.calls[0]?.[1] as Record<string, unknown> | undefined;
     expect(typeof attrs?.["bot.reason"]).toBe("string");
-    expect(String(attrs?.["bot.reason"])).not.toContain(
-      "ghp_abcdefghijklmnopqrstuvwxyz123456",
-    );
+    expect(String(attrs?.["bot.reason"])).not.toContain("ghp_abcdefghijklmnopqrstuvwxyz123456");
     await service.stop?.(ctx);
   });
 });

@@ -1,14 +1,14 @@
 ---
-summary: "Move (migrate) a ZooBot install from one machine to another"
+summary: "Move (migrate) a Bot install from one machine to another"
 read_when:
-  - You are moving ZooBot to a new laptop/server
+  - You are moving Bot to a new laptop/server
   - You want to preserve sessions, auth, and channel logins (WhatsApp, etc.)
 title: "Migration Guide"
 ---
 
-# Migrating ZooBot to a new machine
+# Migrating Bot to a new machine
 
-This guide migrates a ZooBot Gateway from one machine to another **without redoing onboarding**.
+This guide migrates a Bot Gateway from one machine to another **without redoing onboarding**.
 
 The migration is simple conceptually:
 
@@ -87,7 +87,7 @@ tar -czf zoo-bot-workspace.tgz .zoo-bot/workspace
 
 If you have multiple profiles/state dirs (e.g. `~/.zoo-bot-main`, `~/.zoo-bot-work`), archive each.
 
-### Step 1 — Install ZooBot on the new machine
+### Step 1 — Install Bot on the new machine
 
 On the **new** machine, install the CLI (and Node if needed):
 
@@ -189,4 +189,4 @@ On the new machine, confirm:
 
 - [Doctor](/gateway/doctor)
 - [Gateway troubleshooting](/gateway/troubleshooting)
-- [Where does ZooBot store its data?](/help/faq#where-does-zoo-bot-store-its-data)
+- [Where does Bot store its data?](/help/faq#where-does-zoo-bot-store-its-data)

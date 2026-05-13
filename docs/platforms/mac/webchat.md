@@ -21,7 +21,7 @@ agent (with a session switcher for other sessions).
 - Auto‑open for testing:
 
   ```bash
-  dist/ZooBot.app/Contents/MacOS/ZooBot --webchat
+  dist/Bot.app/Contents/MacOS/Bot --webchat
   ```
 
 - Logs: `./scripts/clawlog.sh` (subsystem `ai.zoo.bot`, category `WebChatSwiftUI`).

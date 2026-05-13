@@ -1,14 +1,14 @@
 ---
 summary: "Voice Call plugin: outbound + inbound calls via Twilio/Telnyx/Plivo (plugin install + config + CLI)"
 read_when:
-  - You want to place an outbound voice call from ZooBot
+  - You want to place an outbound voice call from Bot
   - You are configuring or developing the voice-call plugin
 title: "Voice Call Plugin"
 ---
 
 # Voice Call (plugin)
 
-Voice calls for ZooBot via a plugin. Supports outbound notifications and
+Voice calls for Bot via a plugin. Supports outbound notifications and
 multi-turn conversations with inbound policies.
 
 Current providers:
@@ -305,7 +305,7 @@ Auto-responses use the agent system. Tune with:
 ## CLI
 
 ```bash
-zoo-bot voicecall call --to "+15555550123" --message "Hello from ZooBot"
+zoo-bot voicecall call --to "+15555550123" --message "Hello from Bot"
 zoo-bot voicecall continue --call-id <id> --message "Any questions?"
 zoo-bot voicecall speak --call-id <id> --message "One moment"
 zoo-bot voicecall end --call-id <id>

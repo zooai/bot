@@ -1,5 +1,5 @@
-import type { IncomingMessage, ServerResponse } from "node:http";
 import fs from "node:fs/promises";
+import type { IncomingMessage, ServerResponse } from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { detectMime } from "../media/mime.js";
@@ -113,9 +113,9 @@ export function injectCanvasLiveReload(html: string): string {
     const action = { ...userAction, id };
     return postToNode({ userAction: action });
   }
-  globalThis.ZooBot = globalThis.ZooBot ?? {};
-  globalThis.ZooBot.postMessage = postToNode;
-  globalThis.ZooBot.sendUserAction = sendUserAction;
+  globalThis.Bot = globalThis.Bot ?? {};
+  globalThis.Bot.postMessage = postToNode;
+  globalThis.Bot.sendUserAction = sendUserAction;
   globalThis.botPostMessage = postToNode;
   globalThis.botSendUserAction = sendUserAction;
 

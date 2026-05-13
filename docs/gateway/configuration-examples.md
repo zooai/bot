@@ -1,9 +1,9 @@
 ---
-summary: "Schema-accurate configuration examples for common ZooBot setups"
+summary: "Schema-accurate configuration examples for common Bot setups"
 read_when:
-  - Learning how to configure ZooBot
+  - Learning how to configure Bot
   - Looking for configuration examples
-  - Setting up ZooBot for the first time
+  - Setting up Bot for the first time
 title: "Configuration Examples"
 ---
 

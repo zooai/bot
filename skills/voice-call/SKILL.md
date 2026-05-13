@@ -1,6 +1,6 @@
 ---
 name: voice-call
-description: Start voice calls via the ZooBot voice-call plugin.
+description: Start voice calls via the Bot voice-call plugin.
 metadata:
   {
     "zoo-bot":
@@ -19,7 +19,7 @@ Use the voice-call plugin to start or inspect calls (Twilio, Telnyx, Plivo, or m
 ## CLI
 
 ```bash
-zoo-bot voicecall call --to "+15555550123" --message "Hello from ZooBot"
+zoo-bot voicecall call --to "+15555550123" --message "Hello from Bot"
 zoo-bot voicecall status --call-id <id>
 ```
 

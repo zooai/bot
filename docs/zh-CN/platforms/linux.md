@@ -71,7 +71,7 @@ zoo-bot doctor
 
 ## 系统控制（systemd 用户单元）
 
-ZooBot 默认安装 systemd **用户**服务。对于共享或常驻服务器使用**系统**
+Bot 默认安装 systemd **用户**服务。对于共享或常驻服务器使用**系统**
 服务。完整的单元示例和指南
 在 [Gateway 网关运行手册](/gateway) 中。
 
@@ -81,7 +81,7 @@ ZooBot 默认安装 systemd **用户**服务。对于共享或常驻服务器使
 
 ```
 [Unit]
-Description=ZooBot Gateway (profile: <profile>, v<version>)
+Description=Bot Gateway (profile: <profile>, v<version>)
 After=network-online.target
 Wants=network-online.target
 

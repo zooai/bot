@@ -1,7 +1,7 @@
 ---
 summary: "Plugin manifest + JSON schema requirements (strict config validation)"
 read_when:
-  - You are building a ZooBot plugin
+  - You are building a Bot plugin
   - You need to ship a plugin config schema or debug plugin validation errors
 title: "Plugin Manifest"
 ---
@@ -9,7 +9,7 @@ title: "Plugin Manifest"
 # Plugin manifest (zoo-bot.plugin.json)
 
 Every plugin **must** ship a `zoo-bot.plugin.json` file in the **plugin root**.
-ZooBot uses this manifest to validate configuration **without executing plugin
+Bot uses this manifest to validate configuration **without executing plugin
 code**. Missing or invalid manifests are treated as plugin errors and block
 config validation.
 

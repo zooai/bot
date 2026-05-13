@@ -22,7 +22,7 @@ function configPath(...parts: string[]) {
   return path.join(CONFIG_DIR, ...parts);
 }
 
-function etcZooBotPath(...parts: string[]) {
+function etcBotPath(...parts: string[]) {
   return path.join(ETC_BOT_DIR, ...parts);
 }
 
@@ -83,7 +83,7 @@ describe("resolveConfigIncludes", () => {
   });
 
   it("rejects absolute path outside config directory (CWE-22)", () => {
-    const absolute = etcZooBotPath("agents.json");
+    const absolute = etcBotPath("agents.json");
     const files = { [absolute]: { list: [{ id: "main" }] } };
     const obj = { agents: { $include: absolute } };
     expectResolveIncludeError(() => resolve(obj, files), /escapes config directory/);
@@ -665,10 +665,7 @@ describe("security: path traversal protection (CWE-22)", () => {
         }
 
         expect(() =>
-          resolveConfigIncludes(
-            { $include: "./extra.json5" },
-            path.join(configDir, "bot.json"),
-          ),
+          resolveConfigIncludes({ $include: "./extra.json5" }, path.join(configDir, "bot.json")),
         ).toThrow(/security checks|hardlink/i);
       } finally {
         await fs.rm(tempRoot, { recursive: true, force: true });

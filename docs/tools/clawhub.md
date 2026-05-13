@@ -9,13 +9,13 @@ title: "ClawHub"
 
 # ClawHub
 
-ClawHub is the **public skill registry for ZooBot**. It is a free service: all skills are public, open, and visible to everyone for sharing and reuse. A skill is just a folder with a `SKILL.md` file (plus supporting text files). You can browse skills in the web app or use the CLI to search, install, update, and publish skills.
+ClawHub is the **public skill registry for Bot**. It is a free service: all skills are public, open, and visible to everyone for sharing and reuse. A skill is just a folder with a `SKILL.md` file (plus supporting text files). You can browse skills in the web app or use the CLI to search, install, update, and publish skills.
 
 Site: [clawhub.ai](https://clawhub.ai)
 
 ## What ClawHub is
 
-- A public registry for ZooBot skills.
+- A public registry for Bot skills.
 - A versioned store of skill bundles and metadata.
 - A discovery surface for search, tags, and usage signals.
 
@@ -24,7 +24,7 @@ Site: [clawhub.ai](https://clawhub.ai)
 1. A user publishes a skill bundle (files + metadata).
 2. ClawHub stores the bundle, parses metadata, and assigns a version.
 3. The registry indexes the skill for search and discovery.
-4. Users browse, download, and install skills in ZooBot.
+4. Users browse, download, and install skills in Bot.
 
 ## What you can do
 
@@ -36,7 +36,7 @@ Site: [clawhub.ai](https://clawhub.ai)
 
 ## Who this is for (beginner-friendly)
 
-If you want to add new capabilities to your ZooBot agent, ClawHub is the easiest way to find and install skills. You do not need to know how the backend works. You can:
+If you want to add new capabilities to your Bot agent, ClawHub is the easiest way to find and install skills. You do not need to know how the backend works. You can:
 
 - Search for skills by plain language.
 - Install a skill into your workspace.
@@ -50,7 +50,7 @@ If you want to add new capabilities to your ZooBot agent, ClawHub is the easiest
    - `clawhub search "calendar"`
 3. Install a skill:
    - `clawhub install <skill-slug>`
-4. Start a new ZooBot session so it picks up the new skill.
+4. Start a new Bot session so it picks up the new skill.
 
 ## Install the CLI
 
@@ -64,16 +64,16 @@ npm i -g clawhub
 pnpm add -g clawhub
 ```
 
-## How it fits into ZooBot
+## How it fits into Bot
 
-By default, the CLI installs skills into `./skills` under your current working directory. If a ZooBot workspace is configured, `clawhub` falls back to that workspace unless you override `--workdir` (or `CLAWHUB_WORKDIR`). ZooBot loads workspace skills from `<workspace>/skills` and will pick them up in the **next** session. If you already use `~/.zoo-bot/skills` or bundled skills, workspace skills take precedence.
+By default, the CLI installs skills into `./skills` under your current working directory. If a Bot workspace is configured, `clawhub` falls back to that workspace unless you override `--workdir` (or `CLAWHUB_WORKDIR`). Bot loads workspace skills from `<workspace>/skills` and will pick them up in the **next** session. If you already use `~/.zoo-bot/skills` or bundled skills, workspace skills take precedence.
 
 For more detail on how skills are loaded, shared, and gated, see
 [Skills](/tools/skills).
 
 ## Skill system overview
 
-A skill is a versioned bundle of files that teaches ZooBot how to perform a
+A skill is a versioned bundle of files that teaches Bot how to perform a
 specific task. Each publish creates a new version, and the registry keeps a
 history of versions so users can audit changes.
 
@@ -112,14 +112,14 @@ Reporting and moderation:
 - Moderators can view hidden skills, unhide them, delete them, or ban users.
 - Abusing the report feature can result in account bans.
 
-Interested in becoming a moderator? Ask in the ZooBot Discord and contact a
+Interested in becoming a moderator? Ask in the Bot Discord and contact a
 moderator or maintainer.
 
 ## CLI commands and parameters
 
 Global options (apply to all commands):
 
-- `--workdir <dir>`: Working directory (default: current dir; falls back to ZooBot workspace).
+- `--workdir <dir>`: Working directory (default: current dir; falls back to Bot workspace).
 - `--dir <dir>`: Skills directory, relative to workdir (default: `skills`).
 - `--site <url>`: Site base URL (browser login).
 - `--registry <url>`: Registry API base URL.

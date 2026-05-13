@@ -9,7 +9,7 @@ title: "Network"
 
 # Network hub
 
-This hub links the core docs for how ZooBot connects, pairs, and secures
+This hub links the core docs for how Bot connects, pairs, and secures
 devices across localhost, LAN, and tailnet.
 
 ## Core model

@@ -1,7 +1,7 @@
 ---
-summary: "OAuth in ZooBot: token exchange, storage, and multi-account patterns"
+summary: "OAuth in Bot: token exchange, storage, and multi-account patterns"
 read_when:
-  - You want to understand ZooBot OAuth end-to-end
+  - You want to understand Bot OAuth end-to-end
   - You hit token invalidation / logout issues
   - You want setup-token or OAuth auth flows
   - You want multiple accounts or profile routing
@@ -10,7 +10,7 @@ title: "OAuth"
 
 # OAuth
 
-ZooBot supports “subscription auth” via OAuth for providers that offer it (notably **OpenAI Codex (ChatGPT OAuth)**). For Anthropic subscriptions, use the **setup-token** flow. Anthropic subscription use outside Claude Code has been restricted for some users in the past, so treat it as a user-choice risk and verify current Anthropic policy yourself. OpenAI Codex OAuth is explicitly supported for use in external tools like ZooBot. This page explains:
+Bot supports “subscription auth” via OAuth for providers that offer it (notably **OpenAI Codex (ChatGPT OAuth)**). For Anthropic subscriptions, use the **setup-token** flow. Anthropic subscription use outside Claude Code has been restricted for some users in the past, so treat it as a user-choice risk and verify current Anthropic policy yourself. OpenAI Codex OAuth is explicitly supported for use in external tools like Bot. This page explains:
 
 For Anthropic in production, API key auth is the safer recommended path over subscription setup-token auth.
 
@@ -18,7 +18,7 @@ For Anthropic in production, API key auth is the safer recommended path over sub
 - where tokens are **stored** (and why)
 - how to handle **multiple accounts** (profiles + per-session overrides)
 
-ZooBot also supports **provider plugins** that ship their own OAuth or API‑key
+Bot also supports **provider plugins** that ship their own OAuth or API‑key
 flows. Run them via:
 
 ```bash
@@ -31,9 +31,9 @@ OAuth providers commonly mint a **new refresh token** during login/refresh flows
 
 Practical symptom:
 
-- you log in via ZooBot _and_ via Claude Code / Codex CLI → one of them randomly gets “logged out” later
+- you log in via Bot _and_ via Claude Code / Codex CLI → one of them randomly gets “logged out” later
 
-To reduce that, ZooBot treats `auth-profiles.json` as a **token sink**:
+To reduce that, Bot treats `auth-profiles.json` as a **token sink**:
 
 - the runtime reads credentials from **one place**
 - we can keep multiple profiles and route them deterministically
@@ -62,7 +62,7 @@ Anthropic has blocked some subscription usage outside Claude Code in the past.
 Decide for yourself whether to use subscription auth, and verify Anthropic's current terms.
 </Warning>
 
-Run `claude setup-token` on any machine, then paste it into ZooBot:
+Run `claude setup-token` on any machine, then paste it into Bot:
 
 ```bash
 zoo-bot models auth setup-token --provider anthropic
@@ -82,21 +82,21 @@ zoo-bot models status
 
 ## OAuth exchange (how login works)
 
-ZooBot’s interactive login flows are implemented in `@mariozechner/pi-ai` and wired into the wizards/commands.
+Bot’s interactive login flows are implemented in `@mariozechner/pi-ai` and wired into the wizards/commands.
 
 ### Anthropic setup-token
 
 Flow shape:
 
 1. run `claude setup-token`
-2. paste the token into ZooBot
+2. paste the token into Bot
 3. store as a token auth profile (no refresh)
 
 The wizard path is `zoo-bot onboard` → auth choice `setup-token` (Anthropic).
 
 ### OpenAI Codex (ChatGPT OAuth)
 
-OpenAI Codex OAuth is explicitly supported for use outside the Codex CLI, including ZooBot workflows.
+OpenAI Codex OAuth is explicitly supported for use outside the Codex CLI, including Bot workflows.
 
 Flow shape (PKCE):
 

@@ -11,7 +11,7 @@ Manage Docker-based sandbox containers for isolated agent execution.
 
 ## Overview
 
-ZooBot can run agents in isolated Docker containers for security. The `sandbox` commands help you manage these containers, especially after updates or configuration changes.
+Bot can run agents in isolated Docker containers for security. The `sandbox` commands help you manage these containers, especially after updates or configuration changes.
 
 ## Commands
 

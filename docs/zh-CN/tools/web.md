@@ -16,7 +16,7 @@ x-i18n:
 
 # Web 工具
 
-ZooBot 提供两个轻量级 Web 工具：
+Bot 提供两个轻量级 Web 工具：
 
 - `web_search` — 通过 Brave Search API（默认）或 Perplexity Sonar（直连或通过 OpenRouter）搜索网络。
 - `web_fetch` — HTTP 获取 + 可读性提取（HTML → markdown/文本）。
@@ -123,7 +123,7 @@ Perplexity Sonar 模型具有内置的网络搜索功能，并返回带有引用
 
 **环境变量替代方案：** 在 Gateway 网关环境中设置 `OPENROUTER_API_KEY` 或 `PERPLEXITY_API_KEY`。对于 Gateway 网关安装，将其放在 `~/.zoo-bot/.env` 中。
 
-如果未设置基础 URL，ZooBot 会根据 API 密钥来源选择默认值：
+如果未设置基础 URL，Bot 会根据 API 密钥来源选择默认值：
 
 - `PERPLEXITY_API_KEY` 或 `pplx-...` → `https://api.perplexity.ai`
 - `OPENROUTER_API_KEY` 或 `sk-or-...` → `https://openrouter.ai/api/v1`

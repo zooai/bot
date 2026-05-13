@@ -294,10 +294,7 @@ describe("discord tool result dispatch", () => {
       const handler = await createHandler(cfg);
       const client = createGuildTextClient();
 
-      await handler(
-        createGuildMessageEvent({ messageId: "m2", content: "bot: hello" }),
-        client,
-      );
+      await handler(createGuildMessageEvent({ messageId: "m2", content: "bot: hello" }), client);
 
       await vi.waitFor(() => expect(dispatchMock).toHaveBeenCalledTimes(1));
       expect(dispatchMock).toHaveBeenCalledTimes(1);
@@ -376,7 +373,7 @@ describe("discord tool result dispatch", () => {
             channelId: "c1",
             content: "bot reply",
             ...createDiscordMessageMeta(),
-            author: { id: "bot-id", bot: true, username: "ZooBot" },
+            author: { id: "bot-id", bot: true, username: "Bot" },
           },
         },
         eventPatch: {

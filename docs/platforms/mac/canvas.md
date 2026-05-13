@@ -17,7 +17,7 @@ UI surfaces.
 
 Canvas state is stored under Application Support:
 
-- `~/Library/Application Support/ZooBot/canvas/<session>/...`
+- `~/Library/Application Support/Bot/canvas/<session>/...`
 
 The Canvas panel serves those files via a **custom URL scheme**:
 

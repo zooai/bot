@@ -53,8 +53,7 @@ function readGatewayTokenEnv(env: NodeJS.ProcessEnv): string | undefined {
 }
 
 function readGatewayPasswordEnv(env: NodeJS.ProcessEnv): string | undefined {
-  const primary =
-    typeof env.BOT_GATEWAY_PASSWORD === "string" ? env.BOT_GATEWAY_PASSWORD : "";
+  const primary = typeof env.BOT_GATEWAY_PASSWORD === "string" ? env.BOT_GATEWAY_PASSWORD : "";
   if (primary.trim().length > 0) {
     return primary.trim();
   }
@@ -275,7 +274,7 @@ export function registerQrCli(program: Command) {
 
         const lines: string[] = [
           theme.heading("Pairing QR"),
-          "Scan this with the ZooBot iOS app (Onboarding -> Scan QR).",
+          "Scan this with the Bot iOS app (Onboarding -> Scan QR).",
           "",
         ];
 

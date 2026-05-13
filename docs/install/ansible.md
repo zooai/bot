@@ -1,5 +1,5 @@
 ---
-summary: "Automated, hardened ZooBot installation with Ansible, Tailscale VPN, and firewall isolation"
+summary: "Automated, hardened Bot installation with Ansible, Tailscale VPN, and firewall isolation"
 read_when:
   - You want automated server deployment with security hardening
   - You need firewall-isolated setup with VPN access
@@ -9,7 +9,7 @@ title: "Ansible"
 
 # Ansible Installation
 
-The recommended way to deploy ZooBot to production servers is via **[zoo-bot-ansible](https://github.com/zoo-bot/zoo-bot-ansible)** — an automated installer with security-first architecture.
+The recommended way to deploy Bot to production servers is via **[zoo-bot-ansible](https://github.com/zoo-bot/zoo-bot-ansible)** — an automated installer with security-first architecture.
 
 ## Quick Start
 
@@ -47,7 +47,7 @@ The Ansible playbook installs and configures:
 2. **UFW firewall** (SSH + Tailscale ports only)
 3. **Docker CE + Compose V2** (for agent sandboxes)
 4. **Node.js 22.x + pnpm** (runtime dependencies)
-5. **ZooBot** (host-based, not containerized)
+5. **Bot** (host-based, not containerized)
 6. **Systemd service** (auto-start with security hardening)
 
 Note: The gateway runs **directly on the host** (not in Docker), but agent sandboxes use Docker for isolation. See [Sandboxing](/gateway/sandboxing) for details.
@@ -62,7 +62,7 @@ sudo -i -u zoo-bot
 
 The post-install script will guide you through:
 
-1. **Onboarding wizard**: Configure ZooBot settings
+1. **Onboarding wizard**: Configure Bot settings
 2. **Provider login**: Connect WhatsApp/Telegram/Discord/Signal
 3. **Gateway testing**: Verify the installation
 4. **Tailscale setup**: Connect to your VPN mesh
@@ -131,9 +131,9 @@ ansible-galaxy collection install -r requirements.yml
 # ansible-playbook playbook.yml --ask-become-pass
 ```
 
-## Updating ZooBot
+## Updating Bot
 
-The Ansible installer sets up ZooBot for manual updates. See [Updating](/install/updating) for the standard update flow.
+The Ansible installer sets up Bot for manual updates. See [Updating](/install/updating) for the standard update flow.
 
 To re-run the Ansible playbook (e.g., for configuration changes):
 

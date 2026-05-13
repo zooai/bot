@@ -9,7 +9,7 @@ metadata:
         "emoji": "📎",
         "events": ["agent:bootstrap"],
         "requires": { "config": ["workspace.dir"] },
-        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with ZooBot" }],
+        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with Bot" }],
       },
   }
 ---

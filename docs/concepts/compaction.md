@@ -1,5 +1,5 @@
 ---
-summary: "Context window + compaction: how ZooBot keeps sessions under model limits"
+summary: "Context window + compaction: how Bot keeps sessions under model limits"
 read_when:
   - You want to understand auto-compaction and /compact
   - You are debugging long sessions hitting context limits
@@ -8,7 +8,7 @@ title: "Compaction"
 
 # Context Window & Compaction
 
-Every model has a **context window** (max tokens it can see). Long-running chats accumulate messages and tool results; once the window is tight, ZooBot **compacts** older history to stay within limits.
+Every model has a **context window** (max tokens it can see). Long-running chats accumulate messages and tool results; once the window is tight, Bot **compacts** older history to stay within limits.
 
 ## What compaction is
 
@@ -26,14 +26,14 @@ Compaction summarization preserves opaque identifiers by default (`identifierPol
 
 ## Auto-compaction (default on)
 
-When a session nears or exceeds the model’s context window, ZooBot triggers auto-compaction and may retry the original request using the compacted context.
+When a session nears or exceeds the model’s context window, Bot triggers auto-compaction and may retry the original request using the compacted context.
 
 You’ll see:
 
 - `🧹 Auto-compaction complete` in verbose mode
 - `/status` showing `🧹 Compactions: <count>`
 
-Before compaction, ZooBot can run a **silent memory flush** turn to store
+Before compaction, Bot can run a **silent memory flush** turn to store
 durable notes to disk. See [Memory](/concepts/memory) for details and config.
 
 ## Manual compaction
@@ -46,7 +46,7 @@ Use `/compact` (optionally with instructions) to force a compaction pass:
 
 ## Context window source
 
-Context window is model-specific. ZooBot uses the model definition from the configured provider catalog to determine limits.
+Context window is model-specific. Bot uses the model definition from the configured provider catalog to determine limits.
 
 ## Compaction vs pruning
 
@@ -57,11 +57,11 @@ See [/concepts/session-pruning](/concepts/session-pruning) for pruning details.
 
 ## OpenAI server-side compaction
 
-ZooBot also supports OpenAI Responses server-side compaction hints for
-compatible direct OpenAI models. This is separate from local ZooBot
+Bot also supports OpenAI Responses server-side compaction hints for
+compatible direct OpenAI models. This is separate from local Bot
 compaction and can run alongside it.
 
-- Local compaction: ZooBot summarizes and persists into session JSONL.
+- Local compaction: Bot summarizes and persists into session JSONL.
 - Server-side compaction: OpenAI compacts context on the provider side when
   `store` + `context_management` are enabled.
 

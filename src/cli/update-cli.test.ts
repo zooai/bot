@@ -37,7 +37,7 @@ vi.mock("../infra/update-runner.js", () => ({
 }));
 
 vi.mock("../infra/bot-root.js", () => ({
-  resolveZooBotPackageRoot: vi.fn(),
+  resolveBotPackageRoot: vi.fn(),
 }));
 
 vi.mock("../config/config.js", () => ({
@@ -136,7 +136,7 @@ vi.mock("../runtime.js", () => ({
 }));
 
 const { runGatewayUpdate } = await import("../infra/update-runner.js");
-const { resolveZooBotPackageRoot } = await import("../infra/bot-root.js");
+const { resolveBotPackageRoot } = await import("../infra/bot-root.js");
 const { readConfigFileSnapshot, writeConfigFile } = await import("../config/config.js");
 const { checkUpdateStatus, fetchNpmTagVersion, resolveNpmChannelTag } =
   await import("../infra/update-check.js");
@@ -185,7 +185,7 @@ describe("update-cli", () => {
   };
 
   const mockPackageInstallStatus = (root: string) => {
-    vi.mocked(resolveZooBotPackageRoot).mockResolvedValue(root);
+    vi.mocked(resolveBotPackageRoot).mockResolvedValue(root);
     vi.mocked(checkUpdateStatus).mockResolvedValue({
       root,
       installKind: "package",
@@ -258,7 +258,7 @@ describe("update-cli", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.mocked(resolveZooBotPackageRoot).mockResolvedValue(process.cwd());
+    vi.mocked(resolveBotPackageRoot).mockResolvedValue(process.cwd());
     vi.mocked(readConfigFileSnapshot).mockResolvedValue(baseSnapshot);
     vi.mocked(fetchNpmTagVersion).mockResolvedValue({
       tag: "latest",
@@ -367,7 +367,7 @@ describe("update-cli", () => {
     await updateStatusCommand({ json: false });
 
     const logs = vi.mocked(defaultRuntime.log).mock.calls.map((call) => call[0]);
-    expect(logs.join("\n")).toContain("ZooBot update status");
+    expect(logs.join("\n")).toContain("Bot update status");
   });
 
   it("updateStatusCommand emits JSON", async () => {
@@ -451,7 +451,7 @@ describe("update-cli", () => {
   it("honors --tag override", async () => {
     const tempDir = createCaseDir("bot-update");
 
-    vi.mocked(resolveZooBotPackageRoot).mockResolvedValue(tempDir);
+    vi.mocked(resolveBotPackageRoot).mockResolvedValue(tempDir);
     vi.mocked(runGatewayUpdate).mockResolvedValue(
       makeOkUpdateResult({
         mode: "npm",

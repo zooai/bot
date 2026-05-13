@@ -1,6 +1,6 @@
 ---
 read_when:
-  - 你想将 Vercel AI Gateway 与 ZooBot 配合使用
+  - 你想将 Vercel AI Gateway 与 Bot 配合使用
   - 你需要 API 密钥环境变量或 CLI 认证选择
 summary: Vercel AI Gateway 设置（认证 + 模型选择）
 title: Vercel AI Gateway

@@ -234,7 +234,7 @@ Tool policies (global, agent, sandbox) support `group:*` entries that expand to 
 - `group:automation`: `cron`, `gateway`
 - `group:messaging`: `message`
 - `group:nodes`: `nodes`
-- `group:zoo-bot`: all built-in ZooBot tools (excludes provider plugins)
+- `group:zoo-bot`: all built-in Bot tools (excludes provider plugins)
 
 ### Elevated Mode
 

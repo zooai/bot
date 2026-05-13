@@ -105,9 +105,9 @@ BOT_PROFILE=dev zoo-bot gateway --dev --reset
 zoo-bot gateway stop
 ```
 
-## 原始流日志（ZooBot）
+## 原始流日志（Bot）
 
-ZooBot 可以在任何过滤/格式化之前记录**原始助手流**。
+Bot 可以在任何过滤/格式化之前记录**原始助手流**。
 这是查看推理是否作为纯文本增量到达（或作为单独的思考块）的最佳方式。
 
 通过 CLI 启用：

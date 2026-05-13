@@ -1,5 +1,5 @@
 ---
-summary: "Fix Chrome/Brave/Edge/Chromium CDP startup issues for ZooBot browser control on Linux"
+summary: "Fix Chrome/Brave/Edge/Chromium CDP startup issues for Bot browser control on Linux"
 read_when: "Browser control fails on Linux, especially with snap Chromium"
 title: "Browser Troubleshooting"
 ---
@@ -8,7 +8,7 @@ title: "Browser Troubleshooting"
 
 ## Problem: "Failed to start Chrome CDP on port 18800"
 
-ZooBot's browser control server fails to launch Chrome/Brave/Edge/Chromium with the error:
+Bot's browser control server fails to launch Chrome/Brave/Edge/Chromium with the error:
 
 ```
 {"error":"Error: Failed to start Chrome CDP on port 18800 for profile \"zoo-bot\"."}
@@ -16,7 +16,7 @@ ZooBot's browser control server fails to launch Chrome/Brave/Edge/Chromium with 
 
 ### Root Cause
 
-On Ubuntu (and many Linux distros), the default Chromium installation is a **snap package**. Snap's AppArmor confinement interferes with how ZooBot spawns and monitors the browser process.
+On Ubuntu (and many Linux distros), the default Chromium installation is a **snap package**. Snap's AppArmor confinement interferes with how Bot spawns and monitors the browser process.
 
 The `apt install chromium` command installs a stub package that redirects to snap:
 
@@ -37,7 +37,7 @@ sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo apt --fix-broken install -y  # if there are dependency errors
 ```
 
-Then update your ZooBot config (`~/.zoo-bot/zoo-bot.json`):
+Then update your Bot config (`~/.zoo-bot/zoo-bot.json`):
 
 ```json
 {
@@ -52,7 +52,7 @@ Then update your ZooBot config (`~/.zoo-bot/zoo-bot.json`):
 
 ### Solution 2: Use Snap Chromium with Attach-Only Mode
 
-If you must use snap Chromium, configure ZooBot to attach to a manually-started browser:
+If you must use snap Chromium, configure Bot to attach to a manually-started browser:
 
 1. Update config:
 
@@ -81,7 +81,7 @@ chromium-browser --headless --no-sandbox --disable-gpu \
 ```ini
 # ~/.config/systemd/user/zoo-bot-browser.service
 [Unit]
-Description=ZooBot Browser (Chrome CDP)
+Description=Bot Browser (Chrome CDP)
 After=network.target
 
 [Service]
@@ -123,7 +123,7 @@ curl -s http://127.0.0.1:18791/tabs
 
 ### Problem: "Chrome extension relay is running, but no tab is connected"
 
-You’re using the `chrome` profile (extension relay). It expects the ZooBot
+You’re using the `chrome` profile (extension relay). It expects the Bot
 browser extension to be attached to a live tab.
 
 Fix options:
@@ -131,7 +131,7 @@ Fix options:
 1. **Use the managed browser:** `zoo-bot browser start --browser-profile zoo-bot`
    (or set `browser.defaultProfile: "zoo-bot"`).
 2. **Use the extension relay:** install the extension, open a tab, and click the
-   ZooBot extension icon to attach it.
+   Bot extension icon to attach it.
 
 Notes:
 

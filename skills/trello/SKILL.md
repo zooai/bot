@@ -11,7 +11,7 @@ metadata:
 
 # Trello Skill
 
-Manage Trello boards, lists, and cards directly from ZooBot.
+Manage Trello boards, lists, and cards directly from Bot.
 
 ## Setup
 

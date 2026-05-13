@@ -1,14 +1,14 @@
 ---
-summary: "GLM model family overview + how to use it in ZooBot"
+summary: "GLM model family overview + how to use it in Bot"
 read_when:
-  - You want GLM models in ZooBot
+  - You want GLM models in Bot
   - You need the model naming convention and setup
 title: "GLM Models"
 ---
 
 # GLM models
 
-GLM is a **model family** (not a company) available through the Z.AI platform. In ZooBot, GLM
+GLM is a **model family** (not a company) available through the Z.AI platform. In Bot, GLM
 models are accessed via the `zai` provider and model IDs like `zai/glm-5`.
 
 ## CLI setup

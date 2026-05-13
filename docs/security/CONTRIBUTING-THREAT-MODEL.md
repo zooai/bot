@@ -1,6 +1,6 @@
-# Contributing to the ZooBot Threat Model
+# Contributing to the Bot Threat Model
 
-Thanks for helping make ZooBot more secure. This threat model is a living document and we welcome contributions from anyone - you don't need to be a security expert.
+Thanks for helping make Bot more secure. This threat model is a living document and we welcome contributions from anyone - you don't need to be a security expert.
 
 ## Ways to Contribute
 
@@ -11,7 +11,7 @@ Spotted an attack vector or risk we haven't covered? Open an issue on [zoo-bot/t
 **Helpful to include (but not required):**
 
 - The attack scenario and how it could be exploited
-- Which parts of ZooBot are affected (CLI, gateway, channels, ClawHub, MCP servers, etc.)
+- Which parts of Bot are affected (CLI, gateway, channels, ClawHub, MCP servers, etc.)
 - How severe you think it is (low / medium / high / critical)
 - Any links to related research, CVEs, or real-world examples
 
@@ -77,7 +77,7 @@ If you're unsure about the risk level, just describe the impact and we'll assess
 - [ATLAS Website](https://atlas.mitre.org/)
 - [ATLAS Techniques](https://atlas.mitre.org/techniques/)
 - [ATLAS Case Studies](https://atlas.mitre.org/studies/)
-- [ZooBot Threat Model](/security/THREAT-MODEL-ATLAS)
+- [Bot Threat Model](/security/THREAT-MODEL-ATLAS)
 
 ## Contact
 
@@ -87,4 +87,4 @@ If you're unsure about the risk level, just describe the impact and we'll assess
 
 ## Recognition
 
-Contributors to the threat model are recognized in the threat model acknowledgments, release notes, and the ZooBot security hall of fame for significant contributions.
+Contributors to the threat model are recognized in the threat model acknowledgments, release notes, and the Bot security hall of fame for significant contributions.

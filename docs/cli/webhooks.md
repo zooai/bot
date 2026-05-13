@@ -1,7 +1,7 @@
 ---
 summary: "CLI reference for `zoo-bot webhooks` (webhook helpers + Gmail Pub/Sub)"
 read_when:
-  - You want to wire Gmail Pub/Sub events into ZooBot
+  - You want to wire Gmail Pub/Sub events into Bot
   - You want webhook helper commands
 title: "webhooks"
 ---

@@ -1,6 +1,6 @@
 # Security Policy
 
-If you believe you've found a security issue in ZooBot, please report it privately.
+If you believe you've found a security issue in Bot, please report it privately.
 
 ## Reporting
 
@@ -35,10 +35,10 @@ Reports without reproduction steps, demonstrated impact, and remediation advice 
 For fastest triage, include all of the following:
 
 - Exact vulnerable path (`file`, function, and line range) on a current revision.
-- Tested version details (ZooBot version and/or commit SHA).
+- Tested version details (Bot version and/or commit SHA).
 - Reproducible PoC against latest `main` or latest released version.
-- Demonstrated impact tied to ZooBot's documented trust boundaries.
-- For exposed-secret reports: proof the credential is ZooBot-owned (or grants access to ZooBot-operated infrastructure/services).
+- Demonstrated impact tied to Bot's documented trust boundaries.
+- For exposed-secret reports: proof the credential is Bot-owned (or grants access to Bot-operated infrastructure/services).
 - Explicit statement that the report does not rely on adversarial operators sharing one gateway host/config.
 - Scope check explaining why the report is **not** covered by the Out of Scope section below.
 - For command-risk/parity reports (for example obfuscation detection differences), a concrete boundary-bypass path is required (auth/approval/allowlist/sandbox). Parity-only findings are treated as hardening, not vulnerabilities.
@@ -73,11 +73,11 @@ These are frequently reported but are typically closed with no code change:
 
 ## Security & Trust
 
-**Jamieson O'Reilly** ([@theonejvo](https://twitter.com/theonejvo)) is Security & Trust at ZooBot. Jamieson is the founder of [Dvuln](https://dvuln.com) and brings extensive experience in offensive security, penetration testing, and security program development.
+**Jamieson O'Reilly** ([@theonejvo](https://twitter.com/theonejvo)) is Security & Trust at Bot. Jamieson is the founder of [Dvuln](https://dvuln.com) and brings extensive experience in offensive security, penetration testing, and security program development.
 
 ## Bug Bounties
 
-ZooBot is a labor of love. There is no bug bounty program and no budget for paid reports. Please still disclose responsibly so we can fix issues quickly.
+Bot is a labor of love. There is no bug bounty program and no budget for paid reports. Please still disclose responsibly so we can fix issues quickly.
 The best way to help the project right now is by sending PRs.
 
 ## Maintainers: GHSA Updates via CLI
@@ -86,23 +86,23 @@ When patching a GHSA via `gh api`, include `X-GitHub-Api-Version: 2022-11-28` (o
 
 ## Operator Trust Model (Important)
 
-ZooBot does **not** model one gateway as a multi-tenant, adversarial user boundary.
+Bot does **not** model one gateway as a multi-tenant, adversarial user boundary.
 
 - Authenticated Gateway callers are treated as trusted operators for that gateway instance.
 - Session identifiers (`sessionKey`, session IDs, labels) are routing controls, not per-user authorization boundaries.
 - If one operator can view data from another operator on the same gateway, that is expected in this trust model.
-- ZooBot can technically run multiple gateway instances on one machine, but recommended operations are clean separation by trust boundary.
+- Bot can technically run multiple gateway instances on one machine, but recommended operations are clean separation by trust boundary.
 - Recommended mode: one user per machine/host (or VPS), one gateway for that user, and one or more agents inside that gateway.
-- If multiple users need ZooBot, use one VPS (or host/OS user boundary) per user.
+- If multiple users need Bot, use one VPS (or host/OS user boundary) per user.
 - For advanced setups, multiple gateways on one machine are possible, but only with strict isolation and are not the recommended default.
 - Exec behavior is host-first by default: `agents.defaults.sandbox.mode` defaults to `off`.
 - `tools.exec.host` defaults to `sandbox` as a routing preference, but if sandbox runtime is not active for the session, exec runs on the gateway host.
 - Implicit exec calls (no explicit host in the tool call) follow the same behavior.
-- This is expected in ZooBot's one-user trusted-operator model. If you need isolation, enable sandbox mode (`non-main`/`all`) and keep strict tool policy.
+- This is expected in Bot's one-user trusted-operator model. If you need isolation, enable sandbox mode (`non-main`/`all`) and keep strict tool policy.
 
 ## Trusted Plugin Concept (Core)
 
-Plugins/extensions are part of ZooBot's trusted computing base for a gateway.
+Plugins/extensions are part of Bot's trusted computing base for a gateway.
 
 - Installing or enabling a plugin grants it the same trust level as local code running on that gateway host.
 - Plugin behavior such as reading env/files or running host commands is expected inside this trust boundary.
@@ -111,7 +111,7 @@ Plugins/extensions are part of ZooBot's trusted computing base for a gateway.
 ## Out of Scope
 
 - Public Internet Exposure
-- Using ZooBot in ways that the docs recommend not to
+- Using Bot in ways that the docs recommend not to
 - Deployments where mutually untrusted/adversarial operators share one gateway host and config (for example, reports expecting per-operator isolation for `sessions.list`, `sessions.preview`, `chat.history`, or similar control-plane reads)
 - Prompt-injection-only attacks (without a policy/auth/sandbox boundary bypass)
 - Reports that require write access to trusted local state (`~/.zoo-bot`, workspace files like `MEMORY.md` / `memory/*.md`)
@@ -123,15 +123,15 @@ Plugins/extensions are part of ZooBot's trusted computing base for a gateway.
 - Any report whose only claim is that an operator-enabled `dangerous*`/`dangerously*` config option weakens defaults (these are explicit break-glass tradeoffs by design)
 - Reports that depend on trusted operator-supplied configuration values to trigger availability impact (for example custom regex patterns). These may still be fixed as defense-in-depth hardening, but are not security-boundary bypasses.
 - Reports whose only claim is heuristic/parity drift in command-risk detection (for example obfuscation-pattern checks) across exec surfaces, without a demonstrated trust-boundary bypass. These are hardening-only findings and are not vulnerabilities; triage may close them as `invalid`/`no-action` or track them separately as low/informational hardening.
-- Exposed secrets that are third-party/user-controlled credentials (not ZooBot-owned and not granting access to ZooBot-operated infrastructure/services) without demonstrated ZooBot impact
+- Exposed secrets that are third-party/user-controlled credentials (not Bot-owned and not granting access to Bot-operated infrastructure/services) without demonstrated Bot impact
 - Reports whose only claim is host-side exec when sandbox runtime is disabled/unavailable (documented default behavior in the trusted-operator model), without a boundary bypass.
 - Reports whose only claim is that a platform-provided upload destination URL is untrusted (for example Microsoft Teams `fileConsent/invoke` `uploadInfo.uploadUrl`) without proving attacker control in an authenticated production flow.
 
 ## Deployment Assumptions
 
-ZooBot security guidance assumes:
+Bot security guidance assumes:
 
-- The host where ZooBot runs is within a trusted OS/admin boundary.
+- The host where Bot runs is within a trusted OS/admin boundary.
 - Anyone who can modify `~/.zoo-bot` state/config (including `zoo-bot.json`) is effectively a trusted operator.
 - A single Gateway shared by mutually untrusted people is **not a recommended setup**. Use separate gateways (or at minimum separate OS users/hosts) per trust boundary.
 - Authenticated Gateway callers are treated as trusted operators. Session identifiers (for example `sessionKey`) are routing controls, not per-user authorization boundaries.
@@ -139,7 +139,7 @@ ZooBot security guidance assumes:
 
 ## One-User Trust Model (Personal Assistant)
 
-ZooBot's security model is "personal assistant" (one trusted operator, potentially many agents), not "shared multi-tenant bus."
+Bot's security model is "personal assistant" (one trusted operator, potentially many agents), not "shared multi-tenant bus."
 
 - If multiple people can message the same tool-enabled agent (for example a shared Slack workspace), they can all steer that agent within its granted permissions.
 - Session or memory scoping reduces context bleed, but does **not** create per-user host authorization boundaries.
@@ -158,7 +158,7 @@ ZooBot's security model is "personal assistant" (one trusted operator, potential
 
 ## Gateway and Node trust concept
 
-ZooBot separates routing from execution, but both remain inside the same operator trust boundary:
+Bot separates routing from execution, but both remain inside the same operator trust boundary:
 
 - **Gateway** is the control plane. If a caller passes Gateway auth, they are treated as a trusted operator for that Gateway.
 - **Node** is an execution extension of the Gateway. Pairing a node grants operator-level remote capability on that node.
@@ -179,22 +179,22 @@ ZooBot separates routing from execution, but both remain inside the same operato
 
 Plugins/extensions are loaded **in-process** with the Gateway and are treated as trusted code.
 
-- Plugins can execute with the same OS privileges as the ZooBot process.
+- Plugins can execute with the same OS privileges as the Bot process.
 - Runtime helpers (for example `runtime.system.runCommandWithTimeout`) are convenience APIs, not a sandbox boundary.
 - Only install plugins you trust, and prefer `plugins.allow` to pin explicit trusted plugin ids.
 
 ## Temp Folder Boundary (Media/Sandbox)
 
-ZooBot uses a dedicated temp root for local media handoff and sandbox-adjacent temp artifacts:
+Bot uses a dedicated temp root for local media handoff and sandbox-adjacent temp artifacts:
 
 - Preferred temp root: `/tmp/zoo-bot` (when available and safe on the host).
 - Fallback temp root: `os.tmpdir()/zoo-bot` (or `zoo-bot-<uid>` on multi-user hosts).
 
 Security boundary notes:
 
-- Sandbox media validation allows absolute temp paths only under the ZooBot-managed temp root.
+- Sandbox media validation allows absolute temp paths only under the Bot-managed temp root.
 - Arbitrary host tmp paths are not treated as trusted media roots.
-- Plugin/extension code should use ZooBot temp helpers (`resolvePreferredZooBotTmpDir`, `buildRandomTempFilePath`, `withTempDownloadPath`) rather than raw `os.tmpdir()` defaults when handling media files.
+- Plugin/extension code should use Bot temp helpers (`resolvePreferredBotTmpDir`, `buildRandomTempFilePath`, `withTempDownloadPath`) rather than raw `os.tmpdir()` defaults when handling media files.
 - Enforcement reference points:
   - temp root resolver: `src/infra/tmp-zoo-bot-dir.ts`
   - SDK temp helpers: `src/plugin-sdk/temp-path.ts`
@@ -222,13 +222,13 @@ For threat model + hardening guidance (including `zoo-bot security audit --deep`
 
 ### Web Interface Safety
 
-ZooBot's web interface (Gateway Control UI + HTTP endpoints) is intended for **local use only**.
+Bot's web interface (Gateway Control UI + HTTP endpoints) is intended for **local use only**.
 
 - Recommended: keep the Gateway **loopback-only** (`127.0.0.1` / `::1`).
   - Config: `gateway.bind="loopback"` (default).
   - CLI: `zoo-bot gateway run --bind loopback`.
 - `gateway.controlUi.dangerouslyDisableDeviceAuth` is intended for localhost-only break-glass use.
-  - ZooBot keeps deployment flexibility by design and does not hard-forbid non-local setups.
+  - Bot keeps deployment flexibility by design and does not hard-forbid non-local setups.
   - Non-local and other risky configurations are surfaced by `zoo-bot security audit` as dangerous findings.
   - This operator-selected tradeoff is by design and not, by itself, a security vulnerability.
 - Canvas host note: network-visible canvas is **intentional** for trusted node scenarios (LAN/tailnet).
@@ -243,7 +243,7 @@ ZooBot's web interface (Gateway Control UI + HTTP endpoints) is intended for **l
 
 ### Node.js Version
 
-ZooBot requires **Node.js 22.12.0 or later** (LTS). This version includes important security patches:
+Bot requires **Node.js 22.12.0 or later** (LTS). This version includes important security patches:
 
 - CVE-2025-59466: async_hooks DoS vulnerability
 - CVE-2026-21636: Permission model bypass vulnerability
@@ -256,7 +256,7 @@ node --version  # Should be v22.12.0 or later
 
 ### Docker Security
 
-When running ZooBot in Docker:
+When running Bot in Docker:
 
 1. The official image runs as a non-root user (`node`) for reduced attack surface
 2. Use `--read-only` flag when possible for additional filesystem protection

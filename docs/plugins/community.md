@@ -1,14 +1,14 @@
 ---
 summary: "Community plugins: quality bar, hosting requirements, and PR submission path"
 read_when:
-  - You want to publish a third-party ZooBot plugin
+  - You want to publish a third-party Bot plugin
   - You want to propose a plugin for docs listing
 title: "Community plugins"
 ---
 
 # Community plugins
 
-This page tracks high-quality **community-maintained plugins** for ZooBot.
+This page tracks high-quality **community-maintained plugins** for Bot.
 
 We accept PRs that add community plugins here when they meet the quality bar.
 
@@ -45,7 +45,7 @@ Use this format when adding entries:
 
 ## Listed plugins
 
-- **WeChat** — Connect ZooBot to WeChat personal accounts via WeChatPadPro (iPad protocol). Supports text, image, and file exchange with keyword-triggered conversations.
+- **WeChat** — Connect Bot to WeChat personal accounts via WeChatPadPro (iPad protocol). Supports text, image, and file exchange with keyword-triggered conversations.
   npm: `@icesword760/zoo-bot-wechat`
   repo: `https://github.com/icesword0760/zoo-bot-wechat`
   install: `zoo-bot plugins install @icesword760/zoo-bot-wechat`

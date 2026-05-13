@@ -33,7 +33,7 @@ For model selection rules, see [/concepts/models](/concepts/models).
 
 ## Built-in providers (pi-ai catalog)
 
-ZooBot ships with the pi‑ai catalog. These providers require **no**
+Bot ships with the pi‑ai catalog. These providers require **no**
 `models.providers` config; just set auth + pick a model.
 
 ### OpenAI
@@ -78,7 +78,7 @@ ZooBot ships with the pi‑ai catalog. These providers require **no**
 - CLI: `zoo-bot onboard --auth-choice openai-codex` or `zoo-bot models auth login --provider openai-codex`
 - Default transport is `auto` (WebSocket-first, SSE fallback)
 - Override per model via `agents.defaults.models["openai-codex/<model>"].params.transport` (`"sse"`, `"websocket"`, or `"auto"`)
-- Policy note: OpenAI Codex OAuth is explicitly supported for external tools/workflows like ZooBot.
+- Policy note: OpenAI Codex OAuth is explicitly supported for external tools/workflows like Bot.
 
 ```json5
 {
@@ -111,7 +111,7 @@ ZooBot ships with the pi‑ai catalog. These providers require **no**
 
 - Providers: `google-vertex`, `google-antigravity`, `google-gemini-cli`
 - Auth: Vertex uses gcloud ADC; Antigravity/Gemini CLI use their respective auth flows
-- Caution: Antigravity and Gemini CLI OAuth in ZooBot are unofficial integrations. Some users have reported Google account restrictions after using third-party clients. Review Google terms and use a non-critical account if you choose to proceed.
+- Caution: Antigravity and Gemini CLI OAuth in Bot are unofficial integrations. Some users have reported Google account restrictions after using third-party clients. Review Google terms and use a non-critical account if you choose to proceed.
 - Antigravity OAuth is shipped as a bundled plugin (`google-antigravity-auth`, disabled by default).
   - Enable: `zoo-bot plugins enable google-antigravity-auth`
   - Login: `zoo-bot models auth login --provider google-antigravity --set-default`
@@ -436,15 +436,15 @@ Example (OpenAI‑compatible):
 Notes:
 
 - For custom providers, `reasoning`, `input`, `cost`, `contextWindow`, and `maxTokens` are optional.
-  When omitted, ZooBot defaults to:
+  When omitted, Bot defaults to:
   - `reasoning: false`
   - `input: ["text"]`
   - `cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 }`
   - `contextWindow: 200000`
   - `maxTokens: 8192`
 - Recommended: set explicit values that match your proxy/model limits.
-- For `api: "openai-completions"` on non-native endpoints (any non-empty `baseUrl` whose host is not `api.openai.com`), ZooBot forces `compat.supportsDeveloperRole: false` to avoid provider 400 errors for unsupported `developer` roles.
-- If `baseUrl` is empty/omitted, ZooBot keeps the default OpenAI behavior (which resolves to `api.openai.com`).
+- For `api: "openai-completions"` on non-native endpoints (any non-empty `baseUrl` whose host is not `api.openai.com`), Bot forces `compat.supportsDeveloperRole: false` to avoid provider 400 errors for unsupported `developer` roles.
+- If `baseUrl` is empty/omitted, Bot keeps the default OpenAI behavior (which resolves to `api.openai.com`).
 - For safety, an explicit `compat.supportsDeveloperRole: true` is still overridden on non-native `openai-completions` endpoints.
 
 ## CLI examples

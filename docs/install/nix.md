@@ -1,5 +1,5 @@
 ---
-summary: "Install ZooBot declaratively with Nix"
+summary: "Install Bot declaratively with Nix"
 read_when:
   - You want reproducible, rollback-able installs
   - You're already using Nix/NixOS/Home Manager
@@ -9,7 +9,7 @@ title: "Nix"
 
 # Nix Installation
 
-The recommended way to run ZooBot with Nix is via **[nix-zoo-bot](https://github.com/zoo-bot/nix-zoo-bot)** — a batteries-included Home Manager module.
+The recommended way to run Bot with Nix is via **[nix-zoo-bot](https://github.com/zoo-bot/nix-zoo-bot)** — a batteries-included Home Manager module.
 
 ## Quick Start
 
@@ -47,7 +47,7 @@ Reference the nix-zoo-bot README for module options.
 
 When `BOT_NIX_MODE=1` is set (automatic with nix-zoo-bot):
 
-ZooBot supports a **Nix mode** that makes configuration deterministic and disables auto-install flows.
+Bot supports a **Nix mode** that makes configuration deterministic and disables auto-install flows.
 Enable it by exporting:
 
 ```bash
@@ -63,7 +63,7 @@ defaults write ai.zoo.bot.mac zoo-bot.nixMode -bool true
 
 ### Config + state paths
 
-ZooBot reads JSON5 config from `BOT_CONFIG_PATH` and stores mutable data in `BOT_STATE_DIR`.
+Bot reads JSON5 config from `BOT_CONFIG_PATH` and stores mutable data in `BOT_STATE_DIR`.
 When needed, you can also set `BOT_HOME` to control the base home directory used for internal path resolution.
 
 - `BOT_HOME` (default precedence: `HOME` / `USERPROFILE` / `os.homedir()`)
@@ -84,7 +84,7 @@ stay out of the immutable store.
 The macOS packaging flow expects a stable Info.plist template at:
 
 ```
-apps/macos/Sources/ZooBot/Resources/Info.plist
+apps/macos/Sources/Bot/Resources/Info.plist
 ```
 
 [`scripts/package-mac-app.sh`](https://github.com/zoo-bot/zoo-bot/blob/main/scripts/package-mac-app.sh) copies this template into the app bundle and patches dynamic fields

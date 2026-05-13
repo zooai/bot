@@ -15,7 +15,7 @@ function ensureChangelogEntry(changelogPath: string, version: string): boolean {
   if (content.includes(`## ${version}`)) {
     return false;
   }
-  const entry = `## ${version}\n\n### Changes\n- Version alignment with core ZooBot release numbers.\n\n`;
+  const entry = `## ${version}\n\n### Changes\n- Version alignment with core Bot release numbers.\n\n`;
   if (content.startsWith("# Changelog\n\n")) {
     const next = content.replace("# Changelog\n\n", `# Changelog\n\n${entry}`);
     writeFileSync(changelogPath, next);
@@ -26,7 +26,7 @@ function ensureChangelogEntry(changelogPath: string, version: string): boolean {
   return true;
 }
 
-function stripWorkspaceZooBotDevDependency(pkg: PackageJson): boolean {
+function stripWorkspaceBotDevDependency(pkg: PackageJson): boolean {
   const devDeps = pkg.devDependencies;
   if (!devDeps || devDeps.bot !== "workspace:*") {
     return false;
@@ -75,7 +75,7 @@ export function syncPluginVersions(rootDir = resolve(".")) {
       changelogged.push(pkg.name);
     }
 
-    const removedWorkspaceDevDependency = stripWorkspaceZooBotDevDependency(pkg);
+    const removedWorkspaceDevDependency = stripWorkspaceBotDevDependency(pkg);
     if (removedWorkspaceDevDependency) {
       strippedWorkspaceDevDeps.push(pkg.name);
     }

@@ -1,19 +1,19 @@
 ---
-summary: "ZooBot on Oracle Cloud (Always Free ARM)"
+summary: "Bot on Oracle Cloud (Always Free ARM)"
 read_when:
-  - Setting up ZooBot on Oracle Cloud
-  - Looking for low-cost VPS hosting for ZooBot
-  - Want 24/7 ZooBot on a small server
+  - Setting up Bot on Oracle Cloud
+  - Looking for low-cost VPS hosting for Bot
+  - Want 24/7 Bot on a small server
 title: "Oracle Cloud"
 ---
 
-# ZooBot on Oracle Cloud (OCI)
+# Bot on Oracle Cloud (OCI)
 
 ## Goal
 
-Run a persistent ZooBot Gateway on Oracle Cloud's **Always Free** ARM tier.
+Run a persistent Bot Gateway on Oracle Cloud's **Always Free** ARM tier.
 
-Oracle’s free tier can be a great fit for ZooBot (especially if you already have an OCI account), but it comes with tradeoffs:
+Oracle’s free tier can be a great fit for Bot (especially if you already have an OCI account), but it comes with tradeoffs:
 
 - ARM architecture (most things work, but some binaries may be x86-only)
 - Capacity and signup can be finicky
@@ -96,7 +96,7 @@ tailscale status
 
 **From now on, connect via Tailscale:** `ssh ubuntu@zoo-bot` (or use the Tailscale IP).
 
-## 5) Install ZooBot
+## 5) Install Bot
 
 ```bash
 curl -fsSL https://zoo-bot.ai/install.sh | bash

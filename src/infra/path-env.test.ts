@@ -33,9 +33,9 @@ vi.mock("node:fs", async (importOriginal) => {
   return { ...wrapped, default: wrapped };
 });
 
-let ensureZooBotCliOnPath: typeof import("./path-env.js").ensureZooBotCliOnPath;
+let ensureBotCliOnPath: typeof import("./path-env.js").ensureBotCliOnPath;
 
-describe("ensureZooBotCliOnPath", () => {
+describe("ensureBotCliOnPath", () => {
   const envKeys = [
     "PATH",
     "BOT_PATH_BOOTSTRAPPED",
@@ -48,7 +48,7 @@ describe("ensureZooBotCliOnPath", () => {
   let envSnapshot: Record<(typeof envKeys)[number], string | undefined>;
 
   beforeAll(async () => {
-    ({ ensureZooBotCliOnPath } = await import("./path-env.js"));
+    ({ ensureBotCliOnPath } = await import("./path-env.js"));
   });
 
   beforeEach(() => {
@@ -83,7 +83,7 @@ describe("ensureZooBotCliOnPath", () => {
     process.env.PATH = "/usr/bin";
     delete process.env.BOT_PATH_BOOTSTRAPPED;
 
-    ensureZooBotCliOnPath({
+    ensureBotCliOnPath({
       execPath: cliPath,
       cwd: tmp,
       homeDir: tmp,
@@ -97,7 +97,7 @@ describe("ensureZooBotCliOnPath", () => {
   it("is idempotent", () => {
     process.env.PATH = "/bin";
     process.env.BOT_PATH_BOOTSTRAPPED = "1";
-    ensureZooBotCliOnPath({
+    ensureBotCliOnPath({
       execPath: "/tmp/does-not-matter",
       cwd: "/tmp",
       homeDir: "/tmp",
@@ -123,7 +123,7 @@ describe("ensureZooBotCliOnPath", () => {
     process.env.PATH = "/usr/bin";
     delete process.env.BOT_PATH_BOOTSTRAPPED;
 
-    ensureZooBotCliOnPath({
+    ensureBotCliOnPath({
       execPath: appCli,
       cwd: tmp,
       homeDir: tmp,
@@ -155,7 +155,7 @@ describe("ensureZooBotCliOnPath", () => {
     process.env.PATH = "/usr/bin";
     delete process.env.BOT_PATH_BOOTSTRAPPED;
 
-    ensureZooBotCliOnPath({
+    ensureBotCliOnPath({
       execPath: appCli,
       cwd: tmp,
       homeDir: tmp,
@@ -167,7 +167,7 @@ describe("ensureZooBotCliOnPath", () => {
     process.env.PATH = "/usr/bin";
     delete process.env.BOT_PATH_BOOTSTRAPPED;
 
-    ensureZooBotCliOnPath({
+    ensureBotCliOnPath({
       execPath: appCli,
       cwd: tmp,
       homeDir: tmp,
@@ -200,7 +200,7 @@ describe("ensureZooBotCliOnPath", () => {
     delete process.env.HOMEBREW_BREW_FILE;
     delete process.env.XDG_BIN_HOME;
 
-    ensureZooBotCliOnPath({
+    ensureBotCliOnPath({
       execPath: path.join(execDir, "node"),
       cwd: tmp,
       homeDir: tmp,

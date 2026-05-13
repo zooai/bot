@@ -1,7 +1,7 @@
 ---
-summary: "Use OpenAI via API keys or Codex subscription in ZooBot"
+summary: "Use OpenAI via API keys or Codex subscription in Bot"
 read_when:
-  - You want to use OpenAI models in ZooBot
+  - You want to use OpenAI models in Bot
   - You want Codex subscription auth instead of API keys
 title: "OpenAI"
 ---
@@ -10,7 +10,7 @@ title: "OpenAI"
 
 OpenAI provides developer APIs for GPT models. Codex supports **ChatGPT sign-in** for subscription
 access or **API key** sign-in for usage-based access. Codex cloud requires ChatGPT sign-in.
-OpenAI explicitly supports subscription OAuth usage in external tools/workflows like ZooBot.
+OpenAI explicitly supports subscription OAuth usage in external tools/workflows like Bot.
 
 ## Option A: OpenAI API key (OpenAI Platform)
 
@@ -35,7 +35,7 @@ zoo-bot onboard --openai-api-key "$OPENAI_API_KEY"
 ```
 
 OpenAI's current API model docs list `gpt-5.4` and `gpt-5.4-pro` for direct
-OpenAI API usage. ZooBot forwards both through the `openai/*` Responses path.
+OpenAI API usage. Bot forwards both through the `openai/*` Responses path.
 
 ## Option B: OpenAI Code (Codex) subscription
 
@@ -60,12 +60,12 @@ zoo-bot models auth login --provider openai-codex
 }
 ```
 
-OpenAI's current Codex docs list `gpt-5.4` as the current Codex model. ZooBot
+OpenAI's current Codex docs list `gpt-5.4` as the current Codex model. Bot
 maps that to `openai-codex/gpt-5.4` for ChatGPT/Codex OAuth usage.
 
 ### Transport default
 
-ZooBot uses `pi-ai` for model streaming. For both `openai/*` and
+Bot uses `pi-ai` for model streaming. For both `openai/*` and
 `openai-codex/*`, default transport is `"auto"` (WebSocket-first, then SSE
 fallback).
 
@@ -75,7 +75,7 @@ You can set `agents.defaults.models.<provider/model>.params.transport`:
 - `"websocket"`: force WebSocket
 - `"auto"`: try WebSocket, then fall back to SSE
 
-For `openai/*` (Responses API), ZooBot also enables WebSocket warm-up by
+For `openai/*` (Responses API), Bot also enables WebSocket warm-up by
 default (`openaiWsWarmup: true`) when WebSocket transport is used.
 
 Related OpenAI docs:
@@ -102,7 +102,7 @@ Related OpenAI docs:
 
 ### OpenAI WebSocket warm-up
 
-OpenAI docs describe warm-up as optional. ZooBot enables it by default for
+OpenAI docs describe warm-up as optional. Bot enables it by default for
 `openai/*` to reduce first-turn latency when using WebSocket transport.
 
 ### Disable warm-up
@@ -144,7 +144,7 @@ OpenAI docs describe warm-up as optional. ZooBot enables it by default for
 ### OpenAI priority processing
 
 OpenAI's API exposes priority processing via `service_tier=priority`. In
-ZooBot, set `agents.defaults.models["openai/<model>"].params.serviceTier` to
+Bot, set `agents.defaults.models["openai/<model>"].params.serviceTier` to
 pass that field through on direct `openai/*` Responses requests.
 
 ```json5
@@ -168,7 +168,7 @@ Supported values are `auto`, `default`, `flex`, and `priority`.
 ### OpenAI Responses server-side compaction
 
 For direct OpenAI Responses models (`openai/*` using `api: "openai-responses"` with
-`baseUrl` on `api.openai.com`), ZooBot now auto-enables OpenAI server-side
+`baseUrl` on `api.openai.com`), Bot now auto-enables OpenAI server-side
 compaction payload hints:
 
 - Forces `store: true` (unless model compat sets `supportsStore: false`)

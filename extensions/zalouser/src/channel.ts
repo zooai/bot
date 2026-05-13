@@ -1,3 +1,5 @@
+import fsp from "node:fs/promises";
+import path from "node:path";
 import type {
   ChannelAccountSnapshot,
   ChannelDirectoryEntry,
@@ -18,12 +20,10 @@ import {
   formatPairingApproveHint,
   migrateBaseNameToDefaultAccount,
   normalizeAccountId,
-  resolvePreferredZooBotTmpDir,
+  resolvePreferredBotTmpDir,
   resolveChannelAccountConfigBasePath,
   setAccountEnabledInConfigSection,
 } from "@hanzo/bot/plugin-sdk/zalouser";
-import fsp from "node:fs/promises";
-import path from "node:path";
 import {
   listZalouserAccountIds,
   resolveDefaultZalouserAccountId,
@@ -80,10 +80,7 @@ async function writeQrDataUrlToTempFile(
     return null;
   }
   const safeProfile = profile.replace(/[^a-zA-Z0-9_-]+/g, "-") || "default";
-  const filePath = path.join(
-    resolvePreferredZooBotTmpDir(),
-    `bot-zalouser-qr-${safeProfile}.png`,
-  );
+  const filePath = path.join(resolvePreferredBotTmpDir(), `bot-zalouser-qr-${safeProfile}.png`);
   await fsp.writeFile(filePath, Buffer.from(base64, "base64"));
   return filePath;
 }

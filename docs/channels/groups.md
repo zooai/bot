@@ -7,19 +7,19 @@ title: "Groups"
 
 # Groups
 
-ZooBot treats group chats consistently across surfaces: WhatsApp, Telegram, Discord, Slack, Signal, iMessage, Microsoft Teams, Zalo.
+Bot treats group chats consistently across surfaces: WhatsApp, Telegram, Discord, Slack, Signal, iMessage, Microsoft Teams, Zalo.
 
 ## Beginner intro (2 minutes)
 
-ZooBot “lives” on your own messaging accounts. There is no separate WhatsApp bot user.
-If **you** are in a group, ZooBot can see that group and respond there.
+Bot “lives” on your own messaging accounts. There is no separate WhatsApp bot user.
+If **you** are in a group, Bot can see that group and respond there.
 
 Default behavior:
 
 - Groups are restricted (`groupPolicy: "allowlist"`).
 - Replies require a mention unless you explicitly disable mention gating.
 
-Translation: allowlisted senders can trigger ZooBot by mentioning it.
+Translation: allowlisted senders can trigger Bot by mentioning it.
 
 > TL;DR
 >

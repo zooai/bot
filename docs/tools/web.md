@@ -9,7 +9,7 @@ title: "Web Tools"
 
 # Web tools
 
-ZooBot ships two lightweight web tools:
+Bot ships two lightweight web tools:
 
 - `web_search` — Search the web using Perplexity Search API, Brave Search API, Gemini with Google Search grounding, Grok, or Kimi.
 - `web_fetch` — HTTP fetch + readable extraction (HTML → markdown/text).
@@ -39,7 +39,7 @@ See [Perplexity Search setup](/perplexity) and [Brave Search setup](/brave-searc
 
 ### Auto-detection
 
-If no `provider` is explicitly set, ZooBot auto-detects which provider to use based on available API keys, checking in this order:
+If no `provider` is explicitly set, Bot auto-detects which provider to use based on available API keys, checking in this order:
 
 1. **Brave** — `BRAVE_API_KEY` env var or `tools.web.search.apiKey` config
 2. **Gemini** — `GEMINI_API_KEY` env var or `tools.web.search.gemini.apiKey` config

@@ -1,18 +1,18 @@
 ---
-summary: "macOS app flow for controlling a remote ZooBot gateway over SSH"
+summary: "macOS app flow for controlling a remote Bot gateway over SSH"
 read_when:
   - Setting up or debugging remote mac control
 title: "Remote Control"
 ---
 
-# Remote ZooBot (macOS ⇄ remote host)
+# Remote Bot (macOS ⇄ remote host)
 
-This flow lets the macOS app act as a full remote control for a ZooBot gateway running on another host (desktop/server). It’s the app’s **Remote over SSH** (remote run) feature. All features—health checks, Voice Wake forwarding, and Web Chat—reuse the same remote SSH configuration from _Settings → General_.
+This flow lets the macOS app act as a full remote control for a Bot gateway running on another host (desktop/server). It’s the app’s **Remote over SSH** (remote run) feature. All features—health checks, Voice Wake forwarding, and Web Chat—reuse the same remote SSH configuration from _Settings → General_.
 
 ## Modes
 
 - **Local (this Mac)**: Everything runs on the laptop. No SSH involved.
-- **Remote over SSH (default)**: ZooBot commands are executed on the remote host. The mac app opens an SSH connection with `-o BatchMode` plus your chosen identity/key and a local port-forward.
+- **Remote over SSH (default)**: Bot commands are executed on the remote host. The mac app opens an SSH connection with `-o BatchMode` plus your chosen identity/key and a local port-forward.
 - **Remote direct (ws/wss)**: No SSH tunnel. The mac app connects to the gateway URL directly (for example, via Tailscale Serve or a public HTTPS reverse proxy).
 
 ## Remote transports
@@ -24,14 +24,14 @@ Remote mode supports two transports:
 
 ## Prereqs on the remote host
 
-1. Install Node + pnpm and build/install the ZooBot CLI (`pnpm install && pnpm build && pnpm link --global`).
+1. Install Node + pnpm and build/install the Bot CLI (`pnpm install && pnpm build && pnpm link --global`).
 2. Ensure `zoo-bot` is on PATH for non-interactive shells (symlink into `/usr/local/bin` or `/opt/homebrew/bin` if needed).
 3. Open SSH with key auth. We recommend **Tailscale** IPs for stable reachability off-LAN.
 
 ## macOS app setup
 
 1. Open _Settings → General_.
-2. Under **ZooBot runs**, pick **Remote over SSH** and set:
+2. Under **Bot runs**, pick **Remote over SSH** and set:
    - **Transport**: **SSH tunnel** or **Direct (ws/wss)**.
    - **SSH target**: `user@host` (optional `:port`).
      - If the gateway is on the same LAN and advertises Bonjour, pick it from the discovered list to auto-fill this field.

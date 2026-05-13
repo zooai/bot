@@ -1,18 +1,18 @@
 import fs from "node:fs";
 import path from "node:path";
 import { Logger as TsLogger } from "tslog";
-import type { BotConfig } from "../config/types.js";
-import type { ConsoleStyle } from "./console.js";
 import { getCommandPathWithRootOptions } from "../cli/argv.js";
-import { resolvePreferredZooBotTmpDir } from "../infra/tmp-bot-dir.js";
+import type { BotConfig } from "../config/types.js";
+import { resolvePreferredBotTmpDir } from "../infra/tmp-bot-dir.js";
 import { readLoggingConfig } from "./config.js";
+import type { ConsoleStyle } from "./console.js";
 import { resolveEnvLogLevelOverride } from "./env-log-level.js";
 import { type LogLevel, levelToMinLevel, normalizeLogLevel } from "./levels.js";
 import { resolveNodeRequireFromMeta } from "./node-require.js";
 import { loggingState } from "./state.js";
 import { formatLocalIsoWithOffset } from "./timestamps.js";
 
-export const DEFAULT_LOG_DIR = resolvePreferredZooBotTmpDir();
+export const DEFAULT_LOG_DIR = resolvePreferredBotTmpDir();
 export const DEFAULT_LOG_FILE = path.join(DEFAULT_LOG_DIR, "bot.log"); // legacy single-file path
 
 const LOG_PREFIX = "bot";

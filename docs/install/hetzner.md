@@ -1,20 +1,20 @@
 ---
-summary: "Run ZooBot Gateway 24/7 on a cheap Hetzner VPS (Docker) with durable state and baked-in binaries"
+summary: "Run Bot Gateway 24/7 on a cheap Hetzner VPS (Docker) with durable state and baked-in binaries"
 read_when:
-  - You want ZooBot running 24/7 on a cloud VPS (not your laptop)
+  - You want Bot running 24/7 on a cloud VPS (not your laptop)
   - You want a production-grade, always-on Gateway on your own VPS
   - You want full control over persistence, binaries, and restart behavior
-  - You are running ZooBot in Docker on Hetzner or a similar provider
+  - You are running Bot in Docker on Hetzner or a similar provider
 title: "Hetzner"
 ---
 
-# ZooBot on Hetzner (Docker, Production VPS Guide)
+# Bot on Hetzner (Docker, Production VPS Guide)
 
 ## Goal
 
-Run a persistent ZooBot Gateway on a Hetzner VPS using Docker, with durable state, baked-in binaries, and safe restart behavior.
+Run a persistent Bot Gateway on a Hetzner VPS using Docker, with durable state, baked-in binaries, and safe restart behavior.
 
-If you want “ZooBot 24/7 for ~$5”, this is the simplest reliable setup.
+If you want “Bot 24/7 for ~$5”, this is the simplest reliable setup.
 Hetzner pricing changes; pick the smallest Debian/Ubuntu VPS and scale up if you hit OOMs.
 
 Security model reminder:
@@ -29,7 +29,7 @@ See [Security](/gateway/security) and [VPS hosting](/vps).
 
 - Rent a small Linux server (Hetzner VPS)
 - Install Docker (isolated app runtime)
-- Start the ZooBot Gateway in Docker
+- Start the Bot Gateway in Docker
 - Persist `~/.zoo-bot` + `~/.zoo-bot/workspace` on the host (survives restarts/rebuilds)
 - Access the Control UI from your laptop via an SSH tunnel
 
@@ -48,7 +48,7 @@ For the generic Docker flow, see [Docker](/install/docker).
 
 1. Provision Hetzner VPS
 2. Install Docker
-3. Clone ZooBot repository
+3. Clone Bot repository
 4. Create persistent host directories
 5. Configure `.env` and `docker-compose.yml`
 6. Bake required binaries into the image
@@ -104,7 +104,7 @@ docker compose version
 
 ---
 
-## 3) Clone the ZooBot repository
+## 3) Clone the Bot repository
 
 ```bash
 git clone https://github.com/zoo-bot/zoo-bot.git
@@ -318,21 +318,21 @@ Paste your gateway token.
 
 ## What persists where (source of truth)
 
-ZooBot runs in Docker, but Docker is not the source of truth.
+Bot runs in Docker, but Docker is not the source of truth.
 All long-lived state must survive restarts, rebuilds, and reboots.
 
-| Component           | Location                          | Persistence mechanism  | Notes                            |
-| ------------------- | --------------------------------- | ---------------------- | -------------------------------- |
+| Component           | Location                         | Persistence mechanism  | Notes                           |
+| ------------------- | -------------------------------- | ---------------------- | ------------------------------- |
 | Gateway config      | `/home/node/.zoo-bot/`           | Host volume mount      | Includes `zoo-bot.json`, tokens |
-| Model auth profiles | `/home/node/.zoo-bot/`           | Host volume mount      | OAuth tokens, API keys           |
-| Skill configs       | `/home/node/.zoo-bot/skills/`    | Host volume mount      | Skill-level state                |
-| Agent workspace     | `/home/node/.zoo-bot/workspace/` | Host volume mount      | Code and agent artifacts         |
-| WhatsApp session    | `/home/node/.zoo-bot/`           | Host volume mount      | Preserves QR login               |
-| Gmail keyring       | `/home/node/.zoo-bot/`           | Host volume + password | Requires `GOG_KEYRING_PASSWORD`  |
-| External binaries   | `/usr/local/bin/`                 | Docker image           | Must be baked at build time      |
-| Node runtime        | Container filesystem              | Docker image           | Rebuilt every image build        |
-| OS packages         | Container filesystem              | Docker image           | Do not install at runtime        |
-| Docker container    | Ephemeral                         | Restartable            | Safe to destroy                  |
+| Model auth profiles | `/home/node/.zoo-bot/`           | Host volume mount      | OAuth tokens, API keys          |
+| Skill configs       | `/home/node/.zoo-bot/skills/`    | Host volume mount      | Skill-level state               |
+| Agent workspace     | `/home/node/.zoo-bot/workspace/` | Host volume mount      | Code and agent artifacts        |
+| WhatsApp session    | `/home/node/.zoo-bot/`           | Host volume mount      | Preserves QR login              |
+| Gmail keyring       | `/home/node/.zoo-bot/`           | Host volume + password | Requires `GOG_KEYRING_PASSWORD` |
+| External binaries   | `/usr/local/bin/`                | Docker image           | Must be baked at build time     |
+| Node runtime        | Container filesystem             | Docker image           | Rebuilt every image build       |
+| OS packages         | Container filesystem             | Docker image           | Do not install at runtime       |
+| Docker container    | Ephemeral                        | Restartable            | Safe to destroy                 |
 
 ---
 

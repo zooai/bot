@@ -79,7 +79,7 @@ x-i18n:
 
 ### 故障排除（来自 2.0.0-beta2 发布的笔记）
 
-- **npm pack/publish 挂起或产生巨大 tarball**：`dist/ZooBot.app` 中的 macOS 应用包（和发布 zip）被扫入包中。通过 `package.json` 的 `files` 白名单发布内容来修复（包含 dist 子目录、docs、skills；排除应用包）。用 `npm pack --dry-run` 确认 `dist/ZooBot.app` 未列出。
+- **npm pack/publish 挂起或产生巨大 tarball**：`dist/Bot.app` 中的 macOS 应用包（和发布 zip）被扫入包中。通过 `package.json` 的 `files` 白名单发布内容来修复（包含 dist 子目录、docs、skills；排除应用包）。用 `npm pack --dry-run` 确认 `dist/Bot.app` 未列出。
 - **npm auth dist-tags 的 Web 循环**：使用旧版认证以获取 OTP 提示：
   - `NPM_CONFIG_AUTH_TYPE=legacy npm dist-tag add zoo-bot@X.Y.Z latest`
 - **`npx` 验证失败并显示 `ECOMPROMISED: Lock compromised`**：使用新缓存重试：
@@ -91,7 +91,7 @@ x-i18n:
 
 - [ ] 打标签并推送：`git tag vX.Y.Z && git push origin vX.Y.Z`（或 `git push --tags`）。
 - [ ] 为 `vX.Y.Z` 创建/刷新 GitHub 发布，**标题为 `zoo-bot X.Y.Z`**（不仅仅是标签）；正文应包含该版本的**完整**变更日志部分（亮点 + 更改 + 修复），内联显示（无裸链接），且**不得在正文中重复标题**。
-- [ ] 附加产物：`npm pack` tarball（可选）、`ZooBot-X.Y.Z.zip` 和 `ZooBot-X.Y.Z.dSYM.zip`（如果生成）。
+- [ ] 附加产物：`npm pack` tarball（可选）、`Bot-X.Y.Z.zip` 和 `Bot-X.Y.Z.dSYM.zip`（如果生成）。
 - [ ] 提交更新后的 `appcast.xml` 并推送（Sparkle 从 main 获取源）。
 - [ ] 从干净的临时目录（无 `package.json`），运行 `npx -y zoo-bot@X.Y.Z send --help` 确认安装/CLI 入口点正常工作。
 - [ ] 宣布/分享发布说明。

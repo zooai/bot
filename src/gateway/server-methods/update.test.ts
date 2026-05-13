@@ -33,7 +33,7 @@ vi.mock("../../config/sessions.js", () => ({
 }));
 
 vi.mock("../../infra/bot-root.js", () => ({
-  resolveZooBotPackageRoot: async () => "/tmp/bot",
+  resolveBotPackageRoot: async () => "/tmp/bot",
 }));
 
 vi.mock("../../infra/restart-sentinel.js", async (importOriginal) => {
@@ -90,7 +90,7 @@ beforeEach(() => {
 
 async function invokeUpdateRun(
   params: Record<string, unknown>,
-  respond?: ((ok: boolean, response?: unknown) => void) | undefined,
+  respond?: (ok: boolean, response?: unknown) => void,
 ) {
   const { updateHandlers } = await import("./update.js");
   const onRespond = respond ?? (() => {});

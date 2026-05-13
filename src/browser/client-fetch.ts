@@ -102,7 +102,7 @@ function enhanceBrowserFetchError(url: string, err: unknown, timeoutMs: number):
   const isLocal = !isAbsoluteHttp(url);
   // Human-facing hint for logs/diagnostics.
   const operatorHint = isLocal
-    ? `Restart the ZooBot gateway (ZooBot.app menubar, or \`${formatCliCommand("bot gateway")}\`).`
+    ? `Restart the Bot gateway (Bot.app menubar, or \`${formatCliCommand("bot gateway")}\`).`
     : "If this is a sandboxed session, ensure the sandbox browser is running.";
   // Model-facing suffix: explicitly tell the LLM NOT to retry.
   // Without this, models see "try again" and enter an infinite tool-call loop.
@@ -119,11 +119,11 @@ function enhanceBrowserFetchError(url: string, err: unknown, timeoutMs: number):
     msgLower.includes("aborterror");
   if (looksLikeTimeout) {
     return new Error(
-      `Can't reach the ZooBot browser control service (timed out after ${timeoutMs}ms). ${operatorHint} ${modelHint}`,
+      `Can't reach the Bot browser control service (timed out after ${timeoutMs}ms). ${operatorHint} ${modelHint}`,
     );
   }
   return new Error(
-    `Can't reach the ZooBot browser control service. ${operatorHint} ${modelHint} (${msg})`,
+    `Can't reach the Bot browser control service. ${operatorHint} ${modelHint} (${msg})`,
   );
 }
 

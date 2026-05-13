@@ -1,5 +1,5 @@
 ---
-summary: "Run ZooBot in a rootless Podman container"
+summary: "Run Bot in a rootless Podman container"
 read_when:
   - You want a containerized gateway with Podman instead of Docker
 title: "Podman"
@@ -7,7 +7,7 @@ title: "Podman"
 
 # Podman
 
-Run the ZooBot gateway in a **rootless** Podman container. Uses the same image as Docker (build from the repo [Dockerfile](https://github.com/zoo-bot/zoo-bot/blob/main/Dockerfile)).
+Run the Bot gateway in a **rootless** Podman container. Uses the same image as Docker (build from the repo [Dockerfile](https://github.com/zoo-bot/zoo-bot/blob/main/Dockerfile)).
 
 ## Requirements
 
@@ -83,7 +83,7 @@ To add quadlet **after** an initial setup that did not use it, re-run: `./setup-
 ## Environment and config
 
 - **Token:** Stored in `~zoo-bot/.zoo-bot/.env` as `BOT_GATEWAY_TOKEN`. `setup-podman.sh` and `run-zoo-bot-podman.sh` generate it if missing (uses `openssl`, `python3`, or `od`).
-- **Optional:** In that `.env` you can set provider keys (e.g. `GROQ_API_KEY`, `OLLAMA_API_KEY`) and other ZooBot env vars.
+- **Optional:** In that `.env` you can set provider keys (e.g. `GROQ_API_KEY`, `OLLAMA_API_KEY`) and other Bot env vars.
 - **Host ports:** By default the script maps `18789` (gateway) and `18790` (bridge). Override the **host** port mapping with `BOT_PODMAN_GATEWAY_HOST_PORT` and `BOT_PODMAN_BRIDGE_HOST_PORT` when launching.
 - **Gateway bind:** By default, `run-zoo-bot-podman.sh` starts the gateway with `--bind loopback` for safe local access. To expose on LAN, set `BOT_GATEWAY_BIND=lan` and configure `gateway.controlUi.allowedOrigins` (or explicitly enable host-header fallback) in `zoo-bot.json`.
 - **Paths:** Host config and workspace default to `~zoo-bot/.zoo-bot` and `~zoo-bot/.zoo-bot/workspace`. Override the host paths used by the launch script with `BOT_CONFIG_DIR` and `BOT_WORKSPACE_DIR`.

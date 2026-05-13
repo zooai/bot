@@ -7,11 +7,11 @@ title: "Agent Runtime"
 
 # Agent Runtime 🤖
 
-ZooBot runs a single embedded agent runtime derived from **pi-mono**.
+Bot runs a single embedded agent runtime derived from **pi-mono**.
 
 ## Workspace (required)
 
-ZooBot uses a single agent workspace directory (`agents.defaults.workspace`) as the agent’s **only** working directory (`cwd`) for tools and context.
+Bot uses a single agent workspace directory (`agents.defaults.workspace`) as the agent’s **only** working directory (`cwd`) for tools and context.
 
 Recommended: use `zoo-bot setup` to create `~/.zoo-bot/zoo-bot.json` if missing and initialize the workspace files.
 
@@ -23,7 +23,7 @@ per-session workspaces under `agents.defaults.sandbox.workspaceRoot` (see
 
 ## Bootstrap files (injected)
 
-Inside `agents.defaults.workspace`, ZooBot expects these user-editable files:
+Inside `agents.defaults.workspace`, Bot expects these user-editable files:
 
 - `AGENTS.md` — operating instructions + “memory”
 - `SOUL.md` — persona, boundaries, tone
@@ -32,11 +32,11 @@ Inside `agents.defaults.workspace`, ZooBot expects these user-editable files:
 - `IDENTITY.md` — agent name/vibe/emoji
 - `USER.md` — user profile + preferred address
 
-On the first turn of a new session, ZooBot injects the contents of these files directly into the agent context.
+On the first turn of a new session, Bot injects the contents of these files directly into the agent context.
 
 Blank files are skipped. Large files are trimmed and truncated with a marker so prompts stay lean (read the file for full content).
 
-If a file is missing, ZooBot injects a single “missing file” marker line (and `zoo-bot setup` will create a safe default template).
+If a file is missing, Bot injects a single “missing file” marker line (and `zoo-bot setup` will create a safe default template).
 
 `BOOTSTRAP.md` is only created for a **brand new workspace** (no other bootstrap files present). If you delete it after completing the ritual, it should not be recreated on later restarts.
 
@@ -55,7 +55,7 @@ guidance for how _you_ want them used.
 
 ## Skills
 
-ZooBot loads skills from three locations (workspace wins on name conflict):
+Bot loads skills from three locations (workspace wins on name conflict):
 
 - Bundled (shipped with the install)
 - Managed/local: `~/.zoo-bot/skills`
@@ -65,7 +65,7 @@ Skills can be gated by config/env (see `skills` in [Gateway configuration](/gate
 
 ## pi-mono integration
 
-ZooBot reuses pieces of the pi-mono codebase (models/tools), but **session management, discovery, and tool wiring are ZooBot-owned**.
+Bot reuses pieces of the pi-mono codebase (models/tools), but **session management, discovery, and tool wiring are Bot-owned**.
 
 - No pi-coding agent runtime.
 - No `~/.pi/agent` or `<workspace>/.pi` settings are consulted.
@@ -76,7 +76,7 @@ Session transcripts are stored as JSONL at:
 
 - `~/.zoo-bot/agents/<agentId>/sessions/<SessionId>.jsonl`
 
-The session ID is stable and chosen by ZooBot.
+The session ID is stable and chosen by Bot.
 Legacy Pi/Tau session folders are **not** read.
 
 ## Steering while streaming
@@ -109,7 +109,7 @@ Model refs in config (for example `agents.defaults.model` and `agents.defaults.m
 
 - Use `provider/model` when configuring models.
 - If the model ID itself contains `/` (OpenRouter-style), include the provider prefix (example: `openrouter/moonshotai/kimi-k2`).
-- If you omit the provider, ZooBot treats the input as an alias or a model for the **default provider** (only works when there is no `/` in the model ID).
+- If you omit the provider, Bot treats the input as an alias or a model for the **default provider** (only works when there is no `/` in the model ID).
 
 ## Configuration (minimal)
 

@@ -1,23 +1,23 @@
 import type { Skill } from "@mariozechner/pi-coding-agent";
-import type {
-  ZooBotSkillMetadata,
-  ParsedSkillFrontmatter,
-  SkillEntry,
-  SkillInstallSpec,
-  SkillInvocationPolicy,
-} from "./types.js";
 import { validateRegistryNpmSpec } from "../../infra/npm-registry-spec.js";
 import { parseFrontmatterBlock } from "../../markdown/frontmatter.js";
 import {
   getFrontmatterString,
   normalizeStringList,
-  parseZooBotManifestInstallBase,
+  parseBotManifestInstallBase,
   parseFrontmatterBool,
-  resolveZooBotManifestBlock,
-  resolveZooBotManifestInstall,
-  resolveZooBotManifestOs,
-  resolveZooBotManifestRequires,
+  resolveBotManifestBlock,
+  resolveBotManifestInstall,
+  resolveBotManifestOs,
+  resolveBotManifestRequires,
 } from "../../shared/frontmatter.js";
+import type {
+  BotSkillMetadata,
+  ParsedSkillFrontmatter,
+  SkillEntry,
+  SkillInstallSpec,
+  SkillInvocationPolicy,
+} from "./types.js";
 
 export function parseFrontmatter(content: string): ParsedSkillFrontmatter {
   return parseFrontmatterBlock(content);
@@ -108,7 +108,7 @@ function normalizeSafeDownloadUrl(raw: unknown): string | undefined {
 }
 
 function parseInstallSpec(input: unknown): SkillInstallSpec | undefined {
-  const parsed = parseZooBotManifestInstallBase(input, ["brew", "node", "go", "uv", "download"]);
+  const parsed = parseBotManifestInstallBase(input, ["brew", "node", "go", "uv", "download"]);
   if (!parsed) {
     return undefined;
   }
@@ -189,16 +189,16 @@ function parseInstallSpec(input: unknown): SkillInstallSpec | undefined {
   return spec;
 }
 
-export function resolveZooBotMetadata(
+export function resolveBotMetadata(
   frontmatter: ParsedSkillFrontmatter,
-): ZooBotSkillMetadata | undefined {
-  const metadataObj = resolveZooBotManifestBlock({ frontmatter });
+): BotSkillMetadata | undefined {
+  const metadataObj = resolveBotManifestBlock({ frontmatter });
   if (!metadataObj) {
     return undefined;
   }
-  const requires = resolveZooBotManifestRequires(metadataObj);
-  const install = resolveZooBotManifestInstall(metadataObj, parseInstallSpec);
-  const osRaw = resolveZooBotManifestOs(metadataObj);
+  const requires = resolveBotManifestRequires(metadataObj);
+  const install = resolveBotManifestInstall(metadataObj, parseInstallSpec);
+  const osRaw = resolveBotManifestOs(metadataObj);
   return {
     always: typeof metadataObj.always === "boolean" ? metadataObj.always : undefined,
     emoji: typeof metadataObj.emoji === "string" ? metadataObj.emoji : undefined,

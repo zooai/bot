@@ -15,7 +15,7 @@ export type ApiKeyCredential = {
 export type TokenCredential = {
   /**
    * Static bearer-style token (often OAuth access token / PAT).
-   * Not refreshable by ZooBot (unlike `type: "oauth"`).
+   * Not refreshable by Bot (unlike `type: "oauth"`).
    */
   type: "token";
   provider: string;

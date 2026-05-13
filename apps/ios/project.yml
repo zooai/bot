@@ -1,4 +1,4 @@
-name: ZooBot
+name: Bot
 options:
   bundleIdPrefix: ai.zoo.bot
   deploymentTarget:
@@ -11,23 +11,23 @@ settings:
     ENABLE_APP_INTENTS_METADATA_GENERATION: NO
 
 packages:
-  ZooBotKit:
-    path: ../shared/ZooBotKit
+  BotKit:
+    path: ../shared/BotKit
   Swabble:
     path: ../../Swabble
 
 schemes:
-  ZooBot:
+  Bot:
     shared: true
     build:
       targets:
-        ZooBot: all
+        Bot: all
     test:
       targets:
-        - ZooBotTests
+        - BotTests
 
 targets:
-  ZooBot:
+  Bot:
     type: application
     platform: iOS
     configFiles:
@@ -36,16 +36,16 @@ targets:
     sources:
       - path: Sources
     dependencies:
-      - target: ZooBotShareExtension
+      - target: BotShareExtension
         embed: true
-      - target: ZooBotActivityWidget
+      - target: BotActivityWidget
         embed: true
-      - target: ZooBotWatchApp
-      - package: ZooBotKit
-      - package: ZooBotKit
-        product: ZooBotChatUI
-      - package: ZooBotKit
-        product: ZooBotProtocol
+      - target: BotWatchApp
+      - package: BotKit
+      - package: BotKit
+        product: BotChatUI
+      - package: BotKit
+        product: BotProtocol
       - package: Swabble
         product: SwabbleKit
       - sdk: AppIntents.framework
@@ -78,7 +78,7 @@ targets:
     settings:
       base:
         CODE_SIGN_IDENTITY: "Apple Development"
-        CODE_SIGN_ENTITLEMENTS: Sources/ZooBot.entitlements
+        CODE_SIGN_ENTITLEMENTS: Sources/Bot.entitlements
         CODE_SIGN_STYLE: "$(BOT_CODE_SIGN_STYLE)"
         DEVELOPMENT_TEAM: "$(BOT_DEVELOPMENT_TEAM)"
         PRODUCT_BUNDLE_IDENTIFIER: "$(BOT_APP_BUNDLE_ID)"
@@ -92,7 +92,7 @@ targets:
     info:
       path: Sources/Info.plist
       properties:
-        CFBundleDisplayName: ZooBot
+        CFBundleDisplayName: Bot
         CFBundleIconName: AppIcon
         CFBundleURLTypes:
           - CFBundleURLName: ai.zoo.bot.ios
@@ -108,16 +108,16 @@ targets:
           - remote-notification
         BGTaskSchedulerPermittedIdentifiers:
           - ai.zoo.bot.ios.bgrefresh
-        NSLocalNetworkUsageDescription: ZooBot discovers and connects to your ZooBot gateway on the local network.
+        NSLocalNetworkUsageDescription: Bot discovers and connects to your Bot gateway on the local network.
         NSAppTransportSecurity:
           NSAllowsArbitraryLoadsInWebContent: true
         NSBonjourServices:
           - _zoo-bot-gw._tcp
-        NSCameraUsageDescription: ZooBot can capture photos or short video clips when requested via the gateway.
-        NSLocationWhenInUseUsageDescription: ZooBot uses your location when you allow location sharing.
-        NSLocationAlwaysAndWhenInUseUsageDescription: ZooBot can share your location in the background when you enable Always.
-        NSMicrophoneUsageDescription: ZooBot needs microphone access for voice wake.
-        NSSpeechRecognitionUsageDescription: ZooBot uses on-device speech recognition for voice wake.
+        NSCameraUsageDescription: Bot can capture photos or short video clips when requested via the gateway.
+        NSLocationWhenInUseUsageDescription: Bot uses your location when you allow location sharing.
+        NSLocationAlwaysAndWhenInUseUsageDescription: Bot can share your location in the background when you enable Always.
+        NSMicrophoneUsageDescription: Bot needs microphone access for voice wake.
+        NSSpeechRecognitionUsageDescription: Bot uses on-device speech recognition for voice wake.
         NSSupportsLiveActivities: true
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
@@ -130,7 +130,7 @@ targets:
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
 
-  ZooBotShareExtension:
+  BotShareExtension:
     type: app-extension
     platform: iOS
     configFiles:
@@ -139,7 +139,7 @@ targets:
     sources:
       - path: ShareExtension
     dependencies:
-      - package: ZooBotKit
+      - package: BotKit
       - sdk: AppIntents.framework
     settings:
       base:
@@ -155,7 +155,7 @@ targets:
     info:
       path: ShareExtension/Info.plist
       properties:
-        CFBundleDisplayName: ZooBot Share
+        CFBundleDisplayName: Bot Share
         CFBundleShortVersionString: "2026.3.2"
         CFBundleVersion: "20260301"
         NSExtension:
@@ -168,7 +168,7 @@ targets:
               NSExtensionActivationSupportsImageWithMaxCount: 10
               NSExtensionActivationSupportsMovieWithMaxCount: 1
 
-  ZooBotActivityWidget:
+  BotActivityWidget:
     type: app-extension
     platform: iOS
     configFiles:
@@ -176,7 +176,7 @@ targets:
       Release: Signing.xcconfig
     sources:
       - path: ActivityWidget
-      - path: Sources/LiveActivity/ZooBotActivityAttributes.swift
+      - path: Sources/LiveActivity/BotActivityAttributes.swift
     dependencies:
       - sdk: WidgetKit.framework
       - sdk: ActivityKit.framework
@@ -192,21 +192,21 @@ targets:
     info:
       path: ActivityWidget/Info.plist
       properties:
-        CFBundleDisplayName: ZooBot Activity
+        CFBundleDisplayName: Bot Activity
         CFBundleShortVersionString: "2026.3.2"
         CFBundleVersion: "20260301"
         NSSupportsLiveActivities: true
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
 
-  ZooBotWatchApp:
+  BotWatchApp:
     type: application.watchapp2
     platform: watchOS
     deploymentTarget: "11.0"
     sources:
       - path: WatchApp
     dependencies:
-      - target: ZooBotWatchExtension
+      - target: BotWatchExtension
     configFiles:
       Debug: Config/Signing.xcconfig
       Release: Config/Signing.xcconfig
@@ -218,13 +218,13 @@ targets:
     info:
       path: WatchApp/Info.plist
       properties:
-        CFBundleDisplayName: ZooBot
+        CFBundleDisplayName: Bot
         CFBundleShortVersionString: "2026.3.2"
         CFBundleVersion: "20260301"
         WKCompanionAppBundleIdentifier: "$(BOT_APP_BUNDLE_ID)"
         WKWatchKitApp: true
 
-  ZooBotWatchExtension:
+  BotWatchExtension:
     type: watchkit2-extension
     platform: watchOS
     deploymentTarget: "11.0"
@@ -243,7 +243,7 @@ targets:
     info:
       path: WatchExtension/Info.plist
       properties:
-        CFBundleDisplayName: ZooBot
+        CFBundleDisplayName: Bot
         CFBundleShortVersionString: "2026.3.2"
         CFBundleVersion: "20260301"
         NSExtension:
@@ -251,7 +251,7 @@ targets:
             WKAppBundleIdentifier: "$(BOT_WATCH_APP_BUNDLE_ID)"
           NSExtensionPointIdentifier: com.apple.watchkit
 
-  ZooBotTests:
+  BotTests:
     type: bundle.unit-test
     platform: iOS
     configFiles:
@@ -260,7 +260,7 @@ targets:
     sources:
       - path: Tests
     dependencies:
-      - target: ZooBot
+      - target: Bot
       - package: Swabble
         product: SwabbleKit
       - sdk: AppIntents.framework
@@ -273,11 +273,11 @@ targets:
         ENABLE_APP_INTENTS_METADATA_GENERATION: NO
         SWIFT_VERSION: "6.0"
         SWIFT_STRICT_CONCURRENCY: complete
-        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/ZooBot.app/ZooBot"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Bot.app/Bot"
         BUNDLE_LOADER: "$(TEST_HOST)"
     info:
       path: Tests/Info.plist
       properties:
-        CFBundleDisplayName: ZooBotTests
+        CFBundleDisplayName: BotTests
         CFBundleShortVersionString: "2026.3.2"
         CFBundleVersion: "20260301"

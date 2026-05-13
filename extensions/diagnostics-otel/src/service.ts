@@ -1,14 +1,14 @@
 import type {
   DiagnosticEventPayload,
-  ZooBotPluginService,
+  BotPluginService,
 } from "@hanzo/bot/plugin-sdk/diagnostics-otel";
-import type { SeverityNumber } from "@opentelemetry/api-logs";
 import {
   onDiagnosticEvent,
   redactSensitiveText,
   registerLogTransport,
 } from "@hanzo/bot/plugin-sdk/diagnostics-otel";
 import { metrics, trace, SpanStatusCode } from "@opentelemetry/api";
+import type { SeverityNumber } from "@opentelemetry/api-logs";
 import { OTLPLogExporter } from "@opentelemetry/exporter-logs-otlp-proto";
 import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-proto";
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-proto";
@@ -69,7 +69,7 @@ function redactOtelAttributes(attributes: Record<string, string | number | boole
   return redactedAttributes;
 }
 
-export function createDiagnosticsOtelService(): ZooBotPluginService {
+export function createDiagnosticsOtelService(): BotPluginService {
   let sdk: NodeSDK | null = null;
   let logProvider: LoggerProvider | null = null;
   let stopLogTransport: (() => void) | null = null;
@@ -681,5 +681,5 @@ export function createDiagnosticsOtelService(): ZooBotPluginService {
         sdk = null;
       }
     },
-  } satisfies ZooBotPluginService;
+  } satisfies BotPluginService;
 }

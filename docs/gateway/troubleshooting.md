@@ -156,7 +156,7 @@ Look for:
 
 Common signatures:
 
-- `Gateway start blocked: set gateway.mode=local` → local gateway mode is not enabled. Fix: set `gateway.mode="local"` in your config (or run `zoo-bot configure`). If you are running ZooBot via Podman using the dedicated `zoo-bot` user, the config lives at `~zoo-bot/.zoo-bot/zoo-bot.json`.
+- `Gateway start blocked: set gateway.mode=local` → local gateway mode is not enabled. Fix: set `gateway.mode="local"` in your config (or run `zoo-bot configure`). If you are running Bot via Podman using the dedicated `zoo-bot` user, the config lives at `~zoo-bot/.zoo-bot/zoo-bot.json`.
 - `refusing to bind gateway ... without auth` → non-loopback bind without token/password.
 - `another gateway instance is already listening` / `EADDRINUSE` → port conflict.
 

@@ -221,10 +221,10 @@ describe("splitArgsPreservingQuotes", () => {
 
   it("supports schtasks-style escaped quotes while preserving other backslashes", () => {
     expect(
-      splitArgsPreservingQuotes('bot --path "C:\\\\Program Files\\\\ZooBot"', {
+      splitArgsPreservingQuotes('bot --path "C:\\\\Program Files\\\\Bot"', {
         escapeMode: "backslash-quote-only",
       }),
-    ).toEqual(["bot", "--path", "C:\\\\Program Files\\\\ZooBot"]);
+    ).toEqual(["bot", "--path", "C:\\\\Program Files\\\\Bot"]);
 
     expect(
       splitArgsPreservingQuotes('bot --label "My \\"Quoted\\" Name"', {
@@ -308,13 +308,7 @@ describe("systemd service control", () => {
         cb(null, "", "");
       })
       .mockImplementationOnce((_cmd, args, _opts, cb) => {
-        expect(args).toEqual([
-          "--machine",
-          "debian@",
-          "--user",
-          "restart",
-          "bot-gateway.service",
-        ]);
+        expect(args).toEqual(["--machine", "debian@", "--user", "restart", "bot-gateway.service"]);
         cb(null, "", "");
       });
     const write = vi.fn();
@@ -373,13 +367,7 @@ describe("systemd service control", () => {
         cb(err, "", "");
       })
       .mockImplementationOnce((_cmd, args, _opts, cb) => {
-        expect(args).toEqual([
-          "--machine",
-          "debian@",
-          "--user",
-          "restart",
-          "bot-gateway.service",
-        ]);
+        expect(args).toEqual(["--machine", "debian@", "--user", "restart", "bot-gateway.service"]);
         cb(null, "", "");
       });
     const write = vi.fn();

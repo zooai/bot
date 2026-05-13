@@ -172,9 +172,9 @@ Configure it per model via `agents.defaults.models.<provider/model>.params`:
 }
 ```
 
-ZooBot also maps runtime `/think` levels for Moonshot:
+Bot also maps runtime `/think` levels for Moonshot:
 
 - `/think off` -> `thinking.type=disabled`
 - any non-off thinking level -> `thinking.type=enabled`
 
-When Moonshot thinking is enabled, `tool_choice` must be `auto` or `none`. ZooBot normalizes incompatible `tool_choice` values to `auto` for compatibility.
+When Moonshot thinking is enabled, `tool_choice` must be `auto` or `none`. Bot normalizes incompatible `tool_choice` values to `auto` for compatibility.

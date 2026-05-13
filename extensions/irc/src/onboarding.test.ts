@@ -1,7 +1,7 @@
 import type { RuntimeEnv, WizardPrompter } from "@hanzo/bot/plugin-sdk/irc";
 import { describe, expect, it, vi } from "vitest";
-import type { CoreConfig } from "./types.js";
 import { ircOnboardingAdapter } from "./onboarding.js";
+import type { CoreConfig } from "./types.js";
 
 const selectFirstOption = async <T>(params: { options: Array<{ value: T }> }): Promise<T> => {
   const first = params.options[0];
@@ -42,7 +42,7 @@ describe("irc onboarding", () => {
           return "bot";
         }
         if (message === "IRC real name") {
-          return "ZooBot Bot";
+          return "Bot Bot";
         }
         if (message.startsWith("Auto-join IRC channels")) {
           return "#bot, #ops";

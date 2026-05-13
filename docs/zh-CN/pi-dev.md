@@ -11,7 +11,7 @@ x-i18n:
 
 # Pi 开发工作流程
 
-本指南总结了在 ZooBot 中开发 Pi 集成的合理工作流程。
+本指南总结了在 Bot 中开发 Pi 集成的合理工作流程。
 
 ## 类型检查和代码检查
 
@@ -58,7 +58,7 @@ scripts/pi/run-tests.sh --live
 
 ## 完全重置
 
-状态存储在 ZooBot 状态目录下。默认为 `~/.zoo-bot`。如果设置了 `BOT_STATE_DIR`，则使用该目录。
+状态存储在 Bot 状态目录下。默认为 `~/.zoo-bot`。如果设置了 `BOT_STATE_DIR`，则使用该目录。
 
 要重置所有内容：
 

@@ -1,7 +1,7 @@
 {
   "name": "@hanzo/bot-voice-call",
   "version": "2026.4.27",
-  "description": "ZooBot voice-call plugin",
+  "description": "Bot voice-call plugin",
   "type": "module",
   "dependencies": {
     "@sinclair/typebox": "0.34.48",

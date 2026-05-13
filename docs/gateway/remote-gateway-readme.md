@@ -1,12 +1,12 @@
 ---
-summary: "SSH tunnel setup for ZooBot.app connecting to a remote gateway"
+summary: "SSH tunnel setup for Bot.app connecting to a remote gateway"
 read_when: "Connecting the macOS app to a remote gateway over SSH"
 title: "Remote Gateway Setup"
 ---
 
-# Running ZooBot.app with a Remote Gateway
+# Running Bot.app with a Remote Gateway
 
-ZooBot.app uses SSH tunneling to connect to a remote gateway. This guide shows you how to set it up.
+Bot.app uses SSH tunneling to connect to a remote gateway. This guide shows you how to set it up.
 
 ## Overview
 
@@ -14,7 +14,7 @@ ZooBot.app uses SSH tunneling to connect to a remote gateway. This guide shows y
 flowchart TB
     subgraph Client["Client Machine"]
         direction TB
-        A["ZooBot.app"]
+        A["Bot.app"]
         B["ws://127.0.0.1:18789\n(local port)"]
         T["SSH Tunnel"]
 
@@ -67,11 +67,11 @@ launchctl setenv BOT_GATEWAY_TOKEN "<your-token>"
 ssh -N remote-gateway &
 ```
 
-### Step 5: Restart ZooBot.app
+### Step 5: Restart Bot.app
 
 ```bash
-# Quit ZooBot.app (⌘Q), then reopen:
-open /path/to/ZooBot.app
+# Quit Bot.app (⌘Q), then reopen:
+open /path/to/Bot.app
 ```
 
 The app will now connect to the remote gateway through the SSH tunnel.
@@ -155,4 +155,4 @@ launchctl bootout gui/$UID/ai.zoo.bot.ssh-tunnel
 | `KeepAlive`                          | Automatically restarts tunnel if it crashes                  |
 | `RunAtLoad`                          | Starts tunnel when the agent loads                           |
 
-ZooBot.app connects to `ws://127.0.0.1:18789` on your client machine. The SSH tunnel forwards that connection to port 18789 on the remote machine where the Gateway is running.
+Bot.app connects to `ws://127.0.0.1:18789` on your client machine. The SSH tunnel forwards that connection to port 18789 on the remote machine where the Gateway is running.

@@ -8,7 +8,7 @@ title: "update"
 
 # `zoo-bot update`
 
-Safely update ZooBot and switch between stable/beta/dev channels.
+Safely update Bot and switch between stable/beta/dev channels.
 
 If you installed via **npm/pnpm** (global install, no git metadata), updates happen via the package manager flow in [Updating](/install/updating).
 
@@ -61,7 +61,7 @@ offers to create one.
 
 ## What it does
 
-When you switch channels explicitly (`--channel ...`), ZooBot also keeps the
+When you switch channels explicitly (`--channel ...`), Bot also keeps the
 install method aligned:
 
 - `dev` → ensures a git checkout (default: `~/zoo-bot`, override with `BOT_GIT_DIR`),

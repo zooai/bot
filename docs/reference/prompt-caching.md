@@ -89,7 +89,7 @@ Per-agent heartbeat is supported at `agents.list[].heartbeat`.
 ### Anthropic (direct API)
 
 - `cacheRetention` is supported.
-- With Anthropic API-key auth profiles, ZooBot seeds `cacheRetention: "short"` for Anthropic model refs when unset.
+- With Anthropic API-key auth profiles, Bot seeds `cacheRetention: "short"` for Anthropic model refs when unset.
 
 ### Amazon Bedrock
 
@@ -98,7 +98,7 @@ Per-agent heartbeat is supported at `agents.list[].heartbeat`.
 
 ### OpenRouter Anthropic models
 
-For `openrouter/anthropic/*` model refs, ZooBot injects Anthropic `cache_control` on system/developer prompt blocks to improve prompt-cache reuse.
+For `openrouter/anthropic/*` model refs, Bot injects Anthropic `cache_control` on system/developer prompt blocks to improve prompt-cache reuse.
 
 ### Other providers
 
@@ -137,7 +137,7 @@ agents:
 
 ## Cache diagnostics
 
-ZooBot exposes dedicated cache-trace diagnostics for embedded agent runs.
+Bot exposes dedicated cache-trace diagnostics for embedded agent runs.
 
 ### `diagnostics.cacheTrace` config
 

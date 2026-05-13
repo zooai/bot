@@ -1,10 +1,10 @@
-import type { AnyAgentTool } from "../agents/tools/common.js";
-import type { ZooBotPluginToolContext } from "./types.js";
 import { normalizeToolName } from "../agents/tool-policy.js";
+import type { AnyAgentTool } from "../agents/tools/common.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { applyTestPluginDefaults, normalizePluginsConfig } from "./config-state.js";
 import { loadBotPlugins } from "./loader.js";
 import { createPluginLoaderLogger } from "./logger.js";
+import type { BotPluginToolContext } from "./types.js";
 
 const log = createSubsystemLogger("plugins");
 
@@ -43,7 +43,7 @@ function isOptionalToolAllowed(params: {
 }
 
 export function resolvePluginTools(params: {
-  context: ZooBotPluginToolContext;
+  context: BotPluginToolContext;
   existingToolNames?: Set<string>;
   toolAllowlist?: string[];
   suppressNameConflicts?: boolean;

@@ -1,6 +1,6 @@
+import type { IncomingMessage, ServerResponse } from "node:http";
 import type { AgentMessage } from "@mariozechner/pi-agent-core";
 import type { Command } from "commander";
-import type { IncomingMessage, ServerResponse } from "node:http";
 import type { AuthProfileCredential, OAuthCredential } from "../agents/auth-profiles/types.js";
 import type { AnyAgentTool } from "../agents/tools/common.js";
 import type { ReplyPayload } from "../auto-reply/types.js";
@@ -41,7 +41,7 @@ export type PluginConfigValidation =
   | { ok: true; value?: unknown }
   | { ok: false; errors: string[] };
 
-export type ZooBotPluginConfigSchema = {
+export type BotPluginConfigSchema = {
   safeParse?: (value: unknown) => {
     success: boolean;
     data?: unknown;
@@ -55,7 +55,7 @@ export type ZooBotPluginConfigSchema = {
   jsonSchema?: Record<string, unknown>;
 };
 
-export type ZooBotPluginToolContext = {
+export type BotPluginToolContext = {
   config?: BotConfig;
   workspaceDir?: string;
   agentDir?: string;
@@ -72,17 +72,17 @@ export type ZooBotPluginToolContext = {
   sandboxed?: boolean;
 };
 
-export type ZooBotPluginToolFactory = (
-  ctx: ZooBotPluginToolContext,
+export type BotPluginToolFactory = (
+  ctx: BotPluginToolContext,
 ) => AnyAgentTool | AnyAgentTool[] | null | undefined;
 
-export type ZooBotPluginToolOptions = {
+export type BotPluginToolOptions = {
   name?: string;
   names?: string[];
   optional?: boolean;
 };
 
-export type ZooBotPluginHookOptions = {
+export type BotPluginHookOptions = {
   entry?: HookEntry;
   name?: string;
   description?: string;
@@ -131,7 +131,7 @@ export type ProviderPlugin = {
   refreshOAuth?: (cred: OAuthCredential) => Promise<OAuthCredential>;
 };
 
-export type ZooBotPluginGatewayMethod = {
+export type BotPluginGatewayMethod = {
   method: string;
   handler: GatewayRequestHandler;
 };
@@ -156,7 +156,7 @@ export type PluginCommandContext = {
   args?: string;
   /** The full normalized command body */
   commandBody: string;
-  /** Current ZooBot configuration */
+  /** Current Bot configuration */
   config: BotConfig;
   /** Raw "From" value (channel-scoped id) */
   from?: string;
@@ -183,7 +183,7 @@ export type PluginCommandHandler = (
 /**
  * Definition for a plugin-registered command.
  */
-export type ZooBotPluginCommandDefinition = {
+export type BotPluginCommandDefinition = {
   /** Command name without leading slash (e.g., "tts") */
   name: string;
   /** Description shown in /help and command menus */
@@ -196,63 +196,61 @@ export type ZooBotPluginCommandDefinition = {
   handler: PluginCommandHandler;
 };
 
-export type ZooBotPluginHttpRouteAuth = "gateway" | "plugin";
-export type ZooBotPluginHttpRouteMatch = "exact" | "prefix";
+export type BotPluginHttpRouteAuth = "gateway" | "plugin";
+export type BotPluginHttpRouteMatch = "exact" | "prefix";
 
-export type ZooBotPluginHttpRouteHandler = (
+export type BotPluginHttpRouteHandler = (
   req: IncomingMessage,
   res: ServerResponse,
 ) => Promise<boolean | void> | boolean | void;
 
-export type ZooBotPluginHttpRouteParams = {
+export type BotPluginHttpRouteParams = {
   path: string;
-  handler: ZooBotPluginHttpRouteHandler;
-  auth: ZooBotPluginHttpRouteAuth;
-  match?: ZooBotPluginHttpRouteMatch;
+  handler: BotPluginHttpRouteHandler;
+  auth: BotPluginHttpRouteAuth;
+  match?: BotPluginHttpRouteMatch;
   replaceExisting?: boolean;
 };
 
-export type ZooBotPluginCliContext = {
+export type BotPluginCliContext = {
   program: Command;
   config: BotConfig;
   workspaceDir?: string;
   logger: PluginLogger;
 };
 
-export type ZooBotPluginCliRegistrar = (ctx: ZooBotPluginCliContext) => void | Promise<void>;
+export type BotPluginCliRegistrar = (ctx: BotPluginCliContext) => void | Promise<void>;
 
-export type ZooBotPluginServiceContext = {
+export type BotPluginServiceContext = {
   config: BotConfig;
   workspaceDir?: string;
   stateDir: string;
   logger: PluginLogger;
 };
 
-export type ZooBotPluginService = {
+export type BotPluginService = {
   id: string;
-  start: (ctx: ZooBotPluginServiceContext) => void | Promise<void>;
-  stop?: (ctx: ZooBotPluginServiceContext) => void | Promise<void>;
+  start: (ctx: BotPluginServiceContext) => void | Promise<void>;
+  stop?: (ctx: BotPluginServiceContext) => void | Promise<void>;
 };
 
-export type ZooBotPluginChannelRegistration = {
+export type BotPluginChannelRegistration = {
   plugin: ChannelPlugin;
   dock?: ChannelDock;
 };
 
-export type ZooBotPluginDefinition = {
+export type BotPluginDefinition = {
   id?: string;
   name?: string;
   description?: string;
   version?: string;
   kind?: PluginKind;
-  configSchema?: ZooBotPluginConfigSchema;
+  configSchema?: BotPluginConfigSchema;
   register?: (api: BotPluginApi) => void | Promise<void>;
   activate?: (api: BotPluginApi) => void | Promise<void>;
 };
 
-export type ZooBotPluginModule =
-  | ZooBotPluginDefinition
-  | ((api: BotPluginApi) => void | Promise<void>);
+export type BotPluginModule = BotPluginDefinition | ((api: BotPluginApi) => void | Promise<void>);
 
 export type BotPluginApi = {
   id: string;
@@ -264,27 +262,24 @@ export type BotPluginApi = {
   pluginConfig?: Record<string, unknown>;
   runtime: PluginRuntime;
   logger: PluginLogger;
-  registerTool: (
-    tool: AnyAgentTool | ZooBotPluginToolFactory,
-    opts?: ZooBotPluginToolOptions,
-  ) => void;
+  registerTool: (tool: AnyAgentTool | BotPluginToolFactory, opts?: BotPluginToolOptions) => void;
   registerHook: (
     events: string | string[],
     handler: InternalHookHandler,
-    opts?: ZooBotPluginHookOptions,
+    opts?: BotPluginHookOptions,
   ) => void;
-  registerHttpRoute: (params: ZooBotPluginHttpRouteParams) => void;
-  registerChannel: (registration: ZooBotPluginChannelRegistration | ChannelPlugin) => void;
+  registerHttpRoute: (params: BotPluginHttpRouteParams) => void;
+  registerChannel: (registration: BotPluginChannelRegistration | ChannelPlugin) => void;
   registerGatewayMethod: (method: string, handler: GatewayRequestHandler) => void;
-  registerCli: (registrar: ZooBotPluginCliRegistrar, opts?: { commands?: string[] }) => void;
-  registerService: (service: ZooBotPluginService) => void;
+  registerCli: (registrar: BotPluginCliRegistrar, opts?: { commands?: string[] }) => void;
+  registerService: (service: BotPluginService) => void;
   registerProvider: (provider: ProviderPlugin) => void;
   /**
    * Register a custom command that bypasses the LLM agent.
    * Plugin commands are processed before built-in commands and before agent invocation.
    * Use this for simple state-toggling or status commands that don't need AI reasoning.
    */
-  registerCommand: (command: ZooBotPluginCommandDefinition) => void;
+  registerCommand: (command: BotPluginCommandDefinition) => void;
   /** Register a context engine implementation (exclusive slot — only one active at a time). */
   registerContextEngine: (
     id: string,

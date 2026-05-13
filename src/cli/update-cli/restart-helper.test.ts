@@ -124,8 +124,8 @@ describe("restart-helper", () => {
       });
       expect(scriptPath.endsWith(".bat")).toBe(true);
       expect(content).toContain("@echo off");
-      expect(content).toContain('schtasks /End /TN "ZooBot Gateway"');
-      expect(content).toContain('schtasks /Run /TN "ZooBot Gateway"');
+      expect(content).toContain('schtasks /End /TN "Bot Gateway"');
+      expect(content).toContain('schtasks /Run /TN "Bot Gateway"');
       expectWindowsRestartWaitOrdering(content);
       // Batch self-cleanup
       expect(content).toContain('del "%~f0"');
@@ -137,10 +137,10 @@ describe("restart-helper", () => {
 
       const { scriptPath, content } = await prepareAndReadScript({
         BOT_PROFILE: "default",
-        BOT_WINDOWS_TASK_NAME: "ZooBot Gateway (custom)",
+        BOT_WINDOWS_TASK_NAME: "Bot Gateway (custom)",
       });
-      expect(content).toContain('schtasks /End /TN "ZooBot Gateway (custom)"');
-      expect(content).toContain('schtasks /Run /TN "ZooBot Gateway (custom)"');
+      expect(content).toContain('schtasks /End /TN "Bot Gateway (custom)"');
+      expect(content).toContain('schtasks /Run /TN "Bot Gateway (custom)"');
       expectWindowsRestartWaitOrdering(content);
       await cleanupScript(scriptPath);
     });
@@ -189,7 +189,7 @@ describe("restart-helper", () => {
       const { scriptPath, content } = await prepareAndReadScript({
         BOT_PROFILE: "production",
       });
-      expect(content).toContain('schtasks /End /TN "ZooBot Gateway (production)"');
+      expect(content).toContain('schtasks /End /TN "Bot Gateway (production)"');
       expectWindowsRestartWaitOrdering(content);
       await cleanupScript(scriptPath);
     });

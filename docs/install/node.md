@@ -1,15 +1,15 @@
 ---
 title: "Node.js"
-summary: "Install and configure Node.js for ZooBot — version requirements, install options, and PATH troubleshooting"
+summary: "Install and configure Node.js for Bot — version requirements, install options, and PATH troubleshooting"
 read_when:
-  - "You need to install Node.js before installing ZooBot"
-  - "You installed ZooBot but `zoo-bot` is command not found"
+  - "You need to install Node.js before installing Bot"
+  - "You installed Bot but `zoo-bot` is command not found"
   - "npm install -g fails with permissions or PATH issues"
 ---
 
 # Node.js
 
-ZooBot requires **Node 22 or newer**. The [installer script](/install#install-methods) will detect and install Node automatically — this page is for when you want to set up Node yourself and make sure everything is wired up correctly (versions, PATH, global installs).
+Bot requires **Node 22 or newer**. The [installer script](/install#install-methods) will detect and install Node automatically — this page is for when you want to set up Node yourself and make sure everything is wired up correctly (versions, PATH, global installs).
 
 ## Check your version
 

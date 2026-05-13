@@ -9,7 +9,7 @@ title: "browser"
 
 # `zoo-bot browser`
 
-Manage ZooBot’s browser control server and run browser actions (tabs, snapshots, screenshots, navigation, clicks, typing).
+Manage Bot’s browser control server and run browser actions (tabs, snapshots, screenshots, navigation, clicks, typing).
 
 Related:
 
@@ -37,7 +37,7 @@ zoo-bot browser --browser-profile zoo-bot snapshot
 
 Profiles are named browser routing configs. In practice:
 
-- `zoo-bot`: launches/attaches to a dedicated ZooBot-managed Chrome instance (isolated user data dir).
+- `zoo-bot`: launches/attaches to a dedicated Bot-managed Chrome instance (isolated user data dir).
 - `chrome`: controls your existing Chrome tab(s) via the Chrome extension relay.
 
 ```bash

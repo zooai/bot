@@ -1,7 +1,7 @@
 ---
-summary: "Symptom first troubleshooting hub for ZooBot"
+summary: "Symptom first troubleshooting hub for Bot"
 read_when:
-  - ZooBot is not working and you need the fastest path to a fix
+  - Bot is not working and you need the fastest path to a fix
   - You want a triage flow before diving into deep runbooks
 title: "Troubleshooting"
 ---
@@ -43,7 +43,7 @@ go to [/gateway/troubleshooting#anthropic-429-extra-usage-required-for-long-cont
 ## Plugin install fails with missing zoo-bot extensions
 
 If install fails with `package.json missing zoo-bot.extensions`, the plugin package
-is using an old shape that ZooBot no longer accepts.
+is using an old shape that Bot no longer accepts.
 
 Fix in the plugin package:
 
@@ -69,7 +69,7 @@ Reference: [/tools/plugin#distribution-npm](/tools/plugin#distribution-npm)
 
 ```mermaid
 flowchart TD
-  A[ZooBot is not working] --> B{What breaks first}
+  A[Bot is not working] --> B{What breaks first}
   B --> C[No replies]
   B --> D[Dashboard or Control UI will not connect]
   B --> E[Gateway will not start or service not running]

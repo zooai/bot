@@ -15,7 +15,7 @@ x-i18n:
 
 # Bonjour / mDNS 设备发现
 
-ZooBot 使用 Bonjour（mDNS / DNS‑SD）作为**仅限局域网的便捷方式**来发现
+Bot 使用 Bonjour（mDNS / DNS‑SD）作为**仅限局域网的便捷方式**来发现
 活跃的 Gateway 网关（WebSocket 端点）。这是尽力而为的，**不能**替代 SSH 或
 基于 Tailnet 的连接。
 
@@ -33,7 +33,7 @@ ZooBot 使用 Bonjour（mDNS / DNS‑SD）作为**仅限局域网的便捷方式
 3. 配置 Tailscale **分割 DNS**，使你选择的域名通过该
    DNS 服务器为客户端（包括 iOS）解析。
 
-ZooBot 支持任何发现域名；`zoo-bot.internal.` 只是一个示例。
+Bot 支持任何发现域名；`zoo-bot.internal.` 只是一个示例。
 iOS/Android 节点同时浏览 `local.` 和你配置的广域域名。
 
 ### Gateway 网关配置（推荐）

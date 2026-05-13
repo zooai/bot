@@ -4,7 +4,7 @@ import path from "node:path";
 import { resolveBrewPathDirs } from "./brew.js";
 import { isTruthyEnvValue } from "./env.js";
 
-type EnsureZooBotPathOpts = {
+type EnsureBotPathOpts = {
   execPath?: string;
   cwd?: string;
   homeDir?: string;
@@ -49,7 +49,7 @@ function mergePath(params: { existing: string; prepend?: string[]; append?: stri
   return merged.join(path.delimiter);
 }
 
-function candidateBinDirs(opts: EnsureZooBotPathOpts): { prepend: string[]; append: string[] } {
+function candidateBinDirs(opts: EnsureBotPathOpts): { prepend: string[]; append: string[] } {
   const execPath = opts.execPath ?? process.execPath;
   const cwd = opts.cwd ?? process.cwd();
   const homeDir = opts.homeDir ?? os.homedir();
@@ -72,8 +72,7 @@ function candidateBinDirs(opts: EnsureZooBotPathOpts): { prepend: string[]; appe
   // Project-local installs are a common repo-based attack vector (bin hijacking). Keep this
   // disabled by default; if an operator explicitly enables it, only append (never prepend).
   const allowProjectLocalBin =
-    opts.allowProjectLocalBin === true ||
-    isTruthyEnvValue(process.env.BOT_ALLOW_PROJECT_LOCAL_BIN);
+    opts.allowProjectLocalBin === true || isTruthyEnvValue(process.env.BOT_ALLOW_PROJECT_LOCAL_BIN);
   if (allowProjectLocalBin) {
     const localBinDir = path.join(cwd, "node_modules", ".bin");
     if (isExecutable(path.join(localBinDir, "bot"))) {
@@ -109,7 +108,7 @@ function candidateBinDirs(opts: EnsureZooBotPathOpts): { prepend: string[]; appe
  * Best-effort PATH bootstrap so skills that require the `bot` CLI can run
  * under launchd/minimal environments (and inside the macOS app bundle).
  */
-export function ensureZooBotCliOnPath(opts: EnsureZooBotPathOpts = {}) {
+export function ensureBotCliOnPath(opts: EnsureBotPathOpts = {}) {
   if (isTruthyEnvValue(process.env.BOT_PATH_BOOTSTRAPPED)) {
     return;
   }

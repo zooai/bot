@@ -1,16 +1,16 @@
 ---
 title: "Default AGENTS.md"
-summary: "Default ZooBot agent instructions and skills roster for the personal assistant setup"
+summary: "Default Bot agent instructions and skills roster for the personal assistant setup"
 read_when:
-  - Starting a new ZooBot agent session
+  - Starting a new Bot agent session
   - Enabling or auditing default skills
 ---
 
-# AGENTS.md — ZooBot Personal Assistant (default)
+# AGENTS.md — Bot Personal Assistant (default)
 
 ## First run (recommended)
 
-ZooBot uses a dedicated workspace directory for the agent. Default: `~/.zoo-bot/workspace` (configurable via `agents.defaults.workspace`).
+Bot uses a dedicated workspace directory for the agent. Default: `~/.zoo-bot/workspace` (configurable via `agents.defaults.workspace`).
 
 1. Create the workspace (if it doesn’t already exist):
 
@@ -87,7 +87,7 @@ git commit -m "Add Clawd workspace"
 # Optional: add a private remote + push
 ```
 
-## What ZooBot Does
+## What Bot Does
 
 - Runs WhatsApp gateway + Pi coding agent so the assistant can read/write chats, fetch context, and run skills via the host Mac.
 - macOS app manages permissions (screen recording, notifications, microphone) and exposes the `zoo-bot` CLI via its bundled binary.
@@ -119,6 +119,6 @@ git commit -m "Add Clawd workspace"
 - Run installs from the Skills tab; it hides the button if a binary is already present.
 - Keep heartbeats enabled so the assistant can schedule reminders, monitor inboxes, and trigger camera captures.
 - Canvas UI runs full-screen with native overlays. Avoid placing critical controls in the top-left/top-right/bottom edges; add explicit gutters in the layout and don’t rely on safe-area insets.
-- For browser-driven verification, use `zoo-bot browser` (tabs/status/screenshot) with the ZooBot-managed Chrome profile.
+- For browser-driven verification, use `zoo-bot browser` (tabs/status/screenshot) with the Bot-managed Chrome profile.
 - For DOM inspection, use `zoo-bot browser eval|query|dom|snapshot` (and `--json`/`--out` when you need machine output).
 - For interactions, use `zoo-bot browser click|type|hover|drag|select|upload|press|wait|navigate|back|evaluate|run` (click/type require snapshot refs; use `evaluate` for CSS selectors).

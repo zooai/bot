@@ -76,7 +76,7 @@ zoo-bot pairing approve whatsapp <CODE>
 </Steps>
 
 <Note>
-ZooBot recommends running WhatsApp on a separate number when possible. (The channel metadata and onboarding flow are optimized for that setup, but personal-number setups are also supported.)
+Bot recommends running WhatsApp on a separate number when possible. (The channel metadata and onboarding flow are optimized for that setup, but personal-number setups are also supported.)
 </Note>
 
 ## Deployment patterns
@@ -85,7 +85,7 @@ ZooBot recommends running WhatsApp on a separate number when possible. (The chan
   <Accordion title="Dedicated number (recommended)">
     This is the cleanest operational mode:
 
-    - separate WhatsApp identity for ZooBot
+    - separate WhatsApp identity for Bot
     - clearer DM allowlists and routing boundaries
     - lower chance of self-chat confusion
 
@@ -116,7 +116,7 @@ ZooBot recommends running WhatsApp on a separate number when possible. (The chan
   </Accordion>
 
   <Accordion title="WhatsApp Web-only channel scope">
-    The messaging platform channel is WhatsApp Web-based (`Baileys`) in current ZooBot channel architecture.
+    The messaging platform channel is WhatsApp Web-based (`Baileys`) in current Bot channel architecture.
 
     There is no separate Twilio WhatsApp messaging channel in the built-in chat-channel registry.
 

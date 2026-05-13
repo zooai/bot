@@ -6,14 +6,14 @@
  */
 
 import type { BotConfig } from "../config/config.js";
+import { logVerbose } from "../globals.js";
 import type {
-  ZooBotPluginCommandDefinition,
+  BotPluginCommandDefinition,
   PluginCommandContext,
   PluginCommandResult,
 } from "./types.js";
-import { logVerbose } from "../globals.js";
 
-type RegisteredPluginCommand = ZooBotPluginCommandDefinition & {
+type RegisteredPluginCommand = BotPluginCommandDefinition & {
   pluginId: string;
 };
 
@@ -107,7 +107,7 @@ export type CommandRegistrationResult = {
  */
 export function registerPluginCommand(
   pluginId: string,
-  command: ZooBotPluginCommandDefinition,
+  command: BotPluginCommandDefinition,
 ): CommandRegistrationResult {
   // Prevent registration while commands are being processed
   if (registryLocked) {

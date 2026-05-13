@@ -1,6 +1,6 @@
 ---
 read_when:
-  - 你想在 ZooBot 中支持 Zalo Personal（非官方）
+  - 你想在 Bot 中支持 Zalo Personal（非官方）
   - 你正在配置或开发 zalouser 插件
 summary: Zalo Personal 插件：通过 zca-cli 进行 QR 登录 + 消息（插件安装 + 渠道配置 + CLI + 工具）
 title: Zalo Personal 插件
@@ -15,7 +15,7 @@ x-i18n:
 
 # Zalo Personal（插件）
 
-通过插件为 ZooBot 提供 Zalo Personal 支持，使用 `zca-cli` 自动化普通 Zalo 用户账户。
+通过插件为 Bot 提供 Zalo Personal 支持，使用 `zca-cli` 自动化普通 Zalo 用户账户。
 
 > **警告：** 非官方自动化可能导致账户被暂停/封禁。使用风险自负。
 
@@ -77,7 +77,7 @@ zca --version
 zoo-bot channels login --channel zalouser
 zoo-bot channels logout --channel zalouser
 zoo-bot channels status --probe
-zoo-bot message send --channel zalouser --target <threadId> --message "Hello from ZooBot"
+zoo-bot message send --channel zalouser --target <threadId> --message "Hello from Bot"
 zoo-bot directory peers list --channel zalouser --query "name"
 ```
 

@@ -17,7 +17,7 @@ x-i18n:
 
 面向用户的概览（CLI + Control UI + 配置），请参阅 [/logging](/logging)。
 
-ZooBot 有两个日志"界面"：
+Bot 有两个日志"界面"：
 
 - **控制台输出**（你在终端 / Debug UI 中看到的内容）。
 - **文件日志**（JSON 行）由 Gateway 网关日志记录器写入。

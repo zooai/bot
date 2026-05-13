@@ -1,5 +1,5 @@
 ---
-summary: "Chrome extension: let ZooBot drive your existing Chrome tab"
+summary: "Chrome extension: let Bot drive your existing Chrome tab"
 read_when:
   - You want the agent to drive an existing Chrome tab (toolbar button)
   - You need remote Gateway + local browser automation via Tailscale
@@ -9,7 +9,7 @@ title: "Chrome Extension"
 
 # Chrome extension (browser relay)
 
-The ZooBot Chrome extension lets the agent control your **existing Chrome tabs** (your normal Chrome window) instead of launching a separate zoo-bot-managed Chrome profile.
+The Bot Chrome extension lets the agent control your **existing Chrome tabs** (your normal Chrome window) instead of launching a separate zoo-bot-managed Chrome profile.
 
 Attach/detach happens via a **single Chrome toolbar button**.
 
@@ -21,7 +21,7 @@ There are three parts:
 - **Local relay server** (loopback CDP): bridges between the control server and the extension (`http://127.0.0.1:18792` by default)
 - **Chrome MV3 extension**: attaches to the active tab using `chrome.debugger` and pipes CDP messages to the relay
 
-ZooBot then controls the attached tab through the normal `browser` tool surface (selecting the right profile).
+Bot then controls the attached tab through the normal `browser` tool surface (selecting the right profile).
 
 ## Install / load (unpacked)
 
@@ -46,16 +46,16 @@ zoo-bot browser extension path
 
 ## Updates (no build step)
 
-The extension ships inside the ZooBot release (npm package) as static files. There is no separate “build” step.
+The extension ships inside the Bot release (npm package) as static files. There is no separate “build” step.
 
-After upgrading ZooBot:
+After upgrading Bot:
 
-- Re-run `zoo-bot browser extension install` to refresh the installed files under your ZooBot state directory.
+- Re-run `zoo-bot browser extension install` to refresh the installed files under your Bot state directory.
 - Chrome → `chrome://extensions` → click “Reload” on the extension.
 
 ## Use it (set gateway token once)
 
-ZooBot ships with a built-in browser profile named `chrome` that targets the extension relay on the default port.
+Bot ships with a built-in browser profile named `chrome` that targets the extension relay on the default port.
 
 Before first attach, open extension Options and set:
 
@@ -91,7 +91,7 @@ Configure the extension to use the derived relay port in the extension Options p
 
 ## Attach / detach (toolbar button)
 
-- Open the tab you want ZooBot to control.
+- Open the tab you want Bot to control.
 - Click the extension icon.
   - Badge shows `ON` when attached.
 - Click again to detach.
@@ -104,7 +104,7 @@ Configure the extension to use the derived relay port in the extension Options p
 
 ## Badge + common errors
 
-- `ON`: attached; ZooBot can drive that tab.
+- `ON`: attached; Bot can drive that tab.
 - `…`: connecting to the local relay.
 - `!`: relay not reachable/authenticated (most common: relay server not running, or gateway token missing/wrong).
 
@@ -166,7 +166,7 @@ Debugging: `zoo-bot sandbox explain`
 
 `zoo-bot browser extension path` prints the **installed** on-disk directory containing the extension files.
 
-The CLI intentionally does **not** print a `node_modules` path. Always run `zoo-bot browser extension install` first to copy the extension to a stable location under your ZooBot state directory.
+The CLI intentionally does **not** print a `node_modules` path. Always run `zoo-bot browser extension install` first to copy the extension to a stable location under your Bot state directory.
 
 If you move or delete that install directory, Chrome will mark the extension as broken until you reload it from a valid path.
 

@@ -2,7 +2,7 @@
   "name": "@hanzo/bot-copilot-proxy",
   "version": "2026.4.27",
   "private": true,
-  "description": "ZooBot Copilot Proxy provider plugin",
+  "description": "Bot Copilot Proxy provider plugin",
   "type": "module",
   "zoo-bot": {
     "extensions": [

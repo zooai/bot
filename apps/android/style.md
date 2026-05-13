@@ -1,4 +1,4 @@
-# ZooBot Android UI Style Guide
+# Bot Android UI Style Guide
 
 Scope: all native Android UI in `apps/android` (Jetpack Compose).
 Goal: one coherent visual system across onboarding, settings, and future screens.
@@ -104,7 +104,7 @@ Hard rule: avoid ultra-thin weights on light backgrounds.
 
 ## 11. Source Of Truth
 
-- `app/src/main/java/ai/zoo-bot/android/ui/ZooBotTheme.kt`
+- `app/src/main/java/ai/zoo-bot/android/ui/BotTheme.kt`
 - `app/src/main/java/ai/zoo-bot/android/ui/OnboardingFlow.kt`
 - `app/src/main/java/ai/zoo-bot/android/ui/RootScreen.kt`
 - `app/src/main/java/ai/zoo-bot/android/ui/SettingsSheet.kt`

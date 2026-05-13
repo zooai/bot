@@ -34,7 +34,7 @@ zoo-bot plugins install ./extensions/msteams
 ```
 
 If you choose Teams during configure/onboarding and a git checkout is detected,
-ZooBot will offer the local install path automatically.
+Bot will offer the local install path automatically.
 
 Details: [Plugins](/tools/plugin)
 
@@ -42,7 +42,7 @@ Details: [Plugins](/tools/plugin)
 
 1. Install the Microsoft Teams plugin.
 2. Create an **Azure Bot** (App ID + client secret + tenant ID).
-3. Configure ZooBot with those credentials.
+3. Configure Bot with those credentials.
 4. Expose `/api/messages` (port 3978 by default) via a public URL or tunnel.
 5. Install the Teams app package and start the gateway.
 
@@ -66,7 +66,7 @@ Note: group chats are blocked by default (`channels.msteams.groupPolicy: "allowl
 
 ## Goals
 
-- Talk to ZooBot via Teams DMs, group chats, or channels.
+- Talk to Bot via Teams DMs, group chats, or channels.
 - Keep routing deterministic: replies always go back to the channel they arrived on.
 - Default to safe channel behavior (mentions required unless configured otherwise).
 
@@ -117,7 +117,7 @@ Example:
 - Keys can be team IDs or names; channel keys can be conversation IDs or names.
 - When `groupPolicy="allowlist"` and a teams allowlist is present, only listed teams/channels are accepted (mention‑gated).
 - The configure wizard accepts `Team/Channel` entries and stores them for you.
-- On startup, ZooBot resolves team/channel and user allowlist names to IDs (when Graph permissions allow)
+- On startup, Bot resolves team/channel and user allowlist names to IDs (when Graph permissions allow)
   and logs the mapping; unresolved entries are kept as typed.
 
 Example:
@@ -150,21 +150,21 @@ Example:
 
 ## Azure Bot Setup (Prerequisites)
 
-Before configuring ZooBot, you need to create an Azure Bot resource.
+Before configuring Bot, you need to create an Azure Bot resource.
 
 ### Step 1: Create Azure Bot
 
 1. Go to [Create Azure Bot](https://portal.azure.com/#create/Microsoft.AzureBot)
 2. Fill in the **Basics** tab:
 
-   | Field              | Value                                                    |
-   | ------------------ | -------------------------------------------------------- |
+   | Field              | Value                                                   |
+   | ------------------ | ------------------------------------------------------- |
    | **Bot handle**     | Your bot name, e.g., `zoo-bot-msteams` (must be unique) |
-   | **Subscription**   | Select your Azure subscription                           |
-   | **Resource group** | Create new or use existing                               |
-   | **Pricing tier**   | **Free** for dev/testing                                 |
-   | **Type of App**    | **Single Tenant** (recommended - see note below)         |
-   | **Creation type**  | **Create new Microsoft App ID**                          |
+   | **Subscription**   | Select your Azure subscription                          |
+   | **Resource group** | Create new or use existing                              |
+   | **Pricing tier**   | **Free** for dev/testing                                |
+   | **Type of App**    | **Single Tenant** (recommended - see note below)        |
+   | **Creation type**  | **Create new Microsoft App ID**                         |
 
 > **Deprecation notice:** Creation of new multi-tenant bots was deprecated after 2025-07-31. Use **Single Tenant** for new bots.
 
@@ -258,7 +258,7 @@ This is often easier than hand-editing JSON manifests.
    - Create icons: `outline.png` (32x32) and `color.png` (192x192).
    - Zip all three files together: `manifest.json`, `outline.png`, `color.png`.
 
-4. **Configure ZooBot**
+4. **Configure Bot**
 
    ```json
    {
@@ -318,14 +318,14 @@ Minimal, valid example with the required fields. Replace IDs and URLs.
   "manifestVersion": "1.23",
   "version": "1.0.0",
   "id": "00000000-0000-0000-0000-000000000000",
-  "name": { "short": "ZooBot" },
+  "name": { "short": "Bot" },
   "developer": {
     "name": "Your Org",
     "websiteUrl": "https://example.com",
     "privacyUrl": "https://example.com/privacy",
     "termsOfUseUrl": "https://example.com/terms"
   },
-  "description": { "short": "ZooBot in Teams", "full": "ZooBot in Teams" },
+  "description": { "short": "Bot in Teams", "full": "Bot in Teams" },
   "icons": { "outline": "outline.png", "color": "color.png" },
   "accentColor": "#5B6DEF",
   "bots": [
@@ -437,7 +437,7 @@ Teams delivers messages via HTTP webhook. If processing takes too long (e.g., sl
 - Teams retrying the message (causing duplicates)
 - Dropped replies
 
-ZooBot handles this by returning quickly and sending replies proactively, but very slow responses may still cause issues.
+Bot handles this by returning quickly and sending replies proactively, but very slow responses may still cause issues.
 
 ### Formatting
 
@@ -525,7 +525,7 @@ Teams recently introduced two channel UI styles over the same underlying data mo
 - **Channels/groups:** Attachments live in M365 storage (SharePoint/OneDrive). The webhook payload only includes an HTML stub, not the actual file bytes. **Graph API permissions are required** to download channel attachments.
 
 Without Graph permissions, channel messages with images will be received as text-only (the image content is not accessible to the bot).
-By default, ZooBot only downloads media from Microsoft/Teams hostnames. Override with `channels.msteams.mediaAllowHosts` (use `["*"]` to allow any host).
+By default, Bot only downloads media from Microsoft/Teams hostnames. Override with `channels.msteams.mediaAllowHosts` (use `["*"]` to allow any host).
 Authorization headers are only attached for hosts in `channels.msteams.mediaAuthAllowHosts` (defaults to Graph + Bot Framework hosts). Keep this list strict (avoid multi-tenant suffixes).
 
 ## Sending files in group chats
@@ -564,7 +564,7 @@ Bots don't have a personal OneDrive drive (the `/me/drive` Graph API endpoint do
    # Response includes: "id": "contoso.sharepoint.com,guid1,guid2"
    ```
 
-4. **Configure ZooBot:**
+4. **Configure Bot:**
 
    ```json5
    {
@@ -597,11 +597,11 @@ Per-user sharing is more secure as only the chat participants can access the fil
 
 ### Files stored location
 
-Uploaded files are stored in a `/ZooBotShared/` folder in the configured SharePoint site's default document library.
+Uploaded files are stored in a `/BotShared/` folder in the configured SharePoint site's default document library.
 
 ## Polls (Adaptive Cards)
 
-ZooBot sends Teams polls as Adaptive Cards (there is no native Teams poll API).
+Bot sends Teams polls as Adaptive Cards (there is no native Teams poll API).
 
 - CLI: `zoo-bot message poll --channel msteams --target conversation:<id> ...`
 - Votes are recorded by the gateway in `~/.zoo-bot/msteams-polls.json`.

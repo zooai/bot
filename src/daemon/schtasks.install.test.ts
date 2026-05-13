@@ -98,7 +98,7 @@ describe("installScheduledTask", () => {
 
       expect(schtasksCalls[0]).toEqual(["/Query"]);
       expect(schtasksCalls[1]?.[0]).toBe("/Create");
-      expect(schtasksCalls[2]).toEqual(["/Run", "/TN", "ZooBot Gateway"]);
+      expect(schtasksCalls[2]).toEqual(["/Run", "/TN", "Bot Gateway"]);
     });
   });
 

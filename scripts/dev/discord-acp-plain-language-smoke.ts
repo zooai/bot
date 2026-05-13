@@ -153,7 +153,7 @@ function usage(): string {
     "Usage: bun scripts/dev/discord-acp-plain-language-smoke.ts " +
     "--channel <discord-channel-id> [--token <driver-token> | --driver webhook --bot-token <bot-token> | --driver bot] [options]\n\n" +
     "Manual live smoke only (not CI). Sends a plain-language instruction in Discord and verifies:\n" +
-    "1) ZooBot spawned an ACP thread binding\n" +
+    "1) Bot spawned an ACP thread binding\n" +
     "2) agent replied in that bound thread with the expected ACK token\n\n" +
     "Options:\n" +
     "  --channel <id>               Parent Discord channel id (required)\n" +
@@ -168,7 +168,7 @@ function usage(): string {
     "  --timeout-ms <n>             Total timeout in ms (default: 240000)\n" +
     "  --poll-ms <n>                Poll interval in ms (default: 1500)\n" +
     "  --thread-bindings-path <p>   Override thread-bindings json path\n" +
-    "  --bot-bin <path>        ZooBot CLI binary for driver=bot (default: bot)\n" +
+    "  --bot-bin <path>        Bot CLI binary for driver=bot (default: bot)\n" +
     "  --json                       Emit JSON output\n" +
     "\n" +
     "Environment fallbacks:\n" +
@@ -221,9 +221,7 @@ function parseArgs(): Args {
     process.env.DISCORD_BOT_TOKEN ||
     "";
   const botTokenPrefix =
-    resolveArg("--bot-token-prefix") ||
-    process.env.BOT_DISCORD_SMOKE_BOT_TOKEN_PREFIX ||
-    "Bot";
+    resolveArg("--bot-token-prefix") || process.env.BOT_DISCORD_SMOKE_BOT_TOKEN_PREFIX || "Bot";
   const targetAgent =
     resolveArg("--agent") ||
     process.env.BOT_DISCORD_SMOKE_AGENT ||
@@ -252,8 +250,7 @@ function parseArgs(): Args {
     resolveArg("--thread-bindings-path") ||
     process.env.BOT_DISCORD_SMOKE_THREAD_BINDINGS_PATH ||
     defaultBindingsPath;
-  const botBin =
-    resolveArg("--bot-bin") || process.env.BOT_DISCORD_SMOKE_BOT_BIN || "bot";
+  const botBin = resolveArg("--bot-bin") || process.env.BOT_DISCORD_SMOKE_BOT_BIN || "bot";
   const json = hasFlag("--json");
 
   if (!channelId) {
@@ -296,7 +293,7 @@ async function botCliJson<T>(params: { botBin: string; args: string[] }): Promis
   return JSON.parse(stdout) as T;
 }
 
-async function readMessagesWithZooBot(params: {
+async function readMessagesWithBot(params: {
   botBin: string;
   target: string;
   limit: number;
@@ -488,7 +485,7 @@ async function loadParentRecentMessages(params: {
   readAuthHeader: string;
 }): Promise<DiscordMessage[]> {
   if (params.args.driverMode === "bot") {
-    return await readMessagesWithZooBot({
+    return await readMessagesWithBot({
       botBin: params.args.botBin,
       target: params.args.channelId,
       limit: 20,
@@ -756,7 +753,7 @@ async function run(): Promise<SuccessResult | FailureResult> {
       try {
         const threadMessages =
           args.driverMode === "bot"
-            ? await readMessagesWithZooBot({
+            ? await readMessagesWithBot({
                 botBin: args.botBin,
                 target: threadId,
                 limit: 50,
@@ -794,7 +791,7 @@ async function run(): Promise<SuccessResult | FailureResult> {
         ok: false,
         stage: "wait-ack",
         smokeId,
-        error: `Thread bound (${threadId}) but timed out waiting for ACK token "${ackToken}" from ZooBot.`,
+        error: `Thread bound (${threadId}) but timed out waiting for ACK token "${ackToken}" from Bot.`,
         diagnostics: {
           bindingCandidates: [
             {

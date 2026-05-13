@@ -1,5 +1,5 @@
 /**
- * Synology Chat Channel Plugin for ZooBot.
+ * Synology Chat Channel Plugin for Bot.
  *
  * Implements the ChannelPlugin interface following the LINE pattern.
  */
@@ -11,10 +11,10 @@ import {
   buildChannelConfigSchema,
 } from "@hanzo/bot/plugin-sdk/synology-chat";
 import { z } from "zod";
-import type { ResolvedSynologyChatAccount } from "./types.js";
 import { listAccountIds, resolveAccount } from "./accounts.js";
 import { sendMessage, sendFileUrl } from "./client.js";
 import { getSynologyRuntime } from "./runtime.js";
+import type { ResolvedSynologyChatAccount } from "./types.js";
 import { createWebhookHandler } from "./webhook-handler.js";
 
 const CHANNEL_ID = "synology-chat";
@@ -49,7 +49,7 @@ export function createSynologyChatPlugin() {
       selectionLabel: "Synology Chat (Webhook)",
       detailLabel: "Synology Chat (Webhook)",
       docsPath: "/channels/synology-chat",
-      blurb: "Connect your Synology NAS Chat to ZooBot",
+      blurb: "Connect your Synology NAS Chat to Bot",
       order: 90,
     },
 
@@ -104,7 +104,7 @@ export function createSynologyChatPlugin() {
         if (!account.incomingUrl) return;
         await sendMessage(
           account.incomingUrl,
-          "ZooBot: your access has been approved.",
+          "Bot: your access has been approved.",
           id,
           account.allowInsecureSsl,
         );

@@ -81,11 +81,11 @@ describe("tool display details", () => {
     const detail = formatToolDetail(
       resolveToolDisplay({
         name: "web_search",
-        args: { query: "ZooBot docs", count: 3 },
+        args: { query: "Bot docs", count: 3 },
       }),
     );
 
-    expect(detail).toBe('for "ZooBot docs" (top 3)');
+    expect(detail).toBe('for "Bot docs" (top 3)');
   });
 
   it("summarizes exec commands with context", () => {

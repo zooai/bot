@@ -1,8 +1,8 @@
 ---
 read_when:
-  - 你正在将 ZooBot 迁移到新的笔记本电脑/服务器
+  - 你正在将 Bot 迁移到新的笔记本电脑/服务器
   - 你想保留会话、认证和渠道登录（WhatsApp 等）
-summary: 将 ZooBot 安装从一台机器迁移到另一台
+summary: 将 Bot 安装从一台机器迁移到另一台
 title: 迁移指南
 x-i18n:
   generated_at: "2026-02-03T07:49:55Z"
@@ -13,9 +13,9 @@ x-i18n:
   workflow: 15
 ---
 
-# 将 ZooBot 迁移到新机器
+# 将 Bot 迁移到新机器
 
-本指南将 ZooBot Gateway 网关从一台机器迁移到另一台，**无需重新进行新手引导**。
+本指南将 Bot Gateway 网关从一台机器迁移到另一台，**无需重新进行新手引导**。
 
 迁移在概念上很简单：
 
@@ -94,7 +94,7 @@ tar -czf zoo-bot-workspace.tgz .zoo-bot/workspace
 
 如果你有多个配置文件/状态目录（例如 `~/.zoo-bot-main`、`~/.zoo-bot-work`），分别归档每个。
 
-### 步骤 1 — 在新机器上安装 ZooBot
+### 步骤 1 — 在新机器上安装 Bot
 
 在**新**机器上，安装 CLI（如果需要还有 Node）：
 
@@ -196,4 +196,4 @@ zoo-bot doctor
 
 - [Doctor](/gateway/doctor)
 - [Gateway 网关故障排除](/gateway/troubleshooting)
-- [ZooBot 在哪里存储数据？](/help/faq#where-does-zoo-bot-store-its-data)
+- [Bot 在哪里存储数据？](/help/faq#where-does-zoo-bot-store-its-data)

@@ -1,5 +1,5 @@
 ---
-summary: "Overview of ZooBot onboarding options and flows"
+summary: "Overview of Bot onboarding options and flows"
 read_when:
   - Choosing an onboarding path
   - Setting up a new environment
@@ -9,7 +9,7 @@ sidebarTitle: "Onboarding Overview"
 
 # Onboarding Overview
 
-ZooBot supports multiple onboarding paths depending on where the Gateway runs
+Bot supports multiple onboarding paths depending on where the Gateway runs
 and how you prefer to configure providers.
 
 ## Choose your onboarding path
@@ -33,7 +33,7 @@ channels, and skills. Docs:
 
 ## macOS app onboarding
 
-Use the ZooBot app when you want a fully guided setup on macOS. Docs:
+Use the Bot app when you want a fully guided setup on macOS. Docs:
 
 - [Onboarding (macOS App)](/start/onboarding)
 

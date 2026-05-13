@@ -10,10 +10,7 @@ import { captureEnv } from "../test-utils/env.js";
 const bundledPluginsDirSnapshot = captureEnv(["BOT_BUNDLED_PLUGINS_DIR"]);
 
 beforeAll(() => {
-  process.env.BOT_BUNDLED_PLUGINS_DIR = path.join(
-    os.tmpdir(),
-    "bot-test-no-bundled-extensions",
-  );
+  process.env.BOT_BUNDLED_PLUGINS_DIR = path.join(os.tmpdir(), "bot-test-no-bundled-extensions");
 });
 
 afterAll(() => {
@@ -68,7 +65,7 @@ vi.mock("../infra/exec-approvals.js", async (importOriginal) => {
   return { ...mod, resolveExecApprovals: () => approvals };
 });
 
-const { createZooBotCodingTools } = await import("./pi-tools.js");
+const { createBotCodingTools } = await import("./pi-tools.js");
 
 type ExecToolResult = {
   content: Array<{ type: string; text?: string }>;
@@ -109,7 +106,7 @@ async function createSafeBinsExecTool(params: {
     },
   };
 
-  const tools = createZooBotCodingTools({
+  const tools = createBotCodingTools({
     config: cfg,
     sessionKey: "agent:main:main",
     workspaceDir: tmpDir,
@@ -137,7 +134,7 @@ async function withSafeBinsExecTool(
   }
 }
 
-describe("createZooBotCodingTools safeBins", () => {
+describe("createBotCodingTools safeBins", () => {
   it("threads tools.exec.safeBins into exec allowlist checks", async () => {
     await withSafeBinsExecTool(
       {

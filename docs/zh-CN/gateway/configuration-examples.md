@@ -1,9 +1,9 @@
 ---
 read_when:
-  - 学习如何配置 ZooBot
+  - 学习如何配置 Bot
   - 寻找配置示例
-  - 首次设置 ZooBot
-summary: 符合模式的常见 ZooBot 设置配置示例
+  - 首次设置 Bot
+summary: 符合模式的常见 Bot 设置配置示例
 title: 配置示例
 x-i18n:
   generated_at: "2026-02-03T07:48:39Z"

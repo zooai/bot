@@ -103,7 +103,7 @@ const requiredPathGroups = [
   "dist/plugin-sdk/keyed-async-queue.d.ts",
   "dist/build-info.json",
 ];
-const forbiddenPrefixes = ["dist/ZooBot.app/"];
+const forbiddenPrefixes = ["dist/Bot.app/"];
 const appcastPath = resolve("appcast.xml");
 const laneBuildMin = 1_000_000_000;
 const laneFloorAdoptionDateKey = 20260227;

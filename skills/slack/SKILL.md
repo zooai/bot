@@ -1,6 +1,6 @@
 ---
 name: slack
-description: Use when you need to control Slack from ZooBot via the slack tool, including reacting to messages or pinning/unpinning items in Slack channels or DMs.
+description: Use when you need to control Slack from Bot via the slack tool, including reacting to messages or pinning/unpinning items in Slack channels or DMs.
 metadata: { "zoo-bot": { "emoji": "💬", "requires": { "config": ["channels.slack"] } } }
 ---
 
@@ -8,7 +8,7 @@ metadata: { "zoo-bot": { "emoji": "💬", "requires": { "config": ["channels.sla
 
 ## Overview
 
-Use `slack` to react, manage pins, send/edit/delete messages, and fetch member info. The tool uses the bot token configured for ZooBot.
+Use `slack` to react, manage pins, send/edit/delete messages, and fetch member info. The tool uses the bot token configured for Bot.
 
 ## Inputs to collect
 
@@ -57,7 +57,7 @@ Message context lines include `slack message id` and `channel` fields you can re
 {
   "action": "sendMessage",
   "to": "channel:C123",
-  "content": "Hello from ZooBot"
+  "content": "Hello from Bot"
 }
 ```
 

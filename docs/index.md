@@ -1,22 +1,22 @@
 ---
-summary: "ZooBot is a multi-channel gateway for AI agents that runs on any OS."
+summary: "Bot is a multi-channel gateway for AI agents that runs on any OS."
 read_when:
-  - Introducing ZooBot to newcomers
-title: "ZooBot"
+  - Introducing Bot to newcomers
+title: "Bot"
 ---
 
-# ZooBot 🦞
+# Bot 🦞
 
 <p align="center">
     <img
         src="/assets/zoo-bot-logo-text-dark.png"
-        alt="ZooBot"
+        alt="Bot"
         width="500"
         class="dark:hidden"
     />
     <img
         src="/assets/zoo-bot-logo-text.png"
-        alt="ZooBot"
+        alt="Bot"
         width="500"
         class="hidden dark:block"
     />
@@ -31,7 +31,7 @@ title: "ZooBot"
 
 <Columns>
   <Card title="Get Started" href="/start/getting-started" icon="rocket">
-    Install ZooBot and bring up the Gateway in minutes.
+    Install Bot and bring up the Gateway in minutes.
   </Card>
   <Card title="Run the Wizard" href="/start/wizard" icon="sparkles">
     Guided setup with `zoo-bot onboard` and pairing flows.
@@ -41,9 +41,9 @@ title: "ZooBot"
   </Card>
 </Columns>
 
-## What is ZooBot?
+## What is Bot?
 
-ZooBot is a **self-hosted gateway** that connects your favorite chat apps — WhatsApp, Telegram, Discord, iMessage, and more — to AI coding agents like Pi. You run a single Gateway process on your own machine (or a server), and it becomes the bridge between your messaging apps and an always-available AI assistant.
+Bot is a **self-hosted gateway** that connects your favorite chat apps — WhatsApp, Telegram, Discord, iMessage, and more — to AI coding agents like Pi. You run a single Gateway process on your own machine (or a server), and it becomes the bridge between your messaging apps and an always-available AI assistant.
 
 **Who is it for?** Developers and power users who want a personal AI assistant they can message from anywhere — without giving up control of their data or relying on a hosted service.
 
@@ -96,7 +96,7 @@ The Gateway is the single source of truth for sessions, routing, and channel con
 ## Quick start
 
 <Steps>
-  <Step title="Install ZooBot">
+  <Step title="Install Bot">
     ```bash
     npm install -g zoo-bot@latest
     ```
@@ -124,14 +124,14 @@ Open the browser Control UI after the Gateway starts.
 - Remote access: [Web surfaces](/web) and [Tailscale](/gateway/tailscale)
 
 <p align="center">
-  <img src="whatsapp-zoo-bot.jpg" alt="ZooBot" width="420" />
+  <img src="whatsapp-zoo-bot.jpg" alt="Bot" width="420" />
 </p>
 
 ## Configuration (optional)
 
 Config lives at `~/.zoo-bot/zoo-bot.json`.
 
-- If you **do nothing**, ZooBot uses the bundled Pi binary in RPC mode with per-sender sessions.
+- If you **do nothing**, Bot uses the bundled Pi binary in RPC mode with per-sender sessions.
 - If you want to lock it down, start with `channels.whatsapp.allowFrom` and (for groups) mention rules.
 
 Example:

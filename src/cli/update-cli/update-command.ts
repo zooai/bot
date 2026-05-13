@@ -1,5 +1,5 @@
-import { confirm, isCancel } from "@clack/prompts";
 import path from "node:path";
+import { confirm, isCancel } from "@clack/prompts";
 import {
   checkShellCompletionStatus,
   ensureCompletionCacheExists,
@@ -810,7 +810,7 @@ export async function updateCommand(opts: UpdateCommandOptions): Promise<void> {
 
   const showProgress = !opts.json && process.stdout.isTTY;
   if (!opts.json) {
-    defaultRuntime.log(theme.heading("Updating ZooBot..."));
+    defaultRuntime.log(theme.heading("Updating Bot..."));
     defaultRuntime.log("");
   }
 
@@ -877,7 +877,7 @@ export async function updateCommand(opts: UpdateCommandOptions): Promise<void> {
     if (result.reason === "not-git-install") {
       defaultRuntime.log(
         theme.warn(
-          `Skipped: this ZooBot install isn't a git checkout, and the package manager couldn't be detected. Update via your package manager, then run \`${replaceCliName(formatCliCommand("bot doctor"), CLI_NAME)}\` and \`${replaceCliName(formatCliCommand("bot gateway restart"), CLI_NAME)}\`.`,
+          `Skipped: this Bot install isn't a git checkout, and the package manager couldn't be detected. Update via your package manager, then run \`${replaceCliName(formatCliCommand("bot doctor"), CLI_NAME)}\` and \`${replaceCliName(formatCliCommand("bot gateway restart"), CLI_NAME)}\`.`,
         ),
       );
       defaultRuntime.log(

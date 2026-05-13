@@ -9,7 +9,7 @@ title: "Logging"
 
 # Logging
 
-ZooBot logs in two places:
+Bot logs in two places:
 
 - **File logs** (JSON lines) written by the Gateway.
 - **Console output** shown in terminals and the Control UI.
@@ -152,7 +152,7 @@ diagnostics + the exporter plugin are enabled.
 
 - **OpenTelemetry (OTel)**: the data model + SDKs for traces, metrics, and logs.
 - **OTLP**: the wire protocol used to export OTel data to a collector/backend.
-- ZooBot exports via **OTLP/HTTP (protobuf)** today.
+- Bot exports via **OTLP/HTTP (protobuf)** today.
 
 ### Signals exported
 

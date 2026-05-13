@@ -1,7 +1,7 @@
 ---
 read_when:
   - 设计超越每日 Markdown 日志的工作区记忆（~/.zoo-bot/workspace）
-  - Deciding: standalone CLI vs deep ZooBot integration
+  - Deciding: standalone CLI vs deep Bot integration
   - 添加离线回忆 + 反思（retain/recall/reflect）
 summary: 研究笔记：Clawd 工作区的离线记忆系统（Markdown 作为数据源 + 派生索引）
 title: 工作区记忆研究
@@ -175,11 +175,11 @@ Recall 应支持：
 
 ## CLI 集成：独立 vs 深度集成
 
-建议：**深度集成到 ZooBot**，但保持可分离的核心库。
+建议：**深度集成到 Bot**，但保持可分离的核心库。
 
-### 为什么要集成到 ZooBot？
+### 为什么要集成到 Bot？
 
-- ZooBot 已经知道：
+- Bot 已经知道：
   - 工作区路径（`agents.defaults.workspace`）
   - 会话模型 + 心跳
   - 日志记录 + 故障排除模式

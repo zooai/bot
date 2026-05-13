@@ -2,7 +2,7 @@
   "name": "@hanzo/bot-line",
   "version": "2026.4.27",
   "private": true,
-  "description": "ZooBot LINE channel plugin",
+  "description": "Bot LINE channel plugin",
   "type": "module",
   "zoo-bot": {
     "extensions": [

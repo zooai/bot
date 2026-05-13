@@ -1,7 +1,7 @@
 {
   "name": "@hanzo/bot-acpx",
   "version": "2026.4.27",
-  "description": "ZooBot ACP runtime backend via acpx",
+  "description": "Bot ACP runtime backend via acpx",
   "type": "module",
   "dependencies": {
     "acpx": "0.1.15"

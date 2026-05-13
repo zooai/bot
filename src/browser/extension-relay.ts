@@ -1,12 +1,12 @@
 import type { IncomingMessage } from "node:http";
+import { createServer } from "node:http";
 import type { AddressInfo } from "node:net";
 import type { Duplex } from "node:stream";
-import { createServer } from "node:http";
 import WebSocket, { WebSocketServer } from "ws";
 import { isLoopbackAddress, isLoopbackHost } from "../gateway/net.js";
 import { rawDataToString } from "../infra/ws.js";
 import {
-  probeAuthenticatedZooBotRelay,
+  probeAuthenticatedBotRelay,
   resolveRelayAcceptedTokensForPort,
   resolveRelayAuthTokenForPort,
 } from "./extension-relay-auth.js";
@@ -460,9 +460,9 @@ export async function ensureChromeExtensionRelayServer(opts: {
         case "Browser.getVersion":
           return {
             protocolVersion: "1.3",
-            product: "Chrome/ZooBot-Extension-Relay",
+            product: "Chrome/Bot-Extension-Relay",
             revision: "0",
-            userAgent: "ZooBot-Extension-Relay",
+            userAgent: "Bot-Extension-Relay",
             jsVersion: "V8",
           };
         case "Browser.setDownloadBehavior":
@@ -596,7 +596,7 @@ export async function ensureChromeExtensionRelayServer(opts: {
         (req.method === "GET" || req.method === "PUT")
       ) {
         const payload: Record<string, unknown> = {
-          Browser: "ZooBot/extension-relay",
+          Browser: "Bot/extension-relay",
           "Protocol-Version": "1.3",
         };
         // Keep reporting CDP WS while attached targets are cached, so callers can
@@ -968,7 +968,7 @@ export async function ensureChromeExtensionRelayServer(opts: {
     } catch (err) {
       if (
         isAddrInUseError(err) &&
-        (await probeAuthenticatedZooBotRelay({
+        (await probeAuthenticatedBotRelay({
           baseUrl: info.baseUrl,
           relayAuthHeader: RELAY_AUTH_HEADER,
           relayAuthToken,

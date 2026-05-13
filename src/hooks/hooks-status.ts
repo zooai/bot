@@ -1,10 +1,10 @@
 import path from "node:path";
 import type { BotConfig } from "../config/config.js";
-import type { RequirementConfigCheck, Requirements } from "../shared/requirements.js";
-import type { HookEligibilityContext, HookEntry, HookInstallSpec } from "./types.js";
 import { evaluateEntryRequirementsForCurrentPlatform } from "../shared/entry-status.js";
+import type { RequirementConfigCheck, Requirements } from "../shared/requirements.js";
 import { CONFIG_DIR } from "../utils.js";
 import { hasBinary, isConfigPathTruthy, resolveHookConfig } from "./config.js";
+import type { HookEligibilityContext, HookEntry, HookInstallSpec } from "./types.js";
 import { loadWorkspaceHookEntries } from "./workspace.js";
 
 export type HookStatusConfigCheck = RequirementConfigCheck;
@@ -62,7 +62,7 @@ function normalizeInstallOptions(entry: HookEntry): HookInstallOption[] {
 
     if (!label) {
       if (spec.kind === "bundled") {
-        label = "Bundled with ZooBot";
+        label = "Bundled with Bot";
       } else if (spec.kind === "npm" && spec.package) {
         label = `Install ${spec.package} (npm)`;
       } else if (spec.kind === "git" && spec.repository) {

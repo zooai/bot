@@ -1,6 +1,5 @@
 import type { ClawdbotConfig, RuntimeEnv } from "@hanzo/bot/plugin-sdk/feishu";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { ResolvedFeishuAccount } from "./types.js";
 import { hasControlCommand } from "../../../src/auto-reply/command-detection.js";
 import {
   createInboundDebouncer,
@@ -12,6 +11,7 @@ import * as dedup from "./dedup.js";
 import { monitorSingleAccount } from "./monitor.account.js";
 import { resolveReactionSyntheticEvent, type FeishuReactionCreatedEvent } from "./monitor.js";
 import { setFeishuRuntime } from "./runtime.js";
+import type { ResolvedFeishuAccount } from "./types.js";
 
 const handleFeishuMessageMock = vi.hoisted(() => vi.fn(async (_params: { event?: unknown }) => {}));
 const createEventDispatcherMock = vi.hoisted(() => vi.fn());
@@ -446,7 +446,7 @@ describe("Feishu inbound debounce regressions", () => {
     vi.spyOn(dedup, "tryRecordMessagePersistent").mockResolvedValue(true);
     vi.spyOn(dedup, "hasRecordedMessage").mockReturnValue(false);
     vi.spyOn(dedup, "hasRecordedMessagePersistent").mockResolvedValue(false);
-    const onMessage = await setupDebounceMonitor({ botName: "ZooBot Bot" });
+    const onMessage = await setupDebounceMonitor({ botName: "Bot Bot" });
 
     await onMessage(
       createTextEvent({
@@ -456,7 +456,7 @@ describe("Feishu inbound debounce regressions", () => {
           {
             key: "@_user_1",
             id: { open_id: "ou_bot" },
-            name: "ZooBot Bot",
+            name: "Bot Bot",
           },
         ],
       }),
@@ -469,7 +469,7 @@ describe("Feishu inbound debounce regressions", () => {
     const firstParams = handleFeishuMessageMock.mock.calls[0]?.[0] as
       | { botName?: string }
       | undefined;
-    expect(firstParams?.botName).toBe("ZooBot Bot");
+    expect(firstParams?.botName).toBe("Bot Bot");
   });
 
   it("does not synthesize mention-forward intent across separate messages", async () => {

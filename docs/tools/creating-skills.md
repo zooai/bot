@@ -8,7 +8,7 @@ read_when:
 
 # Creating Custom Skills 🛠
 
-ZooBot is designed to be easily extensible. "Skills" are the primary way to add new capabilities to your assistant.
+Bot is designed to be easily extensible. "Skills" are the primary way to add new capabilities to your assistant.
 
 ## What is a Skill?
 
@@ -43,9 +43,9 @@ When the user asks for a greeting, use the `echo` tool to say "Hello from your c
 
 You can define custom tools in the frontmatter or instruct the agent to use existing system tools (like `bash` or `browser`).
 
-### 4. Refresh ZooBot
+### 4. Refresh Bot
 
-Ask your agent to "refresh skills" or restart the gateway. ZooBot will discover the new directory and index the `SKILL.md`.
+Ask your agent to "refresh skills" or restart the gateway. Bot will discover the new directory and index the `SKILL.md`.
 
 ## Best Practices
 

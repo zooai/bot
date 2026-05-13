@@ -952,7 +952,7 @@ describe("createTelegramBot", () => {
         reply_to_message: {
           message_id: 42,
           text: "original reply",
-          from: { id: 999, first_name: "ZooBot" },
+          from: { id: 999, first_name: "Bot" },
         },
       },
       me: { id: 999, username: "bot" },

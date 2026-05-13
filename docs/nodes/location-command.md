@@ -108,6 +108,6 @@ Notes:
 ## UX copy (suggested)
 
 - Off: “Location sharing is disabled.”
-- While Using: “Only when ZooBot is open.”
+- While Using: “Only when Bot is open.”
 - Always: “Allow background location. Requires system permission.”
 - Precise: “Use precise GPS location. Toggle off to share approximate location.”

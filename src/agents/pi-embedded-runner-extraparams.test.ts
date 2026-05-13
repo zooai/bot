@@ -721,7 +721,7 @@ describe("applyExtraParamsToAgent", () => {
     expect(calls).toHaveLength(1);
     expect(calls[0]?.headers).toEqual({
       "HTTP-Referer": "https://bot.ai",
-      "X-Title": "ZooBot",
+      "X-Title": "Bot",
       "X-Custom": "1",
     });
   });

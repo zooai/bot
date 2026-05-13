@@ -14,7 +14,7 @@ x-i18n:
 
 # OpenAI Chat Completions（HTTP）
 
-ZooBot 的 Gateway 网关可以提供一个小型的 OpenAI 兼容 Chat Completions 端点。
+Bot 的 Gateway 网关可以提供一个小型的 OpenAI 兼容 Chat Completions 端点。
 
 此端点**默认禁用**。请先在配置中启用它。
 
@@ -41,7 +41,7 @@ ZooBot 的 Gateway 网关可以提供一个小型的 OpenAI 兼容 Chat Completi
 - `model: "zoo-bot:<agentId>"`（例如：`"zoo-bot:main"`、`"zoo-bot:beta"`）
 - `model: "agent:<agentId>"`（别名）
 
-或通过头指定特定的 ZooBot 智能体：
+或通过头指定特定的 Bot 智能体：
 
 - `x-zoo-bot-agent-id: <agentId>`（默认：`main`）
 

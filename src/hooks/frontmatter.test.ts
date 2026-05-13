@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   parseFrontmatter,
-  resolveZooBotMetadata,
+  resolveBotMetadata,
   resolveHookInvocationPolicy,
 } from "./frontmatter.js";
 
@@ -148,7 +148,7 @@ description: 'single-quoted'
   });
 });
 
-describe("resolveZooBotMetadata", () => {
+describe("resolveBotMetadata", () => {
   it("extracts bot metadata from parsed frontmatter", () => {
     const frontmatter = {
       name: "test-hook",
@@ -164,7 +164,7 @@ describe("resolveZooBotMetadata", () => {
       }),
     };
 
-    const result = resolveZooBotMetadata(frontmatter);
+    const result = resolveBotMetadata(frontmatter);
     expect(result).toBeDefined();
     expect(result?.emoji).toBe("🔥");
     expect(result?.events).toEqual(["command:new", "command:reset"]);
@@ -174,7 +174,7 @@ describe("resolveZooBotMetadata", () => {
 
   it("returns undefined when metadata is missing", () => {
     const frontmatter = { name: "no-metadata" };
-    const result = resolveZooBotMetadata(frontmatter);
+    const result = resolveBotMetadata(frontmatter);
     expect(result).toBeUndefined();
   });
 
@@ -182,7 +182,7 @@ describe("resolveZooBotMetadata", () => {
     const frontmatter = {
       metadata: JSON.stringify({ other: "data" }),
     };
-    const result = resolveZooBotMetadata(frontmatter);
+    const result = resolveBotMetadata(frontmatter);
     expect(result).toBeUndefined();
   });
 
@@ -190,7 +190,7 @@ describe("resolveZooBotMetadata", () => {
     const frontmatter = {
       metadata: "not valid json {",
     };
-    const result = resolveZooBotMetadata(frontmatter);
+    const result = resolveBotMetadata(frontmatter);
     expect(result).toBeUndefined();
   });
 
@@ -200,14 +200,14 @@ describe("resolveZooBotMetadata", () => {
         bot: {
           events: ["command"],
           install: [
-            { id: "bundled", kind: "bundled", label: "Bundled with ZooBot" },
+            { id: "bundled", kind: "bundled", label: "Bundled with Bot" },
             { id: "npm", kind: "npm", package: "@hanzo/bot-hook" },
           ],
         },
       }),
     };
 
-    const result = resolveZooBotMetadata(frontmatter);
+    const result = resolveBotMetadata(frontmatter);
     expect(result?.install).toHaveLength(2);
     expect(result?.install?.[0].kind).toBe("bundled");
     expect(result?.install?.[1].kind).toBe("npm");
@@ -224,7 +224,7 @@ describe("resolveZooBotMetadata", () => {
       }),
     };
 
-    const result = resolveZooBotMetadata(frontmatter);
+    const result = resolveBotMetadata(frontmatter);
     expect(result?.os).toEqual(["darwin", "linux"]);
   });
 
@@ -241,7 +241,7 @@ metadata:
         "emoji": "💾",
         "events": ["command:new", "command:reset"],
         "requires": { "config": ["workspace.dir"] },
-        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with ZooBot" }],
+        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with Bot" }],
       },
   }
 ---
@@ -253,7 +253,7 @@ metadata:
     expect(frontmatter.name).toBe("session-memory");
     expect(frontmatter.metadata).toBeDefined();
 
-    const bot = resolveZooBotMetadata(frontmatter);
+    const bot = resolveBotMetadata(frontmatter);
     expect(bot).toBeDefined();
     expect(bot?.emoji).toBe("💾");
     expect(bot?.events).toEqual(["command:new", "command:reset"]);
@@ -272,7 +272,7 @@ metadata:
 ---
 `;
     const frontmatter = parseFrontmatter(content);
-    const bot = resolveZooBotMetadata(frontmatter);
+    const bot = resolveBotMetadata(frontmatter);
     expect(bot?.emoji).toBe("disk");
     expect(bot?.events).toEqual(["command:new"]);
   });

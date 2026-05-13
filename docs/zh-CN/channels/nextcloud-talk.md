@@ -33,7 +33,7 @@ zoo-bot plugins install ./extensions/nextcloud-talk
 ```
 
 如果你在配置/新手引导过程中选择了 Nextcloud Talk，并且检测到 git 检出，
-ZooBot 将自动提供本地安装路径。
+Bot 将自动提供本地安装路径。
 
 详情：[插件](/tools/plugin)
 
@@ -42,10 +42,10 @@ ZooBot 将自动提供本地安装路径。
 1. 安装 Nextcloud Talk 插件。
 2. 在你的 Nextcloud 服务器上创建机器人：
    ```bash
-   ./occ talk:bot:install "ZooBot" "<shared-secret>" "<webhook-url>" --feature reaction
+   ./occ talk:bot:install "Bot" "<shared-secret>" "<webhook-url>" --feature reaction
    ```
 3. 在目标房间设置中启用机器人。
-4. 配置 ZooBot：
+4. 配置 Bot：
    - 配置项：`channels.nextcloud-talk.baseUrl` + `channels.nextcloud-talk.botSecret`
    - 或环境变量：`NEXTCLOUD_TALK_BOT_SECRET`（仅默认账户）
 5. 重启 Gateway 网关（或完成新手引导）。

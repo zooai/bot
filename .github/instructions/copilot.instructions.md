@@ -1,4 +1,4 @@
-# ZooBot Codebase Patterns
+# Bot Codebase Patterns
 
 **Always reuse existing code - no redundancy!**
 

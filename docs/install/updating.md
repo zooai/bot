@@ -1,14 +1,14 @@
 ---
-summary: "Updating ZooBot safely (global install or source), plus rollback strategy"
+summary: "Updating Bot safely (global install or source), plus rollback strategy"
 read_when:
-  - Updating ZooBot
+  - Updating Bot
   - Something breaks after an update
 title: "Updating"
 ---
 
 # Updating
 
-ZooBot is moving fast (pre “1.0”). Treat updates like shipping infra: update → run checks → restart (or use `zoo-bot update`, which restarts) → verify.
+Bot is moving fast (pre “1.0”). Treat updates like shipping infra: update → run checks → restart (or use `zoo-bot update`, which restarts) → verify.
 
 ## Recommended: re-run the website installer (upgrade in place)
 
@@ -91,7 +91,7 @@ Auto-updater is **off by default** and is a core Gateway feature (not a plugin).
 
 Behavior:
 
-- `stable`: when a new version is seen, ZooBot waits `stableDelayHours` and then applies a deterministic per-install jitter in `stableJitterHours` (spread rollout).
+- `stable`: when a new version is seen, Bot waits `stableDelayHours` and then applies a deterministic per-install jitter in `stableJitterHours` (spread rollout).
 - `beta`: checks on `betaCheckIntervalHours` cadence (default: hourly) and applies when an update is available.
 - `dev`: no automatic apply; use manual `zoo-bot update`.
 
@@ -177,7 +177,7 @@ Typical things it does:
 - Migrate deprecated config keys / legacy config file locations.
 - Audit DM policies and warn on risky “open” settings.
 - Check Gateway health and can offer to restart.
-- Detect and migrate older gateway services (launchd/systemd; legacy schtasks) to current ZooBot services.
+- Detect and migrate older gateway services (launchd/systemd; legacy schtasks) to current Bot services.
 - On Linux, ensure systemd user lingering (so the Gateway survives logout).
 
 Details: [Doctor](/gateway/doctor)

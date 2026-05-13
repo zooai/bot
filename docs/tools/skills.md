@@ -6,15 +6,15 @@ read_when:
 title: "Skills"
 ---
 
-# Skills (ZooBot)
+# Skills (Bot)
 
-ZooBot uses **[AgentSkills](https://agentskills.io)-compatible** skill folders to teach the agent how to use tools. Each skill is a directory containing a `SKILL.md` with YAML frontmatter and instructions. ZooBot loads **bundled skills** plus optional local overrides, and filters them at load time based on environment, config, and binary presence.
+Bot uses **[AgentSkills](https://agentskills.io)-compatible** skill folders to teach the agent how to use tools. Each skill is a directory containing a `SKILL.md` with YAML frontmatter and instructions. Bot loads **bundled skills** plus optional local overrides, and filters them at load time based on environment, config, and binary presence.
 
 ## Locations and precedence
 
 Skills are loaded from **three** places:
 
-1. **Bundled skills**: shipped with the install (npm package or ZooBot.app)
+1. **Bundled skills**: shipped with the install (npm package or Bot.app)
 2. **Managed/local skills**: `~/.zoo-bot/skills`
 3. **Workspace skills**: `<workspace>/skills`
 
@@ -49,7 +49,7 @@ tool surface those skills teach.
 
 ## ClawHub (install + sync)
 
-ClawHub is the public skills registry for ZooBot. Browse at
+ClawHub is the public skills registry for Bot. Browse at
 [https://clawhub.com](https://clawhub.com). Use it to discover, install, update, and back up skills.
 Full guide: [ClawHub](/tools/clawhub).
 
@@ -63,7 +63,7 @@ Common flows:
   - `clawhub sync --all`
 
 By default, `clawhub` installs into `./skills` under your current working
-directory (or falls back to the configured ZooBot workspace). ZooBot picks
+directory (or falls back to the configured Bot workspace). Bot picks
 that up as `<workspace>/skills` on the next session.
 
 ## Security notes
@@ -104,7 +104,7 @@ Notes:
 
 ## Gating (load-time filters)
 
-ZooBot **filters skills at load time** using `metadata` (single-line JSON):
+Bot **filters skills at load time** using `metadata` (single-line JSON):
 
 ```markdown
 ---
@@ -174,7 +174,7 @@ metadata:
 Notes:
 
 - If multiple installers are listed, the gateway picks a **single** preferred option (brew when available, otherwise node).
-- If all installers are `download`, ZooBot lists each entry so you can see the available artifacts.
+- If all installers are `download`, Bot lists each entry so you can see the available artifacts.
 - Installer specs can include `os: ["darwin"|"linux"|"win32"]` to filter options by platform.
 - Node installs honor `skills.install.nodeManager` in `zoo-bot.json` (default: npm; options: npm/pnpm/yarn/bun).
   This only affects **skill installs**; the Gateway runtime should still be Node
@@ -228,7 +228,7 @@ Rules:
 
 ## Environment injection (per agent run)
 
-When an agent run starts, ZooBot:
+When an agent run starts, Bot:
 
 1. Reads skill metadata.
 2. Applies any `skills.entries.<key>.env` or `skills.entries.<key>.apiKey` to
@@ -240,19 +240,19 @@ This is **scoped to the agent run**, not a global shell environment.
 
 ## Session snapshot (performance)
 
-ZooBot snapshots the eligible skills **when a session starts** and reuses that list for subsequent turns in the same session. Changes to skills or config take effect on the next new session.
+Bot snapshots the eligible skills **when a session starts** and reuses that list for subsequent turns in the same session. Changes to skills or config take effect on the next new session.
 
 Skills can also refresh mid-session when the skills watcher is enabled or when a new eligible remote node appears (see below). Think of this as a **hot reload**: the refreshed list is picked up on the next agent turn.
 
 ## Remote macOS nodes (Linux gateway)
 
-If the Gateway is running on Linux but a **macOS node** is connected **with `system.run` allowed** (Exec approvals security not set to `deny`), ZooBot can treat macOS-only skills as eligible when the required binaries are present on that node. The agent should execute those skills via the `nodes` tool (typically `nodes.run`).
+If the Gateway is running on Linux but a **macOS node** is connected **with `system.run` allowed** (Exec approvals security not set to `deny`), Bot can treat macOS-only skills as eligible when the required binaries are present on that node. The agent should execute those skills via the `nodes` tool (typically `nodes.run`).
 
 This relies on the node reporting its command support and on a bin probe via `system.run`. If the macOS node goes offline later, the skills remain visible; invocations may fail until the node reconnects.
 
 ## Skills watcher (auto-refresh)
 
-By default, ZooBot watches skill folders and bumps the skills snapshot when `SKILL.md` files change. Configure this under `skills.load`:
+By default, Bot watches skill folders and bumps the skills snapshot when `SKILL.md` files change. Configure this under `skills.load`:
 
 ```json5
 {
@@ -267,7 +267,7 @@ By default, ZooBot watches skill folders and bumps the skills snapshot when `SKI
 
 ## Token impact (skills list)
 
-When skills are eligible, ZooBot injects a compact XML list of available skills into the system prompt (via `formatSkillsForPrompt` in `pi-coding-agent`). The cost is deterministic:
+When skills are eligible, Bot injects a compact XML list of available skills into the system prompt (via `formatSkillsForPrompt` in `pi-coding-agent`). The cost is deterministic:
 
 - **Base overhead (only when ≥1 skill):** 195 characters.
 - **Per skill:** 97 characters + the length of the XML-escaped `<name>`, `<description>`, and `<location>` values.
@@ -285,8 +285,8 @@ Notes:
 
 ## Managed skills lifecycle
 
-ZooBot ships a baseline set of skills as **bundled skills** as part of the
-install (npm package or ZooBot.app). `~/.zoo-bot/skills` exists for local
+Bot ships a baseline set of skills as **bundled skills** as part of the
+install (npm package or Bot.app). `~/.zoo-bot/skills` exists for local
 overrides (for example, pinning/patching a skill without changing the bundled
 copy). Workspace skills are user-owned and override both on name conflicts.
 

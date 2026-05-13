@@ -45,7 +45,7 @@ export const linePlugin: ChannelPlugin<ResolvedLineAccount> = {
       if (!account.channelAccessToken) {
         throw new Error("LINE channel access token not configured");
       }
-      await line.pushMessageLine(id, "ZooBot: your access has been approved.", {
+      await line.pushMessageLine(id, "Bot: your access has been approved.", {
         channelAccessToken: account.channelAccessToken,
       });
     },

@@ -4,91 +4,91 @@
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.3.26
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.3.17
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.3.16
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.3.15
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.3.14
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.3.13
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.3.12
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.3.11
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.3.10
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.3.9
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.3.8
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.3.7
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.3.6
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.3.2
 
 ### Changes
 
-- Rebuilt the plugin to use native `zca-js` integration inside ZooBot (no external `zca` CLI runtime dependency).
+- Rebuilt the plugin to use native `zca-js` integration inside Bot (no external `zca` CLI runtime dependency).
 
 ### Breaking
 
@@ -98,31 +98,31 @@
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.2.26
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.2.25
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.2.24
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.2.22
 
 ### Changes
 
-- Version alignment with core ZooBot release numbers.
+- Version alignment with core Bot release numbers.
 
 ## 2026.1.17-1
 

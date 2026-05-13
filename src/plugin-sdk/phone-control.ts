@@ -3,7 +3,7 @@
 
 export type {
   BotPluginApi,
-  ZooBotPluginCommandDefinition,
-  ZooBotPluginService,
+  BotPluginCommandDefinition,
+  BotPluginService,
   PluginCommandContext,
 } from "../plugins/types.js";

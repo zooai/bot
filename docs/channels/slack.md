@@ -34,7 +34,7 @@ Status: production-ready for DMs + channels via Slack app integrations. Default 
         - install app and copy **Bot Token** (`xoxb-...`)
       </Step>
 
-      <Step title="Configure ZooBot">
+      <Step title="Configure Bot">
 
 ```json5
 {
@@ -92,7 +92,7 @@ zoo-bot gateway
 
       </Step>
 
-      <Step title="Configure ZooBot HTTP mode">
+      <Step title="Configure Bot HTTP mode">
 
 ```json5
 {
@@ -309,7 +309,7 @@ Available action groups in current Slack tooling:
 
 ## Ack reactions
 
-`ackReaction` sends an acknowledgement emoji while ZooBot is processing an inbound message.
+`ackReaction` sends an acknowledgement emoji while Bot is processing an inbound message.
 
 Resolution order:
 
@@ -325,7 +325,7 @@ Notes:
 
 ## Typing reaction fallback
 
-`typingReaction` adds a temporary reaction to the inbound Slack message while ZooBot is processing a reply, then removes it when the run finishes. This is a useful fallback when Slack native assistant typing is unavailable, especially in DMs.
+`typingReaction` adds a temporary reaction to the inbound Slack message while Bot is processing a reply, then removes it when the run finishes. This is a useful fallback when Slack native assistant typing is unavailable, especially in DMs.
 
 Resolution order:
 
@@ -345,12 +345,12 @@ Notes:
 ```json
 {
   "display_information": {
-    "name": "ZooBot",
-    "description": "Slack connector for ZooBot"
+    "name": "Bot",
+    "description": "Slack connector for Bot"
   },
   "features": {
     "bot_user": {
-      "display_name": "ZooBot",
+      "display_name": "Bot",
       "always_online": false
     },
     "app_home": {
@@ -360,7 +360,7 @@ Notes:
     "slash_commands": [
       {
         "command": "/zoo-bot",
-        "description": "Send a message to ZooBot",
+        "description": "Send a message to Bot",
         "should_escape": false
       }
     ]
@@ -491,7 +491,7 @@ zoo-bot pairing list slack
 
 ## Text streaming
 
-ZooBot supports Slack native text streaming via the Agents and AI Apps API.
+Bot supports Slack native text streaming via the Agents and AI Apps API.
 
 `channels.slack.streaming` controls live preview behavior:
 
@@ -528,7 +528,7 @@ Legacy keys:
 - Later text chunks append to the same stream (`chat.appendStream`).
 - End of reply finalizes stream (`chat.stopStream`).
 - Media and non-text payloads fall back to normal delivery.
-- If streaming fails mid-reply, ZooBot falls back to normal delivery for remaining payloads.
+- If streaming fails mid-reply, Bot falls back to normal delivery for remaining payloads.
 
 ## Configuration reference pointers
 

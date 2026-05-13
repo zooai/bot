@@ -439,9 +439,7 @@ describe("web_search kimi provider", () => {
                 },
               },
             ],
-            search_results: [
-              { title: "ZooBot", url: "https://bot.ai/docs", content: "docs" },
-            ],
+            search_results: [{ title: "Bot", url: "https://bot.ai/docs", content: "docs" }],
           }),
           { status: 200, headers: { "content-type": "application/json" } },
         );

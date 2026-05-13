@@ -18,7 +18,7 @@ Broadcast Groups enable multiple agents to process and respond to the same messa
 
 Current scope: **WhatsApp only** (web channel).
 
-Broadcast groups are evaluated after channel allowlists and group activation rules. In WhatsApp groups, this means broadcasts happen when ZooBot would normally reply (for example: on mention, depending on your group settings).
+Broadcast groups are evaluated after channel allowlists and group activation rules. In WhatsApp groups, this means broadcasts happen when Bot would normally reply (for example: on mention, depending on your group settings).
 
 ## Use Cases
 
@@ -83,7 +83,7 @@ Add a top-level `broadcast` section (next to `bindings`). Keys are WhatsApp peer
 }
 ```
 
-**Result:** When ZooBot would reply in this chat, it will run all three agents.
+**Result:** When Bot would reply in this chat, it will run all three agents.
 
 ### Processing Strategy
 
@@ -403,7 +403,7 @@ tail -f ~/.zoo-bot/logs/gateway.log | grep broadcast
 ### Config Schema
 
 ```typescript
-interface ZooBotConfig {
+interface BotConfig {
   broadcast?: {
     strategy?: "parallel" | "sequential";
     [peerId: string]: string[];

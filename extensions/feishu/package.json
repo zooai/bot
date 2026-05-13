@@ -1,7 +1,7 @@
 {
   "name": "@hanzo/bot-feishu",
   "version": "2026.4.27",
-  "description": "ZooBot Feishu/Lark channel plugin (community maintained by @m1heng)",
+  "description": "Bot Feishu/Lark channel plugin (community maintained by @m1heng)",
   "type": "module",
   "dependencies": {
     "@larksuiteoapi/node-sdk": "^1.59.0",

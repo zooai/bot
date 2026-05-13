@@ -1,14 +1,14 @@
 ---
 summary: "Zalo personal account support via native zca-js (QR login), capabilities, and configuration"
 read_when:
-  - Setting up Zalo Personal for ZooBot
+  - Setting up Zalo Personal for Bot
   - Debugging Zalo Personal login or message flow
 title: "Zalo Personal"
 ---
 
 # Zalo Personal (unofficial)
 
-Status: experimental. This integration automates a **personal Zalo account** via native `zca-js` inside ZooBot.
+Status: experimental. This integration automates a **personal Zalo account** via native `zca-js` inside Bot.
 
 > **Warning:** This is an unofficial integration and may result in account suspension/ban. Use at your own risk.
 
@@ -89,7 +89,7 @@ Approve via:
   - `channels.zalouser.groups` (keys are group IDs or names)
 - Block all groups: `channels.zalouser.groupPolicy = "disabled"`.
 - The configure wizard can prompt for group allowlists.
-- On startup, ZooBot resolves group/user names in allowlists to IDs and logs the mapping; unresolved entries are kept as typed.
+- On startup, Bot resolves group/user names in allowlists to IDs and logs the mapping; unresolved entries are kept as typed.
 
 Example:
 
@@ -131,7 +131,7 @@ Example:
 
 ## Multi-account
 
-Accounts map to `zalouser` profiles in ZooBot state. Example:
+Accounts map to `zalouser` profiles in Bot state. Example:
 
 ```json5
 {
@@ -149,11 +149,11 @@ Accounts map to `zalouser` profiles in ZooBot state. Example:
 
 ## Typing, reactions, and delivery acknowledgements
 
-- ZooBot sends a typing event before dispatching a reply (best-effort).
+- Bot sends a typing event before dispatching a reply (best-effort).
 - Message reaction action `react` is supported for `zalouser` in channel actions.
   - Use `remove: true` to remove a specific reaction emoji from a message.
   - Reaction semantics: [Reactions](/tools/reactions)
-- For inbound messages that include event metadata, ZooBot sends delivered + seen acknowledgements (best-effort).
+- For inbound messages that include event metadata, Bot sends delivered + seen acknowledgements (best-effort).
 
 ## Troubleshooting
 
@@ -169,4 +169,4 @@ Accounts map to `zalouser` profiles in ZooBot state. Example:
 **Upgraded from old CLI-based setup:**
 
 - Remove any old external `zca` process assumptions.
-- The channel now runs fully in ZooBot without external CLI binaries.
+- The channel now runs fully in Bot without external CLI binaries.

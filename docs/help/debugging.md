@@ -104,9 +104,9 @@ Tip: if a non‑dev gateway is already running (launchd/systemd), stop it first:
 zoo-bot gateway stop
 ```
 
-## Raw stream logging (ZooBot)
+## Raw stream logging (Bot)
 
-ZooBot can log the **raw assistant stream** before any filtering/formatting.
+Bot can log the **raw assistant stream** before any filtering/formatting.
 This is the best way to see whether reasoning is arriving as plain text deltas
 (or as separate thinking blocks).
 

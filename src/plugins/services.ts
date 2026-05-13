@@ -1,8 +1,8 @@
 import type { BotConfig } from "../config/config.js";
-import type { PluginRegistry } from "./registry.js";
-import type { ZooBotPluginServiceContext, PluginLogger } from "./types.js";
 import { STATE_DIR } from "../config/paths.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
+import type { PluginRegistry } from "./registry.js";
+import type { BotPluginServiceContext, PluginLogger } from "./types.js";
 
 const log = createSubsystemLogger("plugins");
 
@@ -18,7 +18,7 @@ function createPluginLogger(): PluginLogger {
 function createServiceContext(params: {
   config: BotConfig;
   workspaceDir?: string;
-}): ZooBotPluginServiceContext {
+}): BotPluginServiceContext {
   return {
     config: params.config,
     workspaceDir: params.workspaceDir,

@@ -1,6 +1,6 @@
-import type { PromptRequest } from "@agentclientprotocol/sdk";
 import os from "node:os";
 import path from "node:path";
+import type { PromptRequest } from "@agentclientprotocol/sdk";
 import { describe, expect, it, vi } from "vitest";
 import type { GatewayClient } from "../gateway/client.js";
 import { createInMemorySessionStore } from "./session.js";
@@ -10,7 +10,7 @@ import { createAcpConnection, createAcpGateway } from "./translator.test-helpers
 describe("acp prompt cwd prefix", () => {
   async function runPromptWithCwd(cwd: string) {
     const pinnedHome = os.homedir();
-    const previousZooBotHome = process.env.BOT_HOME;
+    const previousBotHome = process.env.BOT_HOME;
     const previousHome = process.env.HOME;
     delete process.env.BOT_HOME;
     process.env.HOME = pinnedHome;
@@ -47,10 +47,10 @@ describe("acp prompt cwd prefix", () => {
       ).rejects.toThrow("stop-after-send");
       return requestSpy;
     } finally {
-      if (previousZooBotHome === undefined) {
+      if (previousBotHome === undefined) {
         delete process.env.BOT_HOME;
       } else {
-        process.env.BOT_HOME = previousZooBotHome;
+        process.env.BOT_HOME = previousBotHome;
       }
       if (previousHome === undefined) {
         delete process.env.HOME;

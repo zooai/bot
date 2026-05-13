@@ -18,7 +18,7 @@ Back to the main browser docs: [Browser](/tools/browser).
 
 ## Which Chrome profile is used?
 
-ZooBot controls a **dedicated Chrome profile** (named `zoo-bot`, orange‑tinted UI). This is separate from your daily browser profile.
+Bot controls a **dedicated Chrome profile** (named `zoo-bot`, orange‑tinted UI). This is separate from your daily browser profile.
 
 Two easy ways to access it:
 

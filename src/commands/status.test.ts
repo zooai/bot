@@ -307,7 +307,7 @@ vi.mock("../gateway/session-utils.js", async (importOriginal) => {
   };
 });
 vi.mock("../infra/bot-root.js", () => ({
-  resolveZooBotPackageRoot: vi.fn().mockResolvedValue("/tmp/bot"),
+  resolveBotPackageRoot: vi.fn().mockResolvedValue("/tmp/bot"),
 }));
 vi.mock("../infra/os-summary.js", () => ({
   resolveOsSummary: () => ({
@@ -441,7 +441,7 @@ describe("statusCommand", () => {
   it("prints formatted lines otherwise", async () => {
     const logs = await runStatusAndGetLogs();
     for (const token of [
-      "ZooBot status",
+      "Bot status",
       "Overview",
       "Security audit",
       "Summary:",
@@ -466,8 +466,7 @@ describe("statusCommand", () => {
     expect(
       logs.some(
         (line) =>
-          line.includes("bot status --all") ||
-          line.includes("bot --profile isolated status --all"),
+          line.includes("bot status --all") || line.includes("bot --profile isolated status --all"),
       ),
     ).toBe(true);
   });

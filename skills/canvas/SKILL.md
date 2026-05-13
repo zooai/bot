@@ -1,6 +1,6 @@
 # Canvas Skill
 
-Display HTML content on connected ZooBot nodes (Mac app, iOS, Android).
+Display HTML content on connected Bot nodes (Mac app, iOS, Android).
 
 ## Overview
 

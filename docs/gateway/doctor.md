@@ -8,7 +8,7 @@ title: "Doctor"
 
 # Doctor
 
-`zoo-bot doctor` is the repair + migration tool for ZooBot. It fixes stale
+`zoo-bot doctor` is the repair + migration tool for Bot. It fixes stale
 config/state, checks health, and provides actionable repair steps.
 
 ## Quick start
@@ -216,9 +216,9 @@ switch to legacy names if the current image is missing.
 ### 8) Gateway service migrations and cleanup hints
 
 Doctor detects legacy gateway services (launchd/systemd/schtasks) and
-offers to remove them and install the ZooBot service using the current gateway
+offers to remove them and install the Bot service using the current gateway
 port. It can also scan for extra gateway-like services and print cleanup hints.
-Profile-named ZooBot gateway services are considered first-class and are not
+Profile-named Bot gateway services are considered first-class and are not
 flagged as "extra."
 
 ### 9) Security warnings

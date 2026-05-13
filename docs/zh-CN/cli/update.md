@@ -15,7 +15,7 @@ x-i18n:
 
 # `zoo-bot update`
 
-安全更新 ZooBot 并在 stable/beta/dev 渠道之间切换。
+安全更新 Bot 并在 stable/beta/dev 渠道之间切换。
 
 如果你通过 **npm/pnpm** 安装（全局安装，无 git 元数据），更新通过 [更新](/install/updating) 中的包管理器流程进行。
 
@@ -64,7 +64,7 @@ zoo-bot update status --timeout 10
 
 ## 工作原理
 
-当你显式切换渠道（`--channel ...`）时，ZooBot 也会保持安装方式一致：
+当你显式切换渠道（`--channel ...`）时，Bot 也会保持安装方式一致：
 
 - `dev` → 确保存在 git 检出（默认：`~/zoo-bot`，可通过 `BOT_GIT_DIR` 覆盖），更新它，并从该检出安装全局 CLI。
 - `stable`/`beta` → 使用匹配的 dist-tag 从 npm 安装。

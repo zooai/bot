@@ -176,7 +176,7 @@ const logRunner = (message, deps) => {
   deps.stderr.write(`[bot] ${message}\n`);
 };
 
-const runZooBot = async (deps) => {
+const runBot = async (deps) => {
   const nodeProcess = deps.spawn(deps.execPath, ["bot.mjs", ...deps.args], {
     cwd: deps.cwd,
     env: deps.env,
@@ -227,7 +227,7 @@ export async function runNodeMain(params = {}) {
   deps.configFiles = [path.join(deps.cwd, "tsconfig.json"), path.join(deps.cwd, "package.json")];
 
   if (!shouldBuild(deps)) {
-    return await runZooBot(deps);
+    return await runBot(deps);
   }
 
   logRunner("Building TypeScript (dist is stale).", deps);
@@ -250,7 +250,7 @@ export async function runNodeMain(params = {}) {
     return buildRes.exitCode;
   }
   writeBuildStamp(deps);
-  return await runZooBot(deps);
+  return await runBot(deps);
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {

@@ -1,7 +1,7 @@
 {
   "name": "@hanzo/bot-nostr",
   "version": "2026.4.27",
-  "description": "ZooBot Nostr channel plugin for NIP-04 encrypted DMs",
+  "description": "Bot Nostr channel plugin for NIP-04 encrypted DMs",
   "type": "module",
   "dependencies": {
     "nostr-tools": "^2.23.3",

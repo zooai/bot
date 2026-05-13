@@ -2,9 +2,9 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { vi } from "vitest";
 import type { RuntimeEnv } from "../runtime.js";
-import type { WizardPrompter } from "../wizard/prompts.js";
 import { makeTempWorkspace } from "../test-helpers/workspace.js";
 import { captureEnv } from "../test-utils/env.js";
+import type { WizardPrompter } from "../wizard/prompts.js";
 
 export const noopAsync = async () => {};
 export const noop = () => {};
@@ -74,7 +74,7 @@ export function createAuthTestLifecycle(envKeys: string[]): AuthTestLifecycle {
   };
 }
 
-export function requireZooBotAgentDir(): string {
+export function requireBotAgentDir(): string {
   const agentDir = process.env.BOT_AGENT_DIR;
   if (!agentDir) {
     throw new Error("BOT_AGENT_DIR not set");

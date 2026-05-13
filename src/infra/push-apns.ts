@@ -274,8 +274,7 @@ export async function resolveApnsAuthConfigFromEnv(
   if (!keyPath) {
     return {
       ok: false,
-      error:
-        "APNs private key missing: set BOT_APNS_PRIVATE_KEY_P8 or BOT_APNS_PRIVATE_KEY_PATH",
+      error: "APNs private key missing: set BOT_APNS_PRIVATE_KEY_P8 or BOT_APNS_PRIVATE_KEY_PATH",
     };
   }
   try {
@@ -425,7 +424,7 @@ function toApnsPushResult(params: {
   };
 }
 
-function createZooBotPushMetadata(params: {
+function createBotPushMetadata(params: {
   kind: "push.test" | "node.wake";
   nodeId: string;
   reason?: string;
@@ -482,7 +481,7 @@ export async function sendApnsAlert(params: {
       },
       sound: "default",
     },
-    bot: createZooBotPushMetadata({
+    bot: createBotPushMetadata({
       kind: "push.test",
       nodeId: params.nodeId,
     }),
@@ -511,7 +510,7 @@ export async function sendApnsBackgroundWake(params: {
     aps: {
       "content-available": 1,
     },
-    bot: createZooBotPushMetadata({
+    bot: createBotPushMetadata({
       kind: "node.wake",
       reason: params.wakeReason ?? "node.invoke",
       nodeId: params.nodeId,

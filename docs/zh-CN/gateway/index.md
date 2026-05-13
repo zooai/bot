@@ -72,7 +72,7 @@ pnpm gateway:watch
 
 - macOS：`bot.molt.<profile>`（旧版 `com.zoo-bot.*` 可能仍然存在）
 - Linux：`zoo-bot-gateway-<profile>.service`
-- Windows：`ZooBot Gateway (<profile>)`
+- Windows：`Bot Gateway (<profile>)`
 
 安装元数据嵌入在服务配置中：
 
@@ -237,14 +237,14 @@ zoo-bot logs --follow
 - `gateway status` 打印配置路径 + 探测目标以避免"localhost vs LAN 绑定"混淆和配置文件不匹配。
 - `gateway status` 在服务看起来正在运行但端口已关闭时包含最后一行 Gateway 网关错误。
 - `logs` 通过 RPC 尾随 Gateway 网关文件日志（无需手动 `tail`/`grep`）。
-- 如果检测到其他类似 Gateway 网关的服务，CLI 会发出警告，除非它们是 ZooBot 配置文件服务。
+- 如果检测到其他类似 Gateway 网关的服务，CLI 会发出警告，除非它们是 Bot 配置文件服务。
   我们仍然建议大多数设置**每台机器一个 Gateway 网关**；使用隔离的配置文件/端口进行冗余或救援机器人。参见[多个 Gateway 网关](/gateway/multiple-gateways)。
   - 清理：`zoo-bot gateway uninstall`（当前服务）和 `zoo-bot doctor`（旧版迁移）。
 - `gateway install` 在已安装时是无操作的；使用 `zoo-bot gateway install --force` 重新安装（配置文件/env/路径更改）。
 
 捆绑的 mac 应用：
 
-- ZooBot.app 可以捆绑基于 Node 的 Gateway 网关中继并安装标记为
+- Bot.app 可以捆绑基于 Node 的 Gateway 网关中继并安装标记为
   `bot.molt.gateway`（或 `bot.molt.<profile>`；旧版 `com.zoo-bot.*` 标签仍能干净卸载）的按用户 LaunchAgent。
 - 要干净地停止它，使用 `zoo-bot gateway stop`（或 `launchctl bootout gui/$UID/bot.molt.gateway`）。
 - 要重启，使用 `zoo-bot gateway restart`（或 `launchctl kickstart -k gui/$UID/bot.molt.gateway`）。
@@ -253,7 +253,7 @@ zoo-bot logs --follow
 
 ## 监管（systemd 用户单元）
 
-ZooBot 在 Linux/WSL2 上默认安装 **systemd 用户服务**。我们
+Bot 在 Linux/WSL2 上默认安装 **systemd 用户服务**。我们
 建议单用户机器使用用户服务（更简单的 env，按用户配置）。
 对于多用户或常驻服务器使用**系统服务**（无需 lingering，
 共享监管）。
@@ -265,7 +265,7 @@ ZooBot 在 Linux/WSL2 上默认安装 **systemd 用户服务**。我们
 
 ```
 [Unit]
-Description=ZooBot Gateway (profile: <profile>, v<version>)
+Description=Bot Gateway (profile: <profile>, v<version>)
 After=network-online.target
 Wants=network-online.target
 

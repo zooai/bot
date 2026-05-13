@@ -21,7 +21,7 @@ import type { BotConfig } from "../src/config/config.js";
 import type { OutboundSendDeps } from "../src/infra/outbound/deliver.js";
 import { withIsolatedTestHome } from "./test-env.js";
 
-// Set HOME/state isolation before importing any runtime ZooBot modules.
+// Set HOME/state isolation before importing any runtime Bot modules.
 const testEnv = withIsolatedTestHome();
 afterAll(() => testEnv.cleanup());
 

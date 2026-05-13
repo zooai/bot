@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath, URL } from "node:url";
 import { assertNoPathAliasEscape, type PathAliasPolicy } from "../infra/path-alias-guards.js";
 import { isPathInside } from "../infra/path-guards.js";
-import { resolvePreferredZooBotTmpDir } from "../infra/tmp-bot-dir.js";
+import { resolvePreferredBotTmpDir } from "../infra/tmp-bot-dir.js";
 
 const UNICODE_SPACES = /[\u00A0\u2000-\u200A\u202F\u205F\u3000]/g;
 const HTTP_URL_RE = /^https?:\/\//i;
@@ -190,11 +190,11 @@ async function resolveAllowedTmpMediaPath(params: {
     return undefined;
   }
   const resolved = path.resolve(resolveSandboxInputPath(params.candidate, params.sandboxRoot));
-  const zooBotTmpDir = path.resolve(resolvePreferredZooBotTmpDir());
-  if (!isPathInside(zooBotTmpDir, resolved)) {
+  const botTmpDir = path.resolve(resolvePreferredBotTmpDir());
+  if (!isPathInside(botTmpDir, resolved)) {
     return undefined;
   }
-  await assertNoTmpAliasEscape({ filePath: resolved, tmpRoot: zooBotTmpDir });
+  await assertNoTmpAliasEscape({ filePath: resolved, tmpRoot: botTmpDir });
   return resolved;
 }
 

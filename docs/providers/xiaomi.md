@@ -1,7 +1,7 @@
 ---
-summary: "Use Xiaomi MiMo (mimo-v2-flash) with ZooBot"
+summary: "Use Xiaomi MiMo (mimo-v2-flash) with Bot"
 read_when:
-  - You want Xiaomi MiMo models in ZooBot
+  - You want Xiaomi MiMo models in Bot
   - You need XIAOMI_API_KEY setup
 title: "Xiaomi MiMo"
 ---
@@ -10,7 +10,7 @@ title: "Xiaomi MiMo"
 
 Xiaomi MiMo is the API platform for **MiMo** models. It provides REST APIs compatible with
 OpenAI and Anthropic formats and uses API keys for authentication. Create your API key in
-the [Xiaomi MiMo console](https://platform.xiaomimimo.com/#/console/api-keys). ZooBot uses
+the [Xiaomi MiMo console](https://platform.xiaomimimo.com/#/console/api-keys). Bot uses
 the `xiaomi` provider with a Xiaomi MiMo API key.
 
 ## Model overview
